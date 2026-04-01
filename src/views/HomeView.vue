@@ -3,8 +3,7 @@
 
 <template>
   <div class="flex justify-center items-center h-screen">
-    This is the Home vue
-    <button>Create a new Project</button>
+    <button class="text-red-500 bg-green-400 px-1 py-2 pointer">Create a new Project</button>
   </div>
 </template>
 
