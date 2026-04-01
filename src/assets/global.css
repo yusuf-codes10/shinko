@@ -6,3 +6,7 @@
   --dark-bg: #0A0A0A;
   --gray: #2A2A2A;
 }
+
+body {
+  background: linear-gradient(135deg, var(--neon-purple), var(--neon-blue), var(--gray), var(--dark-bg));
+}

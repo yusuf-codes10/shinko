@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <div class="flex justify-center items-center h-screen bg-yellow-400">
+  <div class="flex justify-center items-center h-screen">
     This is the Home vue
     <button>Create a new Project</button>
   </div>
