@@ -8,7 +8,7 @@ onMounted(() => {
   const endpoint = 'http://localhost:3000/projects'
   fetch(endpoint)
     .then((res) => res.json())
-    .then((data) => (data.value = data))
+    .then((d) => (data.value = d))
     .catch((err) => console.log(err.message))
 })
 
