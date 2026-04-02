@@ -8,6 +8,10 @@ const password = ref('')
 const toggleVisibility = () => {
   isVisible.value = !isVisible.value
 }
+
+const showInfo = () => {
+  console.log('project: ', projectName.value, ' password: ', password.value)
+}
 </script>
 
 <template>
@@ -34,7 +38,10 @@ const toggleVisibility = () => {
         <label for="password">Password</label>
         <input class="bg-[#474E54]" type="password" id="password" v-model="password" />
       </div>
-      <button class="bg-white px-2 py-1 mt-2 w-full text-black text-2xl cursor-pointer">
+      <button
+        @click="showInfo"
+        class="bg-white px-2 py-1 mt-2 w-full text-black text-2xl cursor-pointer"
+      >
         Create Project
       </button>
     </div>
