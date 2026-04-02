@@ -1,4 +1,5 @@
 import HomeView from '@/views/HomeView.vue'
+import KanBanView from '@/views/KanBanView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
@@ -6,6 +7,11 @@ const routes = [
     path: '/',
     name: 'Home',
     component: HomeView,
+  },
+  {
+    path: '/kanban',
+    name: 'Kanban',
+    component: KanBanView,
   },
 ]
 

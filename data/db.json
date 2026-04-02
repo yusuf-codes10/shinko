@@ -3,6 +3,11 @@
         {
             "id": 1,
             "name": "Shinko",
+            "status": "progress"
+        },
+        {
+            "id": 2,
+            "name": "F&M",
             "status": "done"
         }
     ],
