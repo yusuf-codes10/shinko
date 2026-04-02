@@ -2,6 +2,8 @@
 import { ref } from 'vue'
 
 const isVisible = ref(true)
+const projectName = ref('')
+const password = ref('')
 
 const toggleVisibility = () => {
   isVisible.value = !isVisible.value
@@ -26,11 +28,11 @@ const toggleVisibility = () => {
       <h1>Create a New Project</h1>
       <div class="flex flex-col gap-1">
         <label for="projectName">projet name</label>
-        <input class="bg-[#474E54]" type="text" id="projectName" />
+        <input class="bg-[#474E54]" type="text" id="projectName" v-model="projectName" />
       </div>
       <div class="flex flex-col gap-2">
         <label for="password">Password</label>
-        <input class="bg-[#474E54]" type="password" id="password" />
+        <input class="bg-[#474E54]" type="password" id="password" v-model="password" />
       </div>
       <button class="bg-white px-2 py-1 mt-2 w-full text-black text-2xl cursor-pointer">
         Create Project
