@@ -1,8 +1,11 @@
 <script setup>
+import { ref } from 'vue'
+
+const isVisible = ref(false)
 </script>
 
 <template>
-  <div class="flex flex-col justify-center items-center h-screen">
+  <div v-show="isVisible" class="flex flex-col justify-center items-center h-screen">
     <h1 class="text-6xl md:text-9xl my-2 text-extrabold">shinko</h1>
     <button class="text-red-500 bg-green-400 px-1 py-2 rounded-sm cursor-pointer">
       Create New Project &rarr;
