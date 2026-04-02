@@ -21,17 +21,20 @@ const toggleVisibility = () => {
     </div>
     <div
       v-else
-      class="flex flex-col justify-center items-center px-4 py-6 bg-[#2F383D] border-white border-[0.5px] border-thin"
+      class="flex flex-col justify-center items-center text-4xl px-4 py-6 bg-[#2F383D] border-white border-[0.5px] border-thin"
     >
       <h1>Create a New Project</h1>
       <div class="flex flex-col gap-1">
         <label for="projectName">projet name</label>
         <input class="bg-[#474E54]" type="text" id="projectName" />
       </div>
-      <div class="flex flex-col gap-0">
+      <div class="flex flex-col gap-2">
         <label for="password">Password</label>
         <input class="bg-[#474E54]" type="password" id="password" />
       </div>
+      <button class="bg-white px-2 py-1 mt-2 w-full text-black text-2xl cursor-pointer">
+        Create Project
+      </button>
     </div>
   </div>
 </template>
