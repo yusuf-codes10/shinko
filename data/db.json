@@ -9,6 +9,11 @@
             "id": 2,
             "name": "F&M",
             "status": "done"
+        },
+        {
+            "id": 3,
+            "name": "Cinemock",
+            "status": "progress"
         }
     ],
     "tasks": {}

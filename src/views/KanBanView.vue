@@ -17,9 +17,9 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div>
+  <div class="h-screen bg-amber-600">
     <h1 class="text-7xl">Is this woking?</h1>
-    <div class="h-screen bg-amber-600" v-for="project in projects" :key="project.id">
+    <div class="bg-green-400 my-7" v-for="project in projects" :key="project.id">
       <h1>Name: {{ project.name }}</h1>
       <h2>Status: {{ project.status }}</h2>
     </div>
