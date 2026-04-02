@@ -9,6 +9,7 @@ onMounted(() => {
   fetch(endpoint)
     .then((res) => res.json())
     .then((data) => (data.value = data))
+    .catch((err) => console.log(err.message))
 })
 
 console.log(data.value)
