@@ -6,7 +6,9 @@ const data = ref([])
 // fetch the data with the onMounted lifecycle hook
 onMounted(() => {
   const endpoint = 'http://localhost:3000/projects'
-  fetch(endpoint).then((res) => res.json())
+  fetch(endpoint)
+    .then((res) => res.json())
+    .then((data) => (data.value = data))
 })
 
 console.log(data.value)
