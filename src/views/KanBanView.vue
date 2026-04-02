@@ -16,7 +16,13 @@ console.log(data.value)
 </script>
 
 <template>
-  <div></div>
+  <div>
+    <h1 class="text-7xl">Is this woking?</h1>
+    <div class="h-screen bg-amber-600" v-for="project in data" :key="project.id">
+      <h1>Name: {{ project.name }}</h1>
+      <h2>Status: {{ project.status }}</h2>
+    </div>
+  </div>
 </template>
 
 <style scoped>
