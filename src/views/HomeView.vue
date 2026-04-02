@@ -12,7 +12,17 @@ const isVisible = ref(false)
         Create New Project &rarr;
       </button>
     </div>
-    <div v-else>sign up????????????????????</div>
+    <div v-else class="flex flex-col justify-center items-center h-screen">
+      <h1>Create a New Project</h1>
+      <div>
+        <label for="projectName">projet name</label>
+        <input type="text" id="projectName" />
+      </div>
+      <div>
+        <label for="password">Password</label>
+        <input type="password" id="password" />
+      </div>
+    </div>
   </div>
 </template>
 
