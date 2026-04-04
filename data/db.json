@@ -1,20 +1,29 @@
 {
-    "projects": [
-        {
-            "id": 1,
-            "name": "Shinko",
-            "status": "progress"
-        },
-        {
-            "id": 2,
-            "name": "F&M",
-            "status": "done"
-        },
-        {
-            "id": 3,
-            "name": "Cinemock",
-            "status": "progress"
-        }
-    ],
-    "tasks": {}
+  "projects": [
+    {
+      "id": "1",
+      "name": "Shinko",
+      "status": "progress"
+    },
+    {
+      "id": "2",
+      "name": "F&M",
+      "status": "done"
+    },
+    {
+      "id": "3",
+      "name": "Cinemock",
+      "status": "progress"
+    },
+    {
+      "name": "Adam",
+      "id": "kTHA8-ee0CI"
+    },
+    {
+      "name": "Adam",
+      "id": "9L3Pcfa2G1s"
+    }
+  ],
+  "tasks": {},
+  "$schema": "./node_modules/json-server/schema.json"
 }

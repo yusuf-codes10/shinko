@@ -9,7 +9,7 @@ const addSomething = async (project) => {
   try {
     const res = await fetch(endpoint, {
       method: 'POST',
-      headers: { 'Content-Type': 'application.json' },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(project),
     })
     // we have the res
@@ -28,7 +28,7 @@ const addSomething = async (project) => {
       add a new project:
       <label for="project">Project name</label>
       <input type="text" name="" id="project" v-model="projectName" />
-      <button @click="addSomething(projectName)">ADDDD</button>
+      <button @click="addSomething({ name: projectName })">ADDDD</button>
     </div>
   </div>
 </template>
