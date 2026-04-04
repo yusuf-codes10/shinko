@@ -8,6 +8,7 @@ const loading = ref(false)
 onMounted(async () => {
   const endpoint = 'http://localhost:3000/projects'
   loading.value = true
+  console.log('loading')
   try {
     const res = await fetch(endpoint)
     const data = await res.json()
@@ -15,7 +16,8 @@ onMounted(async () => {
   } catch (err) {
     console.log(err.message)
   } finally {
-    loading.value = true
+    loading.value = false
+    console.log('loaded')
   }
 })
 </script>
@@ -23,7 +25,10 @@ onMounted(async () => {
 <template>
   <div class="h-screen bg-amber-600">
     <h1 class="text-7xl">Is this woking?</h1>
-    <div class="bg-green-400 my-7" v-for="project in projects" :key="project.id">
+    <div v-if="loading">
+      <h1 class="text-5xl">Laoding....</h1>
+    </div>
+    <div class="bg-green-400 my-7" v-else v-for="project in projects" :key="project.id">
       <h1>Name: {{ project.name }}</h1>
       <h2>Status: {{ project.status }}</h2>
     </div>
