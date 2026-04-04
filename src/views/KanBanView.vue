@@ -8,7 +8,6 @@ const loading = ref(false)
 onMounted(async () => {
   const endpoint = 'http://localhost:3000/projects'
   loading.value = true
-  console.log('loading')
   try {
     const res = await fetch(endpoint)
     const data = await res.json()
@@ -17,7 +16,6 @@ onMounted(async () => {
     console.log(err.message)
   } finally {
     loading.value = false
-    console.log('loaded')
   }
 })
 </script>
@@ -34,6 +32,3 @@ onMounted(async () => {
     </div>
   </div>
 </template>
-
-<style scoped>
-</style>
