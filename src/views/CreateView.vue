@@ -1,4 +1,8 @@
 <script setup>
+import { ref } from 'vue'
+
+const projectName = ref('')
+
 const addSomething = async (project) => {
   const endpoint = 'http://localhost:3000/projects'
 
@@ -23,8 +27,8 @@ const addSomething = async (project) => {
     <div>
       add a new project:
       <label for="project">Project name</label>
-      <input type="text" name="" id="project" v-model="project" />
-      <button @click="addSomething(project)"></button>
+      <input type="text" name="" id="project" v-model="projectName" />
+      <button @click="addSomething(projectName)">ADDDD</button>
     </div>
   </div>
 </template>
