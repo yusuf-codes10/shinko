@@ -35,9 +35,9 @@ onMounted(async () => {
       </div>
     </div>
     <div v-else class="grid grid-cols-3 justify-center gap-10 w-full">
-      <KanCard> Card 1 </KanCard>
-      <KanCard> Card 2 </KanCard>
-      <KanCard> Card 3 </KanCard>
+      <KanCard :title="ToDo"> Card 1 </KanCard>
+      <KanCard :title="Progress"> Card 2 </KanCard>
+      <KanCard :title="Done"> Card 3 </KanCard>
     </div>
   </div>
 </template>
