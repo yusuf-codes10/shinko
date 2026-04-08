@@ -1,4 +1,5 @@
 <script setup>
+import KanCard from '@/components/KanCard.vue'
 import { ref, onMounted } from 'vue'
 
 const projects = ref([])
@@ -33,6 +34,10 @@ onMounted(async () => {
         <h2>Status: {{ project.status }}</h2>
       </div>
     </div>
-    <div v-else></div>
+    <div v-else class="grid grid-cols-3 justify-center gap-10">
+      <KanCard />
+      <KanCard />
+      <KanCard />
+    </div>
   </div>
 </template>
