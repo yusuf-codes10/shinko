@@ -9,7 +9,10 @@ const props = defineProps({
 
 <template>
   <div class="bg-green-700 py-4 px-2">
-    <header>{{ props.title }}</header>
+    <header class="flex justify-between">
+      <h2>{{ props.title }}</h2>
+      <i class="fa-solid fa-plus"></i>
+    </header>
     <slot></slot>
   </div>
 </template>
