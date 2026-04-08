@@ -34,10 +34,10 @@ onMounted(async () => {
         <h2>Status: {{ project.status }}</h2>
       </div>
     </div>
-    <div v-else class="grid grid-cols-3 justify-center gap-10">
-      <KanCard />
-      <KanCard />
-      <KanCard />
+    <div v-else class="grid grid-cols-3 justify-center gap-10 w-full">
+      <KanCard> Card 1 </KanCard>
+      <KanCard> Card 2 </KanCard>
+      <KanCard> Card 3 </KanCard>
     </div>
   </div>
 </template>
