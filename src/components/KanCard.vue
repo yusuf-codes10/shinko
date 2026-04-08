@@ -5,13 +5,17 @@ const props = defineProps({
     required: true,
   },
 })
+
+const showModal = () => {
+  alert('clicked')
+}
 </script>
 
 <template>
   <div class="bg-green-700 py-4 px-2">
     <header class="flex justify-between">
       <h2>{{ props.title }}</h2>
-      <i class="fa-solid fa-plus"></i>
+      <i @click="showModal" class="fa-solid fa-plus cursor-pointer"></i>
     </header>
     <slot></slot>
   </div>
