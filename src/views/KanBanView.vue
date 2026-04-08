@@ -1,5 +1,6 @@
 <script setup>
 import KanCard from '@/components/KanCard.vue'
+import KanTask from '@/components/KanTask.vue'
 import { ref, onMounted } from 'vue'
 
 const projects = ref([])
@@ -35,7 +36,10 @@ onMounted(async () => {
       </div>
     </div>
     <div v-else class="grid grid-cols-3 justify-center gap-10 w-full">
-      <KanCard :title="'ToDo'"> Card 1 </KanCard>
+      <KanCard :title="'ToDo'">
+        Card 1
+        <KanTask />
+      </KanCard>
       <KanCard :title="'Progress'"> Card 2 </KanCard>
       <KanCard :title="'Done'"> Card 3 </KanCard>
     </div>
