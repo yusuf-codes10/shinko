@@ -38,7 +38,9 @@ onMounted(async () => {
     <div v-else class="grid grid-cols-3 justify-center gap-10 w-full">
       <KanCard :title="'ToDo'">
         Card 1
-        <KanTask />
+        <KanTask :title="'Task 1'" />
+        <KanTask :title="'Task 2'" />
+        <KanTask :title="'Task 3'" />
       </KanCard>
       <KanCard :title="'Progress'"> Card 2 </KanCard>
       <KanCard :title="'Done'"> Card 3 </KanCard>
