@@ -2,7 +2,7 @@ import express from "express";
 
 const router = express.Router();
 
-const data = [
+let data = [
   {
     id: 1,
     name: "Jessica",
@@ -43,6 +43,20 @@ router.get("/:id", (req, res) => {
   }
 
   res.status(200).json(foundData);
+});
+
+// delete
+router.delete("/:id", (req, res) => {
+  // grab the id
+  const id = parseInt(req.params.id);
+  const foundData = data.find((item) => item.id === id);
+
+  if (!foundData) {
+    return res.status(404).json("nothing found to delete!");
+  }
+
+  data = data.filter((item) => item.id !== id);
+  res.status(204).json(data);
 });
 
 export default router;
