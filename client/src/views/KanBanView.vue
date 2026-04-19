@@ -6,6 +6,19 @@ import { ref, onMounted } from 'vue'
 const projects = ref([])
 const loading = ref(false)
 const isOld = ref(false)
+const tasks = ref([])
+
+// get all
+const getAllTasks = async () => {
+  const endpoint = `http://localhost:8080/api`
+  try {
+    const response = await fetch(endpoint)
+    const data = await response.json()
+    return data
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 // fetch the data with the onMounted lifecycle hook
 // onMounted(async () => {
