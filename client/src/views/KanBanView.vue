@@ -8,6 +8,7 @@ const loading = ref(false)
 const isOld = ref(false)
 const tasks = ref([])
 const isModalOpen = ref(false)
+const newTaskName = ref('')
 
 // get all
 const getAllTasks = async () => {
@@ -16,6 +17,24 @@ const getAllTasks = async () => {
     const response = await fetch(endpoint)
     const data = await response.json()
     return data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+// post request
+const createTask = async () => {
+  const endpoint = 'http://localhost:8080/api'
+  try {
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: {
+        name: newTaskName.value,
+      },
+    })
+    const data = await response.json()
+    console.log(data)
   } catch (error) {
     console.log(error)
   }
@@ -74,8 +93,8 @@ const toggleModal = () => {
         <div class="modal-bg" @click="toggleModal">
           <div class="modal" @click.stop>
             <label for="name">Name: </label>
-            <input type="text" id="name" placeholder="name.." />
-            <button>Submit</button>
+            <input type="text" id="name" placeholder="name.." v-model="newTaskName" />
+            <button @click="createTask">Submit</button>
           </div>
         </div>
       </teleport>
