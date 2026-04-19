@@ -20,6 +20,16 @@ const getAllTasks = async () => {
   }
 }
 
+// delete request
+const deleteTask = async (id) => {
+  const endpoint = `http://localhost:8080/api/${id}`
+  try {
+    const response = await fetch(endpoint, { method: 'DELETE' })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 onMounted(async () => {
   tasks.value = await getAllTasks()
 })
@@ -53,9 +63,9 @@ onMounted(async () => {
       </div>
     </div>
     <div v-else class="grid grid-cols-3 justify-center gap-10 w-full">
-      <KanCard :title="'ToDo'" v-for="task in tasks" :key="task.id">
+      <KanCard :title="'ToDo'">
         Card 1
-        <KanTask :title="task.name" />
+        <KanTask v-for="task in tasks" :key="task.id" :title="task.name" />
       </KanCard>
       <KanCard :title="'Progress'"> Card 2 </KanCard>
       <KanCard :title="'Done'"> Card 3 </KanCard>
