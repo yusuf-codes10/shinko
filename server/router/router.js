@@ -15,6 +15,14 @@ const data = [
     id: 3,
     name: "Kim",
   },
+  {
+    id: 4,
+    name: "Anna",
+  },
+  {
+    id: 5,
+    name: "Elena",
+  },
 ];
 
 router.get("/", (req, res) => {

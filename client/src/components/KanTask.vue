@@ -9,6 +9,7 @@ const props = defineProps({
 const deleteTask = () => {
   alert('Deleeeeeeeeeeeeeeeeeting')
 }
+const emit = defineEmits(['delete'])
 </script>
 
 <template>
