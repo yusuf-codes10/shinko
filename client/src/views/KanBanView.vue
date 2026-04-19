@@ -26,7 +26,7 @@ const deleteTask = async (id) => {
   try {
     const response = await fetch(endpoint, { method: 'DELETE' })
     console.log(response)
-    tasks.value = tasks.value.filter((task) => task.id === id)
+    tasks.value = tasks.value.filter((task) => task.id !== id)
   } catch (error) {
     console.log(error)
   }
