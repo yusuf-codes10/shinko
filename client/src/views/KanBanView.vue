@@ -29,9 +29,9 @@ const createTask = async () => {
     const response = await fetch(endpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: {
+      body: JSON.stringify({
         name: newTaskName.value,
-      },
+      }),
     })
     const data = await response.json()
     console.log(data)
