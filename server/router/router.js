@@ -17,6 +17,8 @@ const data = [
   },
 ];
 
-router.get("/", (res, req) => {});
+router.get("/", (res, req) => {
+  res.status(200).json(data);
+});
 
 export default router;
