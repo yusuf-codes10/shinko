@@ -24,7 +24,7 @@ router.get("/", (req, res) => {
 // get user by id
 router.get("/:id", (req, res) => {
   // first grab the id from the url
-  const id = parseInt(req.body.id);
+  const id = parseInt(req.params.id);
 
   // find that on the data
   const foundData = data.find((item) => item.id === id);
