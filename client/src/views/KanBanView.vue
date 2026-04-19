@@ -20,6 +20,10 @@ const getAllTasks = async () => {
   }
 }
 
+onMounted(async () => {
+  tasks.value = await getAllTasks()
+})
+
 // fetch the data with the onMounted lifecycle hook
 // onMounted(async () => {
 //   const endpoint = 'http://localhost:3000/projects'
@@ -49,11 +53,9 @@ const getAllTasks = async () => {
       </div>
     </div>
     <div v-else class="grid grid-cols-3 justify-center gap-10 w-full">
-      <KanCard :title="'ToDo'">
+      <KanCard :title="'ToDo'" v-for="task in tasks" :key="task.id">
         Card 1
-        <KanTask :title="'Task 1'" />
-        <KanTask :title="'Task 2'" />
-        <KanTask :title="'Task 3'" />
+        <KanTask :title="task.name" />
       </KanCard>
       <KanCard :title="'Progress'"> Card 2 </KanCard>
       <KanCard :title="'Done'"> Card 3 </KanCard>
