@@ -32,6 +32,10 @@ const deleteTask = async (id) => {
   }
 }
 
+const testEmit = () => {
+  alert('emits are working duuuude')
+}
+
 onMounted(async () => {
   tasks.value = await getAllTasks()
 })
@@ -71,7 +75,7 @@ onMounted(async () => {
           v-for="task in tasks"
           :key="task.id"
           :title="task.name"
-          @delete="deleteTask(task.id)"
+          @delete="testEmit"
         />
       </KanCard>
       <KanCard :title="'Progress'"> Card 2 </KanCard>
