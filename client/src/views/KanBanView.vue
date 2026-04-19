@@ -32,10 +32,6 @@ const deleteTask = async (id) => {
   }
 }
 
-const testEmit = () => {
-  alert('emits are working duuuude')
-}
-
 onMounted(async () => {
   tasks.value = await getAllTasks()
 })
@@ -71,12 +67,7 @@ onMounted(async () => {
     <div v-else class="grid grid-cols-3 justify-center gap-10 w-full">
       <KanCard :title="'ToDo'">
         Card 1
-        <KanTask
-          v-for="task in tasks"
-          :key="task.id"
-          :title="task.name"
-          @delete="testEmit"
-        />
+        <KanTask v-for="task in tasks" :key="task.id" :title="task.name" @delete="deleteTask(id)" />
       </KanCard>
       <KanCard :title="'Progress'"> Card 2 </KanCard>
       <KanCard :title="'Done'"> Card 3 </KanCard>
