@@ -75,7 +75,7 @@ const toggleModal = () => {
           <div class="modal"></div>
         </div>
       </teleport>
-      <KanCard :title="'ToDo'">
+      <KanCard :title="'ToDo'" @create="toggleModal">
         Card 1
         <KanTask
           v-for="task in tasks"
