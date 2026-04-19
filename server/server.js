@@ -10,6 +10,7 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 app.use(logger);
+app.use(express.json()); //for reading the body
 app.use("/api", router);
 
 app.listen(8080, () => {
