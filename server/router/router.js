@@ -17,4 +17,6 @@ const data = [
   },
 ];
 
+router.get("/", (res, req) => {});
+
 export default router;
