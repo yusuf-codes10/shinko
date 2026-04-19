@@ -58,7 +58,7 @@ router.post("/", (req, res) => {
     name: bodyContent,
   };
   data.push(newData);
-  res.status(201).json(newData);
+  res.status(201).json(data);
 });
 
 // delete

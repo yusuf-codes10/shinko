@@ -34,6 +34,7 @@ const createTask = async () => {
       }),
     })
     const data = await response.json()
+    tasks.value = data
     console.log(data)
   } catch (error) {
     console.log(error)
