@@ -71,8 +71,8 @@ const toggleModal = () => {
     </div>
     <div v-else class="grid grid-cols-3 justify-center gap-10 w-full">
       <teleport to="#modal" v-if="isModalOpen">
-        <div class="modal-bg">
-          <div class="modal"></div>
+        <div class="modal-bg" @click="toggleModal">
+          <div class="modal" @click.stop></div>
         </div>
       </teleport>
       <KanCard :title="'ToDo'" @create="toggleModal">
