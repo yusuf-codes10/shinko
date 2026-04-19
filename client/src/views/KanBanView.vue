@@ -65,6 +65,11 @@ onMounted(async () => {
       </div>
     </div>
     <div v-else class="grid grid-cols-3 justify-center gap-10 w-full">
+      <teleport to="#modal">
+        <div class="modal-bg">
+          <div class="modal"></div>
+        </div>
+      </teleport>
       <KanCard :title="'ToDo'">
         Card 1
         <KanTask
