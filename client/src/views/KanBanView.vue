@@ -7,6 +7,7 @@ const projects = ref([])
 const loading = ref(false)
 const isOld = ref(false)
 const tasks = ref([])
+const isModalOpen = ref(false)
 
 // get all
 const getAllTasks = async () => {
@@ -50,6 +51,10 @@ onMounted(async () => {
 //     loading.value = false
 //   }
 // })
+
+const toggleModal = () => {
+  isModalOpen.value = !isModalOpen.value
+}
 </script>
 
 <template>
@@ -65,7 +70,7 @@ onMounted(async () => {
       </div>
     </div>
     <div v-else class="grid grid-cols-3 justify-center gap-10 w-full">
-      <teleport to="#modal">
+      <teleport to="#modal" v-if="isModalOpen">
         <div class="modal-bg">
           <div class="modal"></div>
         </div>
