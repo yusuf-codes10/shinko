@@ -17,7 +17,7 @@ const data = [
   },
 ];
 
-router.get("/", (res, req) => {
+router.get("/", (req, res) => {
   res.status(200).json(data);
 });
 
