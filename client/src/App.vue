@@ -1,8 +1,11 @@
-<script setup></script>
+<script setup>
+import '@/components/NavBar.vue'
+</script>
 
 <template>
   <div>
-    <h1>Hey there</h1>
+    <NavBar />
+    <h2>Waht</h2>
     <RouterView />
   </div>
 </template>
