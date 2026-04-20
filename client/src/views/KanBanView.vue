@@ -44,7 +44,7 @@ const createTask = async () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        name: newTaskName.value,
+        title: newTaskName.value,
       }),
     })
     const data = await response.json()

@@ -54,28 +54,28 @@ router.get("/:id", async (req, res) => {
   res.json(response.rows[0]);
 });
 
-// get user by id
-router.get("/:id", (req, res) => {
-  // first grab the id from the url
-  const id = parseInt(req.params.id);
+// // get user by id
+// router.get("/:id", (req, res) => {
+//   // first grab the id from the url
+//   const id = parseInt(req.params.id);
 
-  // find that on the data
-  const foundData = data.find((item) => item.id === id);
+//   // find that on the data
+//   const foundData = data.find((item) => item.id === id);
 
-  //in case not found
-  if (!foundData) {
-    return res.status(404).json({ msg: "User not found" });
-  }
+//   //in case not found
+//   if (!foundData) {
+//     return res.status(404).json({ msg: "User not found" });
+//   }
 
-  res.status(200).json(foundData);
-});
+//   res.status(200).json(foundData);
+// });
 
 // post req
 router.post("/", async (req, res) => {
-  const title = req.body.name;
+  const title = req.body.title;
   const result = await pool.query(
-    "INSERT INTO task (title, created_at) values ($1, $2) RETURNING *",
-    [title, now()],
+    "INSERT INTO task (title, created_at) values ($1, now()) RETURNING *",
+    [title], // do not know if it is conpatible with js now
   );
   res.status(201).json(result.rows[0]);
 });
