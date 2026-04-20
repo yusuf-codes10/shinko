@@ -51,7 +51,7 @@ router.get("/:id", async (req, res) => {
   if (response.rows.length === 0) {
     return res.status(404).json({ msg: "error: user not found!" });
   }
-  res.json(response.row[0]);
+  res.json(response.rows[0]);
 });
 
 // get user by id
