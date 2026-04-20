@@ -36,6 +36,8 @@ const getTaskById = async (id) => {
   }
 }
 
+console.log(getTaskById)
+
 // post request
 const createTask = async () => {
   const endpoint = 'http://localhost:8080/api'
@@ -47,9 +49,9 @@ const createTask = async () => {
         title: newTaskName.value,
       }),
     })
-    const data = await response.json()
-    tasks.value = data
-    console.log(data)
+    const newTask = await response.json()
+    tasks.value = [...tasks.value, newTask] // append the new task
+    console.log(newTask)
   } catch (error) {
     console.log(error)
   }
