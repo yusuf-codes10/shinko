@@ -1,6 +1,7 @@
 import CreateView from '@/views/CreateView.vue'
 import HomeView from '@/views/HomeView.vue'
 import KanBanView from '@/views/KanBanView.vue'
+import LoginView from '@/views/LoginView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
@@ -18,6 +19,11 @@ const routes = [
     path: '/create',
     name: 'Create',
     component: CreateView,
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: LoginView,
   },
 ]
 
