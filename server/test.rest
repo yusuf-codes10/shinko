@@ -8,3 +8,7 @@ GET http://localhost:8080/api/2
 ###
 
 POST http://localhost:8080/api
+
+###
+
+DELETE http://localhost:8080/api/1

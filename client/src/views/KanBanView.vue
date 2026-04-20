@@ -73,21 +73,6 @@ onMounted(async () => {
   tasks.value = await getAllTasks()
 })
 
-// fetch the data with the onMounted lifecycle hook
-// onMounted(async () => {
-//   const endpoint = 'http://localhost:3000/projects'
-//   loading.value = true
-//   try {
-//     const res = await fetch(endpoint)
-//     const data = await res.json()
-//     projects.value = data
-//   } catch (err) {
-//     console.log(err.message)
-//   } finally {
-//     loading.value = false
-//   }
-// })
-
 const toggleModal = () => {
   isModalOpen.value = !isModalOpen.value
 }

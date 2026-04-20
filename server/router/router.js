@@ -51,8 +51,8 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   const title = req.body.title;
   const result = await pool.query(
-    "INSERT INTO task (title, created_at) values ($1, now()) RETURNING *",
-    [title], // do not know if it is conpatible with js now
+    "INSERT INTO task (title, created_at, status) values ($1, now(), $2) RETURNING *",
+    [title, "progress"], // do not know if it is conpatible with js now
   );
   res.status(201).json(result.rows[0]);
 });
@@ -63,7 +63,7 @@ router.delete("/:id", async (req, res) => {
   const result = await pool.query("DELETE FROM task WHERE task.id = $1", [
     req.params.id,
   ]);
-  res.status(204).json(result.rows[0]);
+  res.status(200).json(result.rows[0]);
 });
 
 export default router;
