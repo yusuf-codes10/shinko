@@ -3,29 +3,6 @@ import pool from "../db/pool.js";
 
 const router = express.Router();
 
-let data = [
-  {
-    id: 1,
-    name: "Jessica",
-  },
-  {
-    id: 2,
-    name: "Alice",
-  },
-  {
-    id: 3,
-    name: "Kim",
-  },
-  {
-    id: 4,
-    name: "Anna",
-  },
-  {
-    id: 5,
-    name: "Elena",
-  },
-];
-
 // ! the original get request
 // router.get("/", (req, res) => {
 //   res.status(200).json(data);
@@ -81,17 +58,12 @@ router.post("/", async (req, res) => {
 });
 
 // delete
-router.delete("/:id", (req, res) => {
+router.delete("/:id", async (req, res) => {
   // grab the id
-  const id = parseInt(req.params.id);
-  const foundData = data.find((item) => item.id === id);
-
-  if (!foundData) {
-    return res.status(404).json("nothing found to delete!");
-  }
-
-  data = data.filter((item) => item.id !== id);
-  res.status(204).json(data);
+  const result = await pool.query("DELETE FROM task WHERE task.id = $1", [
+    req.params.id,
+  ]);
+  res.status(204).json(result.rows[0]);
 });
 
 export default router;
