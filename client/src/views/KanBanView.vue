@@ -16,9 +16,11 @@ const getAllTasks = async () => {
   try {
     const response = await fetch(endpoint)
     const data = await response.json()
-    return data
+    console.log(data)
+    tasks.value = data
   } catch (error) {
     console.log(error)
+    tasks.value = [] // a fallback
   }
 }
 
