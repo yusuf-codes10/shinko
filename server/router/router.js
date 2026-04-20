@@ -1,5 +1,5 @@
 import express from "express";
-import pool from '../db/pool.js'
+import pool from "../db/pool.js";
 
 const router = express.Router();
 const pool = pool();
@@ -33,9 +33,10 @@ let data = [
 // });
 
 // ! the postgres get request
-router.get('/', async (req, res) => {
-  const response = await pool.
-})
+router.get("/", async (req, res) => {
+  const response = await pool.query("SELECT title FROM task");
+  res.status(200).json(response.rows);
+});
 
 // get user by id
 router.get("/:id", (req, res) => {
