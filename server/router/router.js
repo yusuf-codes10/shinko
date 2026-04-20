@@ -33,8 +33,13 @@ let data = [
 
 // ! the postgres get request
 router.get("/", async (req, res) => {
-  const response = await pool.query("SELECT title FROM task");
-  res.status(200).json(response.rows);
+  try {
+    const response = await pool.query("SELECT title FROM task");
+    res.status(200).json(response.rows);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Database error" });
+  }
 });
 
 // get user by id
