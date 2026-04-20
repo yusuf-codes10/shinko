@@ -71,19 +71,13 @@ router.get("/:id", (req, res) => {
 });
 
 // post req
-router.post("/", (req, res) => {
-  const bodyContent = req.body.name;
-  if (!bodyContent) {
-    return res.status(400).json({ msg: "You have to enter the title" });
-  }
-
-  // create the new thing
-  const newData = {
-    id: data.length + 1,
-    name: bodyContent,
-  };
-  data.push(newData);
-  res.status(201).json(data);
+router.post("/", async (req, res) => {
+  const title = req.body.name;
+  const result = await pool.query(
+    "INSERT INTO task (title, created_at) values ($1, $2) RETURNING *",
+    [title, now()],
+  );
+  res.status(201).json(result.rows[0]);
 });
 
 // delete
