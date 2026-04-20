@@ -24,6 +24,18 @@ const getAllTasks = async () => {
   }
 }
 
+const getTaskById = async (id) => {
+  const endpoint = `http://localhost:8080/api${id}`
+  try {
+    const response = await fetch(endpoint)
+    const data = await response.json()
+    console.log(data)
+    return data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 // post request
 const createTask = async () => {
   const endpoint = 'http://localhost:8080/api'

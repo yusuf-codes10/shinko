@@ -42,6 +42,18 @@ router.get("/", async (req, res) => {
   }
 });
 
+// get a user by id
+router.get("/:id", async (req, res) => {
+  const response = await pool.query(
+    "SELECT id, title FROM task WHERE task.id = $1",
+    [req.params.id], // this pervent ssql injection
+  );
+  if (response.rows.length === 0) {
+    return res.status(404).json({ msg: "error: user not found!" });
+  }
+  res.json(response.row[0]);
+});
+
 // get user by id
 router.get("/:id", (req, res) => {
   // first grab the id from the url
