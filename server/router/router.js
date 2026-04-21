@@ -47,7 +47,7 @@ router.get("/progress", async (req, res) => {
 router.get("/done", async (req, res) => {
   try {
     const result = await pool.query(
-      "SEELCT id, title, status FROM task WHERE status = 'done'",
+      "SELECT id, title, status FROM task WHERE status = 'done'",
     );
     res.status(200).json(result.rows);
   } catch (error) {
