@@ -67,8 +67,30 @@ router.delete("/:id", async (req, res) => {
 });
 
 // put request
-router.put("/:id", async (req, res) => {
+router.put("/cars/:id", async (req, res) => {
+  const { id } = req.params;
   const { title, status } = req.body;
+
+  // First check the car exists
+  const existing = await pool.query("SELECT * FROM task WHERE id = $1", [id]);
+  if (existing.rows.length === 0) {
+    return res.status(404).json({ error: "Item not Found" });
+  }
+
+  // Merge new values with existing ones (so partial updates work)
+  const current = existing.rows[0];
+  const updatedTitle = title ?? current.title;
+  const updatedStatus = status ?? current.status;
+
+  const result = await pool.query(
+    `UPDATE task
+     SET title = $1, status = $2
+     WHERE id = $3
+     RETURNING *`,
+    [updatedTitle, updatedStatus, id],
+  );
+
+  res.json(result.rows[0]);
 });
 
 export default router;
