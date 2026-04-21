@@ -11,7 +11,7 @@ const router = express.Router();
 // ! the postgres get request
 router.get("/", async (req, res) => {
   try {
-    const response = await pool.query("SELECT id, title FROM task");
+    const response = await pool.query("SELECT id, title, status FROM task");
     res.status(200).json(response.rows);
   } catch (error) {
     console.log(error);
