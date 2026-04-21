@@ -113,6 +113,8 @@ const retrieveTask = (event) => {
 
   droppedTask.title = 'This task has to be done'
 }
+
+// since splitting the tasks to ['todo', 'progress', 'done'] is mostly ui, vue should handle it with computed properties
 </script>
 
 <template>
