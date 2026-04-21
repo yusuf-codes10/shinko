@@ -124,7 +124,7 @@ const toggleModal = () => {
 }
 
 const handleDrop = async (list, status, event) => {
-  const droppedTask = list.value[event.newIndex]
+  const droppedTask = list[event.newIndex]
   if (!droppedTask) return
 
   const task = tasks.value.find((t) => t.id === droppedTask.id)
