@@ -231,3 +231,4 @@ console.log(progressTasks.value)
   }
 }
 </style>
+<!-- TODO: I really hate writable computed properties -->
