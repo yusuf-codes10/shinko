@@ -116,15 +116,15 @@ tasksProgress.value = [
       <KanCard :title="'ToDo'" @create="toggleModal">
         Card 1
         <draggable v-model="tasks" :item-key="id" group="tasks">
-          <template #item="{ element }">
-            <KanTask :title="element.title" @delete="deleteTask(element.id)" />
+          <template #item="{ element: task }">
+            <KanTask :title="task.title" @delete="deleteTask(task.id)" />
           </template>
         </draggable>
       </KanCard>
       <KanCard :title="'Progress'">
         <draggable v-model="tasksProgress" :item-key="id" group="tasks">
-          <template #item="{ element }">
-            <KanTask :title="element.title" @delete="deleteTask(element.id)" />
+          <template #item="{ element: task }">
+            <KanTask :title="task.title" @delete="deleteTask(task.id)" />
           </template>
         </draggable>
       </KanCard>
