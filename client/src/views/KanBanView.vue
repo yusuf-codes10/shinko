@@ -8,6 +8,9 @@ const projects = ref([])
 const loading = ref(false)
 const isOld = ref(false)
 const tasks = ref([])
+const todos = ref([])
+const progresses = ref([])
+const dones = ref([])
 const isModalOpen = ref(false)
 const newTaskName = ref('')
 
@@ -37,6 +40,38 @@ const getTaskById = async (id) => {
   }
 }
 
+const getTodos = async () => {
+  const endpoint = `http://localhost:8080/api/todo`
+  try {
+    const response = await fetch(endpoint)
+    const data = await response.json()
+    return data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const getProgresses = async () => {
+  const endpoint = `http://localhost:8080/api/progress`
+  try {
+    const response = await fetch(endpoint)
+    const data = await response.json()
+    return data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const getDones = async () => {
+  const endpoint = `http://localhost:8080/api/done`
+  try {
+    const response = await fetch(endpoint)
+    const data = await response.json()
+    return data
+  } catch (error) {
+    console.log(error)
+  }
+}
 console.log(getTaskById)
 
 // post request
@@ -97,6 +132,10 @@ onMounted(async () => {
   console.log('raw result:', result, Array.isArray(result))
   // no status whatsoever
   tasks.value = result
+
+  todos.value = await getTodos()
+  progresses.value = await getProgresses()
+  dones.value = await getDones()
 })
 
 const toggleModal = () => {
