@@ -58,6 +58,24 @@ const createTask = async () => {
   }
 }
 
+// put req
+const updateTask = async (stat) => {
+  const endpoint = `http://localhost:8080/api/${id}`
+  try {
+    const response = await fetch(endpoint, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: {
+        status: stat,
+      },
+    })
+    const data = await response.json()
+    console.log(data)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 // delete request
 const deleteTask = async (id) => {
   const endpoint = `http://localhost:8080/api/${id}`
@@ -71,7 +89,7 @@ const deleteTask = async (id) => {
 }
 
 onMounted(async () => {
-    const result = await getAllTasks()
+  const result = await getAllTasks()
   console.log('raw result:', result, Array.isArray(result))
   // no status whatsoever
   tasks.value = result
@@ -81,7 +99,7 @@ const toggleModal = () => {
   isModalOpen.value = !isModalOpen.value
 }
 
-const changeTitle = (event) => {
+const taskOnProgress = (event) => {
   // position where the item was dropped
   const position = event.newIndex
 
