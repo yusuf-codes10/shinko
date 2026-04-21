@@ -66,4 +66,9 @@ router.delete("/:id", async (req, res) => {
   res.status(200).json(result.rows[0]);
 });
 
+// put request
+router.put("/:id", async (req, res) => {
+  const { title, status } = req.body;
+});
+
 export default router;
