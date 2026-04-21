@@ -1,7 +1,7 @@
 <script setup>
 import KanCard from '@/components/KanCard.vue'
 import KanTask from '@/components/KanTask.vue'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import draggable from 'vuedraggable'
 
 const projects = ref([])
@@ -115,6 +115,9 @@ const retrieveTask = (event) => {
 }
 
 // since splitting the tasks to ['todo', 'progress', 'done'] is mostly ui, vue should handle it with computed properties
+const todoTasks = computed(() => tasks.value.filter((task) => task.status === 'todo'))
+const progressTasks = computed(() => tasks.value.filter((task) => task.status === 'progress'))
+const completedTasks = computed(() => tasks.value.filter((task) => task.status === 'done'))
 </script>
 
 <template>
