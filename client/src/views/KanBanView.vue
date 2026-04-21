@@ -14,20 +14,6 @@ const dones = ref([])
 const isModalOpen = ref(false)
 const newTaskName = ref('')
 
-// get all
-const getAllTasks = async () => {
-  const endpoint = `http://localhost:8080/api`
-  try {
-    const response = await fetch(endpoint)
-    const data = await response.json()
-    console.log(data)
-    return data
-  } catch (error) {
-    console.log(error)
-    // tasks.value = []
-  }
-}
-
 const getTaskById = async (id) => {
   const endpoint = `http://localhost:8080/api${id}`
   try {
@@ -128,11 +114,6 @@ const deleteTask = async (id) => {
 }
 
 onMounted(async () => {
-  const result = await getAllTasks()
-  console.log('raw result:', result, Array.isArray(result))
-  // no status whatsoever
-  tasks.value = result
-
   todos.value = await getTodos()
   progresses.value = await getProgresses()
   dones.value = await getDones()
