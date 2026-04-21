@@ -59,7 +59,7 @@ const createTask = async () => {
 }
 
 // put req
-const updateTask = async (stat) => {
+const updateTask = async (id, stat) => {
   const endpoint = `http://localhost:8080/api/${id}`
   try {
     const response = await fetch(endpoint, {
@@ -99,7 +99,7 @@ const toggleModal = () => {
   isModalOpen.value = !isModalOpen.value
 }
 
-const taskOnProgress = (event) => {
+const taskOnProgress = async (event) => {
   // position where the item was dropped
   const position = event.newIndex
 
@@ -110,17 +110,19 @@ const taskOnProgress = (event) => {
   if (!droppedTask) return
 
   // modify it
-  droppedTask.title = 'This task has been completed'
+  await updateTask(droppedTask.id, 'progress')
+  // droppedTask.title = 'This task has been completed'
 }
 
-const retrieveTask = (event) => {
+const taskOnTodo = async (event) => {
   const newIndex = event.newIndex
 
   const droppedTask = tasks.value[newIndex]
 
   if (!droppedTask) return
 
-  droppedTask.title = 'This task has to be done'
+  await updateTask(droppedTask.id, 'todo')
+  // droppedTask.title = 'This task has to be done'
 }
 
 // since splitting the tasks to ['todo', 'progress', 'done'] is mostly ui, vue should handle it with computed properties
@@ -165,14 +167,14 @@ console.log(progressTasks.value)
       </teleport>
       <KanCard :title="'ToDo'" @create="toggleModal">
         Card 1
-        <draggable v-model="todoTasks" item-key="id" group="tasks" @add="retrieveTask">
+        <draggable v-model="todoTasks" item-key="id" group="tasks" @add="taskOnProgress">
           <template #item="{ element: task }">
             <KanTask :title="task.title" @delete="deleteTask(task.id)" />
           </template>
         </draggable>
       </KanCard>
       <KanCard :title="'Progress'">
-        <draggable v-model="progressTasks" item-key="id" group="tasks" @add="changeTitle">
+        <draggable v-model="progressTasks" item-key="id" group="tasks" @add="taskOnTodo">
           <template #item="{ element: task }">
             <KanTask :title="task.title" @delete="deleteTask(task.id)" />
           </template>
