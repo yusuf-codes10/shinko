@@ -101,7 +101,7 @@ const changeTitle = (event) => {
   if (!droppedTask) return
 
   // modify it
-  droppedTask.color = 'green'
+  droppedTask.title = 'This task has been completed'
 }
 </script>
 
