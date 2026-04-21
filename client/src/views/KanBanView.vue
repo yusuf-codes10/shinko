@@ -71,7 +71,10 @@ const deleteTask = async (id) => {
 }
 
 onMounted(async () => {
-  tasks.value = await getAllTasks()
+    const result = await getAllTasks()
+  console.log('raw result:', result, Array.isArray(result))
+  // no status whatsoever
+  tasks.value = result
 })
 
 const toggleModal = () => {
@@ -115,6 +118,8 @@ const progressTasks = computed({
     tasks.value = [...tasks.value.filter((task) => task.status !== 'progress'), ...val]
   },
 })
+console.log(todoTasks.value)
+console.log(progressTasks.value)
 // const completedTasks = computed(() => tasks.value.filter((task) => task.status === 'done'))
 </script>
 
