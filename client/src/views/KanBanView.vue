@@ -100,37 +100,19 @@ const toggleModal = () => {
 }
 
 const taskOnProgress = async (event) => {
-  // position where the item was dropped
-  const position = event.newIndex
-
-  // get the actual task from your array
-  const droppedTask = todoTasks.value[position]
-
-  // safety check
+  const droppedTask = progressTasks.value[event.newIndex] // read from destination
   if (!droppedTask) return
-
-  // ✅ update local state immediately so computed picks it up
   const task = tasks.value.find((t) => t.id === droppedTask.id)
   if (task) task.status = 'progress'
-
-  // modify it
   await updateTask(droppedTask.id, 'progress')
-  // droppedTask.title = 'This task has been completed'
 }
 
 const taskOnTodo = async (event) => {
-  const newIndex = event.newIndex
-
-  const droppedTask = progressTasks.value[newIndex]
-
+  const droppedTask = todoTasks.value[event.newIndex] // read from destination
   if (!droppedTask) return
-
-  // ✅ same here
   const task = tasks.value.find((t) => t.id === droppedTask.id)
   if (task) task.status = 'todo'
-
   await updateTask(droppedTask.id, 'todo')
-  // droppedTask.title = 'This task has to be done'
 }
 
 // since splitting the tasks to ['todo', 'progress', 'done'] is mostly ui, vue should handle it with computed properties
