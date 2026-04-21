@@ -167,14 +167,14 @@ console.log(progressTasks.value)
       </teleport>
       <KanCard :title="'ToDo'" @create="toggleModal">
         Card 1
-        <draggable v-model="todoTasks" item-key="id" group="tasks" @add="taskOnProgress">
+        <draggable v-model="todoTasks" item-key="id" group="tasks" @add="taskOnTodo">
           <template #item="{ element: task }">
             <KanTask :title="task.title" :status="task.status" @delete="deleteTask(task.id)" />
           </template>
         </draggable>
       </KanCard>
       <KanCard :title="'Progress'">
-        <draggable v-model="progressTasks" item-key="id" group="tasks" @add="taskOnTodo">
+        <draggable v-model="progressTasks" item-key="id" group="tasks" @add="taskOnProgress">
           <template #item="{ element: task }">
             <KanTask :title="task.title" :status="task.status" @delete="deleteTask(task.id)" />
           </template>
