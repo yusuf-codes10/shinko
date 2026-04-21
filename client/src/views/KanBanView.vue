@@ -89,6 +89,20 @@ tasksProgress.value = [
     title: 'Clean your room',
   },
 ]
+
+const changeTitle = (event) => {
+  // position where the item was dropped
+  const position = event.newIndex
+
+  // get the actual task from your array
+  const droppedTask = tasksProgress.value[position]
+
+  // safety check
+  if (!droppedTask) return
+
+  // modify it
+  droppedTask.color = 'green'
+}
 </script>
 
 <template>
@@ -122,7 +136,7 @@ tasksProgress.value = [
         </draggable>
       </KanCard>
       <KanCard :title="'Progress'">
-        <draggable v-model="tasksProgress" :item-key="id" group="tasks">
+        <draggable v-model="tasksProgress" :item-key="id" group="tasks" @add="changeTitle">
           <template #item="{ element: task }">
             <KanTask :title="task.title" @delete="deleteTask(task.id)" />
           </template>
