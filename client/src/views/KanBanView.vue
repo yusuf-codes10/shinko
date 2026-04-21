@@ -8,6 +8,7 @@ const projects = ref([])
 const loading = ref(false)
 const isOld = ref(false)
 const tasks = ref([])
+const tasksProgress = ref([])
 const isModalOpen = ref(false)
 const newTaskName = ref('')
 
@@ -77,6 +78,17 @@ onMounted(async () => {
 const toggleModal = () => {
   isModalOpen.value = !isModalOpen.value
 }
+
+tasksProgress.value = [
+  {
+    id: 1,
+    title: 'Eat Sardin',
+  },
+  {
+    id: 2,
+    title: 'Clean your room',
+  },
+]
 </script>
 
 <template>
@@ -103,13 +115,19 @@ const toggleModal = () => {
       </teleport>
       <KanCard :title="'ToDo'" @create="toggleModal">
         Card 1
-        <draggable v-model="tasks" :item-key="id">
+        <draggable v-model="tasks" :item-key="id" group="todoGroup">
           <template #item="{ element }">
             <KanTask :title="element.title" @delete="deleteTask(element.id)" />
           </template>
         </draggable>
       </KanCard>
-      <KanCard :title="'Progress'"> Card 2 </KanCard>
+      <KanCard :title="'Progress'">
+        <draggable v-model="tasksProgress" :item-key="id" group="progress">
+          <template #item="{ element }">
+            <KanTask :title="element.title" @delete="deleteTask(element.id)" />
+          </template>
+        </draggable>
+      </KanCard>
       <KanCard :title="'Done'"> Card 3 </KanCard>
     </div>
   </div>
