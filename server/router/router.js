@@ -19,6 +19,13 @@ router.get("/", async (req, res) => {
   }
 });
 
+// more get requests
+router.get("/todo", () => {});
+
+router.get("/progress", () => {});
+
+router.get("/done", () => {});
+
 // get a user by id
 router.get("/:id", async (req, res) => {
   const response = await pool.query(
