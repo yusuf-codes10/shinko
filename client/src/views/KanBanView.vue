@@ -41,18 +41,22 @@ console.log(getTaskById)
 
 // post request
 const createTask = async () => {
+  if (!newTaskName.value.trim()) return // guard against empty
   const endpoint = 'http://localhost:8080/api'
   try {
     const response = await fetch(endpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        title: newTaskName.value,
+        title: newTaskName.value.trim(),
+        status: 'todo', // explicitly send status
       }),
     })
     const newTask = await response.json()
     tasks.value = [...tasks.value, newTask] // append the new task
-    console.log(newTask)
+    newTaskName.value = '' // clear input
+    toggleModal() // close modal
+    console.log(`this item has been created${newTask}`)
   } catch (error) {
     console.log(error)
   }
