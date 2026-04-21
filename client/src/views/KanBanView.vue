@@ -104,12 +104,17 @@ const retrieveTask = (event) => {
 
 // since splitting the tasks to ['todo', 'progress', 'done'] is mostly ui, vue should handle it with computed properties
 const todoTasks = computed({
-  get: tasks.value.filter((task) => task.status === 'todo'),
+  get: () => tasks.value.filter((task) => task.status === 'todo'),
   set: (val) => {
     tasks.value = [...tasks.value.filter((task) => task.status !== 'todo'), ...val]
   },
 })
-const progressTasks = computed(() => tasks.value.filter((task) => task.status === 'progress'))
+const progressTasks = computed({
+  get: () => tasks.value.filter((task) => task.status === 'progress'),
+  set: (val) => {
+    tasks.value = [...tasks.value.filter((task) => task.status !== 'progress'), ...val]
+  },
+})
 // const completedTasks = computed(() => tasks.value.filter((task) => task.status === 'done'))
 </script>
 
