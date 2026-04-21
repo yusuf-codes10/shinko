@@ -8,7 +8,6 @@ const projects = ref([])
 const loading = ref(false)
 const isOld = ref(false)
 const tasks = ref([])
-const tasksProgress = ref([])
 const isModalOpen = ref(false)
 const newTaskName = ref('')
 
@@ -79,23 +78,12 @@ const toggleModal = () => {
   isModalOpen.value = !isModalOpen.value
 }
 
-tasksProgress.value = [
-  {
-    id: 1,
-    title: 'Eat Sardin',
-  },
-  {
-    id: 2,
-    title: 'Clean your room',
-  },
-]
-
 const changeTitle = (event) => {
   // position where the item was dropped
   const position = event.newIndex
 
   // get the actual task from your array
-  const droppedTask = tasksProgress.value[position]
+  const droppedTask = progressTasks.value[position]
 
   // safety check
   if (!droppedTask) return
@@ -117,7 +105,7 @@ const retrieveTask = (event) => {
 // since splitting the tasks to ['todo', 'progress', 'done'] is mostly ui, vue should handle it with computed properties
 const todoTasks = computed(() => tasks.value.filter((task) => task.status === 'todo'))
 const progressTasks = computed(() => tasks.value.filter((task) => task.status === 'progress'))
-const completedTasks = computed(() => tasks.value.filter((task) => task.status === 'done'))
+// const completedTasks = computed(() => tasks.value.filter((task) => task.status === 'done'))
 </script>
 
 <template>
@@ -144,14 +132,14 @@ const completedTasks = computed(() => tasks.value.filter((task) => task.status =
       </teleport>
       <KanCard :title="'ToDo'" @create="toggleModal">
         Card 1
-        <draggable v-model="tasks" :item-key="id" group="tasks" @add="retrieveTask">
+        <draggable v-model="todoTasks" :item-key="id" group="tasks" @add="retrieveTask">
           <template #item="{ element: task }">
             <KanTask :title="task.title" @delete="deleteTask(task.id)" />
           </template>
         </draggable>
       </KanCard>
       <KanCard :title="'Progress'">
-        <draggable v-model="tasksProgress" :item-key="id" group="tasks" @add="changeTitle">
+        <draggable v-model="progressTasks" :item-key="id" group="tasks" @add="changeTitle">
           <template #item="{ element: task }">
             <KanTask :title="task.title" @delete="deleteTask(task.id)" />
           </template>
