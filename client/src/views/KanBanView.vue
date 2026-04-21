@@ -123,26 +123,14 @@ const toggleModal = () => {
   isModalOpen.value = !isModalOpen.value
 }
 
-const taskOnProgress = async (event) => {
-  // ✅ Use event.item's data-id attribute, or find by title as fallback
-  const droppedTask = progresses.value[event.newIndex]
-  if (!droppedTask) return
-
-  // ✅ Mutate the original tasks array directly — don't re-filter
-  const task = tasks.value.find((t) => t.id === droppedTask.id)
-  if (task) task.status = 'progress' // this already triggers computed to update
-
-  await updateTask(droppedTask.id, 'progress')
-}
-
-const taskOnTodo = async (event) => {
-  const droppedTask = todos.value[event.newIndex]
+const handleDrop = async (list, status, event) => {
+  const droppedTask = list.value[event.newIndex]
   if (!droppedTask) return
 
   const task = tasks.value.find((t) => t.id === droppedTask.id)
-  if (task) task.status = 'todo'
+  if (task) task.status = status
 
-  await updateTask(droppedTask.id, 'todo')
+  await updateTask(droppedTask.id, status)
 }
 </script>
 
@@ -169,21 +157,41 @@ const taskOnTodo = async (event) => {
         </div>
       </teleport>
       <KanCard :title="'ToDo'" @create="toggleModal">
-        Card 1
-        <draggable v-model="todos" item-key="id" group="tasks" @add="taskOnTodo">
+        <draggable
+          v-model="todos"
+          item-key="id"
+          group="tasks"
+          @add="(e) => handleDrop(todos, 'todo', e)"
+        >
           <template #item="{ element: task }">
             <KanTask :title="task.title" :status="task.status" @delete="deleteTask(task.id)" />
           </template>
         </draggable>
       </KanCard>
       <KanCard :title="'Progress'">
-        <draggable v-model="progresses" item-key="id" group="tasks" @add="taskOnProgress">
+        <draggable
+          v-model="progresses"
+          item-key="id"
+          group="tasks"
+          @add="(e) => handleDrop(progresses, 'progress', e)"
+        >
           <template #item="{ element: task }">
             <KanTask :title="task.title" :status="task.status" @delete="deleteTask(task.id)" />
           </template>
         </draggable>
       </KanCard>
-      <KanCard :title="'Done'"> Card 3 </KanCard>
+      <KanCard :title="'Done'">
+        <draggable
+          v-model="dones"
+          item-key="id"
+          group="tasks"
+          @add="(e) => handleDrop(dones, 'done', e)"
+        >
+          <template #item="{ element: task }">
+            <KanTask :title="task.title" :status="task.status" @delete="deleteTask(task.id)" />
+          </template>
+        </draggable>
+      </KanCard>
     </div>
   </div>
 </template>
