@@ -104,18 +104,24 @@ const toggleModal = () => {
 }
 
 const taskOnProgress = async (event) => {
-  const droppedTask = progressTasks.value[event.newIndex] // read from destination
+  // ✅ Use event.item's data-id attribute, or find by title as fallback
+  const droppedTask = progressTasks.value[event.newIndex]
   if (!droppedTask) return
+
+  // ✅ Mutate the original tasks array directly — don't re-filter
   const task = tasks.value.find((t) => t.id === droppedTask.id)
-  if (task) task.status = 'progress'
+  if (task) task.status = 'progress' // this already triggers computed to update
+
   await updateTask(droppedTask.id, 'progress')
 }
 
 const taskOnTodo = async (event) => {
-  const droppedTask = todoTasks.value[event.newIndex] // read from destination
+  const droppedTask = todoTasks.value[event.newIndex]
   if (!droppedTask) return
+
   const task = tasks.value.find((t) => t.id === droppedTask.id)
   if (task) task.status = 'todo'
+
   await updateTask(droppedTask.id, 'todo')
 }
 
@@ -123,13 +129,21 @@ const taskOnTodo = async (event) => {
 const todoTasks = computed({
   get: () => tasks.value.filter((task) => task.status === 'todo'),
   set: (val) => {
-    tasks.value = [...tasks.value.filter((task) => task.status !== 'todo'), ...val]
+    // ✅ Only sync items that moved INTO this column
+    val.forEach((item) => {
+      const task = tasks.value.find((t) => t.id === item.id)
+      if (task && task.status !== 'todo') task.status = 'todo'
+    })
   },
 })
+
 const progressTasks = computed({
   get: () => tasks.value.filter((task) => task.status === 'progress'),
   set: (val) => {
-    tasks.value = [...tasks.value.filter((task) => task.status !== 'progress'), ...val]
+    val.forEach((item) => {
+      const task = tasks.value.find((t) => t.id === item.id)
+      if (task && task.status !== 'progress') task.status = 'progress'
+    })
   },
 })
 console.log(todoTasks.value)
