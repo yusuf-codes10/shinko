@@ -103,6 +103,16 @@ const changeTitle = (event) => {
   // modify it
   droppedTask.title = 'This task has been completed'
 }
+
+const retrieveTask = (event) => {
+  const newIndex = event.newIndex
+
+  const droppedTask = tasks.value[newIndex]
+
+  if (!droppedTask) return
+
+  droppedTask.title = 'This task has to be done'
+}
 </script>
 
 <template>
@@ -129,7 +139,7 @@ const changeTitle = (event) => {
       </teleport>
       <KanCard :title="'ToDo'" @create="toggleModal">
         Card 1
-        <draggable v-model="tasks" :item-key="id" group="tasks">
+        <draggable v-model="tasks" :item-key="id" group="tasks" @add="retrieveTask">
           <template #item="{ element: task }">
             <KanTask :title="task.title" @delete="deleteTask(task.id)" />
           </template>
