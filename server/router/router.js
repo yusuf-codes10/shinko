@@ -67,7 +67,7 @@ router.delete("/:id", async (req, res) => {
 });
 
 // put request
-router.put("/cars/:id", async (req, res) => {
+router.put("/:id", async (req, res) => {
   const { id } = req.params;
   const { title, status } = req.body;
 
