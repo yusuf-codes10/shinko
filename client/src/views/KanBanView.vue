@@ -132,14 +132,14 @@ const progressTasks = computed(() => tasks.value.filter((task) => task.status ==
       </teleport>
       <KanCard :title="'ToDo'" @create="toggleModal">
         Card 1
-        <draggable v-model="todoTasks" :item-key="id" group="tasks" @add="retrieveTask">
+        <draggable v-model="todoTasks" item-key="id" group="tasks" @add="retrieveTask">
           <template #item="{ element: task }">
             <KanTask :title="task.title" @delete="deleteTask(task.id)" />
           </template>
         </draggable>
       </KanCard>
       <KanCard :title="'Progress'">
-        <draggable v-model="progressTasks" :item-key="id" group="tasks" @add="changeTitle">
+        <draggable v-model="progressTasks" item-key="id" group="tasks" @add="changeTitle">
           <template #item="{ element: task }">
             <KanTask :title="task.title" @delete="deleteTask(task.id)" />
           </template>
