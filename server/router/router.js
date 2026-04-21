@@ -32,9 +32,29 @@ router.get("/todo", async (req, res) => {
   }
 });
 
-router.get("/progress", () => {});
+router.get("/progress", async (req, res) => {
+  try {
+    const result = await pool.query(
+      "SELECT id, title, status FROM task WHERE status = 'progress'",
+    );
+    res.status(200).json(result.rows);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ msg: "Database error" });
+  }
+});
 
-router.get("/done", () => {});
+router.get("/done", async (req, res) => {
+  try {
+    const result = await pool.query(
+      "SEELCT id, title, status FROM task WHERE status = 'done'",
+    );
+    res.status(200).json(result.rows);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ msg: "Database error" });
+  }
+});
 
 // get a user by id
 router.get("/:id", async (req, res) => {
