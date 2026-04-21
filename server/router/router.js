@@ -20,7 +20,17 @@ router.get("/", async (req, res) => {
 });
 
 // more get requests
-router.get("/todo", () => {});
+router.get("/todo", async (req, res) => {
+  try {
+    const result = await pool.query(
+      "SELECT id, title, status FROM task WHERE status = 'todo'",
+    );
+    res.status(200).json(result.rows);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ msg: "Database error" });
+  }
+});
 
 router.get("/progress", () => {});
 
