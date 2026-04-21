@@ -1,7 +1,7 @@
 <script setup>
 import KanCard from '@/components/KanCard.vue'
 import KanTask from '@/components/KanTask.vue'
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted } from 'vue'
 import draggable from 'vuedraggable'
 
 const projects = ref([])
@@ -144,7 +144,7 @@ const toggleModal = () => {
 
 const taskOnProgress = async (event) => {
   // ✅ Use event.item's data-id attribute, or find by title as fallback
-  const droppedTask = progressTasks.value[event.newIndex]
+  const droppedTask = progresses.value[event.newIndex]
   if (!droppedTask) return
 
   // ✅ Mutate the original tasks array directly — don't re-filter
@@ -155,7 +155,7 @@ const taskOnProgress = async (event) => {
 }
 
 const taskOnTodo = async (event) => {
-  const droppedTask = todoTasks.value[event.newIndex]
+  const droppedTask = todos.value[event.newIndex]
   if (!droppedTask) return
 
   const task = tasks.value.find((t) => t.id === droppedTask.id)
@@ -163,31 +163,6 @@ const taskOnTodo = async (event) => {
 
   await updateTask(droppedTask.id, 'todo')
 }
-
-// since splitting the tasks to ['todo', 'progress', 'done'] is mostly ui, vue should handle it with computed properties
-const todoTasks = computed({
-  get: () => tasks.value.filter((task) => task.status === 'todo'),
-  set: (val) => {
-    // ✅ Only sync items that moved INTO this column
-    val.forEach((item) => {
-      const task = tasks.value.find((t) => t.id === item.id)
-      if (task && task.status !== 'todo') task.status = 'todo'
-    })
-  },
-})
-
-const progressTasks = computed({
-  get: () => tasks.value.filter((task) => task.status === 'progress'),
-  set: (val) => {
-    val.forEach((item) => {
-      const task = tasks.value.find((t) => t.id === item.id)
-      if (task && task.status !== 'progress') task.status = 'progress'
-    })
-  },
-})
-console.log(todoTasks.value)
-console.log(progressTasks.value)
-// const completedTasks = computed(() => tasks.value.filter((task) => task.status === 'done'))
 </script>
 
 <template>
