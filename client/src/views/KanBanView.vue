@@ -104,10 +104,14 @@ const taskOnProgress = async (event) => {
   const position = event.newIndex
 
   // get the actual task from your array
-  const droppedTask = progressTasks.value[position]
+  const droppedTask = todoTasks.value[position]
 
   // safety check
   if (!droppedTask) return
+
+  // ✅ update local state immediately so computed picks it up
+  const task = tasks.value.find((t) => t.id === droppedTask.id)
+  if (task) task.status = 'progress'
 
   // modify it
   await updateTask(droppedTask.id, 'progress')
@@ -117,9 +121,13 @@ const taskOnProgress = async (event) => {
 const taskOnTodo = async (event) => {
   const newIndex = event.newIndex
 
-  const droppedTask = tasks.value[newIndex]
+  const droppedTask = progressTasks.value[newIndex]
 
   if (!droppedTask) return
+
+  // ✅ same here
+  const task = tasks.value.find((t) => t.id === droppedTask.id)
+  if (task) task.status = 'todo'
 
   await updateTask(droppedTask.id, 'todo')
   // droppedTask.title = 'This task has to be done'
