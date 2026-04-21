@@ -49,7 +49,7 @@ router.get("/:id", async (req, res) => {
 
 // post req
 router.post("/", async (req, res) => {
-  const { title } = req.body.title;
+  const { title } = req.body;
   const status = req.body.status ?? "todo"; // use sent status or default to 'todo'
   const result = await pool.query(
     "INSERT INTO task (title, created_at, status) values ($1, now(), $2) RETURNING *",
