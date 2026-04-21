@@ -65,9 +65,9 @@ const updateTask = async (id, stat) => {
     const response = await fetch(endpoint, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: {
+      body: JSON.stringify({
         status: stat,
-      },
+      }),
     })
     const data = await response.json()
     console.log(data)
