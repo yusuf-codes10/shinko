@@ -2,6 +2,7 @@
 import KanCard from '@/components/KanCard.vue'
 import KanTask from '@/components/KanTask.vue'
 import { ref, onMounted } from 'vue'
+import draggable from 'vuedraggable'
 
 const projects = ref([])
 const loading = ref(false)
@@ -102,12 +103,11 @@ const toggleModal = () => {
       </teleport>
       <KanCard :title="'ToDo'" @create="toggleModal">
         Card 1
-        <KanTask
-          v-for="task in tasks"
-          :key="task.id"
-          :title="task.title"
-          @delete="deleteTask(task.id)"
-        />
+        <draggable v-model="tasks" :item-key="id">
+          <template #item="{ element }">
+            <KanTask :title="element.title" @delete="deleteTask(element.id)" />
+          </template>
+        </draggable>
       </KanCard>
       <KanCard :title="'Progress'"> Card 2 </KanCard>
       <KanCard :title="'Done'"> Card 3 </KanCard>
