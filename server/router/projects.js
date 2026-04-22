@@ -13,4 +13,7 @@ projectsRouter.get("/", async (req, res) => {
   }
 });
 
+// TODO: we have to update the project get req too, relative to the user
+// TODO: next is sign up and auth
+
 export default projectsRouter;
