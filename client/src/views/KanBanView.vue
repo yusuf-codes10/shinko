@@ -1,6 +1,7 @@
 <script setup>
 import KanCard from '@/components/KanCard.vue'
 import KanTask from '@/components/KanTask.vue'
+import { useRoute } from 'vue-router'
 import { ref, onMounted, computed } from 'vue'
 import draggable from 'vuedraggable'
 
@@ -12,6 +13,7 @@ const progresses = ref([])
 const dones = ref([])
 const isModalOpen = ref(false)
 const newTaskName = ref('')
+const route = useRoute()
 
 const getTaskById = async (id) => {
   const endpoint = `http://localhost:8080/api${id}`
@@ -25,8 +27,10 @@ const getTaskById = async (id) => {
   }
 }
 
+const projectId = route.params.id // reads "1" from /project/1/kanban
+
 const getTodos = async () => {
-  const endpoint = `http://localhost:8080/api/todo`
+  const endpoint = `http://localhost:8080/api/todo/${projectId}`
   try {
     const response = await fetch(endpoint)
     const data = await response.json()
@@ -37,7 +41,7 @@ const getTodos = async () => {
 }
 
 const getProgresses = async () => {
-  const endpoint = `http://localhost:8080/api/progress`
+  const endpoint = `http://localhost:8080/api/progress/${projectId}`
   try {
     const response = await fetch(endpoint)
     const data = await response.json()
@@ -48,7 +52,7 @@ const getProgresses = async () => {
 }
 
 const getDones = async () => {
-  const endpoint = `http://localhost:8080/api/done`
+  const endpoint = `http://localhost:8080/api/done/${projectId}`
   try {
     const response = await fetch(endpoint)
     const data = await response.json()
