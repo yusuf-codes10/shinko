@@ -1,4 +1,5 @@
 <script setup>
+import KanProject from '@/components/KanProject.vue'
 import { ref, onMounted } from 'vue'
 
 const projects = ref([])
@@ -23,6 +24,12 @@ onMounted(async () => {
 <template>
   <div>
     <h1>This is the projects view</h1>
+    <KanProject
+      v-for="project in projects"
+      :key="project.id"
+      :name="project.name"
+      :description="project.description"
+    />
   </div>
 </template>
 
