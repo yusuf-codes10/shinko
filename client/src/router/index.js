@@ -11,11 +11,11 @@ const routes = [
     name: 'Home',
     component: HomeView,
   },
-  {
-    path: '/kanban',
-    name: 'Kanban',
-    component: KanBanView,
-  },
+  // {
+  //   path: '/kanban',
+  //   name: 'Kanban',
+  //   component: KanBanView,
+  // },
   {
     path: '/create',
     name: 'Create',
@@ -30,6 +30,11 @@ const routes = [
     path: '/projects',
     name: 'Projects',
     component: ProjectsView,
+  },
+  {
+    path: 'project/:id',
+    name: 'Kanban',
+    componet: KanBanView,
   },
 ]
 
