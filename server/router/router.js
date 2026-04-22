@@ -91,12 +91,13 @@ router.get("/:id", async (req, res) => {
 // });
 
 // post req
-router.post("/", async (req, res) => {
+router.post("/:id", async (req, res) => {
+  const projectId = req.params.id;
   const { title } = req.body;
   const status = req.body.status ?? "todo"; // use sent status or default to 'todo'
   const result = await pool.query(
-    "INSERT INTO task (title, created_at, status) values ($1, now(), $2) RETURNING *",
-    [title, status], // do not know if it is conpatible with js now
+    "INSERT INTO task (title, created_at, status, project_id) values ($1, now(), $2, $3) RETURNING *",
+    [title, status, projectId], // do not know if it is conpatible with js now
   );
   res.status(201).json(result.rows[0]);
 });
