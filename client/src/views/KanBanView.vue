@@ -164,7 +164,12 @@ const handleDrop = async (list, status, event) => {
           @add="(e) => handleDrop(todos, 'todo', e)"
         >
           <template #item="{ element: task }">
-            <KanTask :title="task.title" :status="task.status" @delete="deleteTask(task.id)" />
+            <KanTask
+              :title="task.title"
+              :status="task.status"
+              :column="todos"
+              @delete="deleteTask(task.id, todos)"
+            />
           </template>
         </draggable>
       </KanCard>
@@ -176,7 +181,11 @@ const handleDrop = async (list, status, event) => {
           @add="(e) => handleDrop(progresses, 'progress', e)"
         >
           <template #item="{ element: task }">
-            <KanTask :title="task.title" :status="task.status" @delete="deleteTask(task.id)" />
+            <KanTask
+              :title="task.title"
+              :status="task.status"
+              @delete="deleteTask(task.id, progresses)"
+            />
           </template>
         </draggable>
       </KanCard>
@@ -188,7 +197,11 @@ const handleDrop = async (list, status, event) => {
           @add="(e) => handleDrop(dones, 'done', e)"
         >
           <template #item="{ element: task }">
-            <KanTask :title="task.title" :status="task.status" @delete="deleteTask(task.id)" />
+            <KanTask
+              :title="task.title"
+              :status="task.status"
+              @delete="deleteTask(task.id, dones)"
+            />
           </template>
         </draggable>
       </KanCard>

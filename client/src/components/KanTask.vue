@@ -7,6 +7,9 @@ const props = defineProps({
   status: {
     type: String,
   },
+  column: {
+    type: Array,
+  },
 })
 const emit = defineEmits(['delete'])
 </script>
@@ -14,7 +17,7 @@ const emit = defineEmits(['delete'])
 <template>
   <div class="bg-yellow-300 flex justify-between p-4 cursor-grab active:cursor-grabbing">
     <p>{{ props.title }} | {{ props.status }}</p>
-    <i @click="emit('delete')" class="fa-solid fa-trash cursor-pointer"></i>
+    <i @click="emit('delete', props.column)" class="fa-solid fa-trash cursor-pointer"></i>
   </div>
 </template>
 
