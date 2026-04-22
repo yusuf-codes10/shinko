@@ -34,7 +34,7 @@ const routes = [
   {
     path: '/project/:id/kanban',
     name: 'Kanban',
-    componet: KanBanView,
+    component: KanBanView,
   },
 ]
 

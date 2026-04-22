@@ -30,7 +30,7 @@ const showInfo = () => {
       class="flex flex-col justify-center items-center text-4xl px-4 py-6 bg-[#2F383D] border-white border-[0.5px] border-thin"
     >
       <h1>
-        <RouterLink :to="{ name: 'Kanban' }"> Create a New Project </RouterLink>
+        <RouterLink :to="{ name: 'Projects' }"> Create a New Project </RouterLink>
       </h1>
       <div class="flex flex-col gap-1">
         <label for="projectName">projet name</label>
