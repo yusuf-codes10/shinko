@@ -21,9 +21,11 @@ router.get("/", async (req, res) => {
 
 // more get requests
 router.get("/todo", async (req, res) => {
+  const projectId = req.params.id;
   try {
     const result = await pool.query(
-      "SELECT id, title, status FROM task WHERE status = 'todo'",
+      "SELECT id, title, status FROM task WHERE status = 'todo' AND project_id = $1",
+      [projectId],
     );
     res.status(200).json(result.rows);
   } catch (error) {
@@ -33,9 +35,11 @@ router.get("/todo", async (req, res) => {
 });
 
 router.get("/progress", async (req, res) => {
+  const projectId = req.params.id;
   try {
     const result = await pool.query(
-      "SELECT id, title, status FROM task WHERE status = 'progress'",
+      "SELECT id, title, status FROM task WHERE status = 'progress' AND project_id = $1",
+      [projectId],
     );
     res.status(200).json(result.rows);
   } catch (error) {
@@ -45,9 +49,11 @@ router.get("/progress", async (req, res) => {
 });
 
 router.get("/done", async (req, res) => {
+  const projectId = req.params.id;
   try {
     const result = await pool.query(
-      "SELECT id, title, status FROM task WHERE status = 'done'",
+      "SELECT id, title, status FROM task WHERE status = 'done' AND project_id = $1",
+      [projectId],
     );
     res.status(200).json(result.rows);
   } catch (error) {
