@@ -167,7 +167,6 @@ const handleDrop = async (list, status, event) => {
             <KanTask
               :title="task.title"
               :status="task.status"
-              :column="todos"
               @delete="deleteTask(task.id, todos)"
             />
           </template>
