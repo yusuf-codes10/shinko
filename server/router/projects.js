@@ -17,3 +17,5 @@ const projectList = [
 projectsRouter.get("/", (req, res) => {
   res.status(200).json(projectList);
 });
+
+export default projectsRouter;
