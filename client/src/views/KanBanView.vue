@@ -1,13 +1,13 @@
 <script setup>
 import KanCard from '@/components/KanCard.vue'
 import KanTask from '@/components/KanTask.vue'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import draggable from 'vuedraggable'
 
 const projects = ref([])
 const loading = ref(false)
 const isOld = ref(false)
-const tasks = ref([])
+// const tasks = ref([])
 const todos = ref([])
 const progresses = ref([])
 const dones = ref([])
@@ -140,6 +140,10 @@ const handleDrop = async (list, status, event) => {
 
   await updateTask(droppedTask.id, status)
 }
+
+const tasks = computed(() => {
+  return [...todos.value, ...progresses.value, ...dones.value]
+})
 </script>
 
 <template>
