@@ -7,7 +7,6 @@ import draggable from 'vuedraggable'
 const projects = ref([])
 const loading = ref(false)
 const isOld = ref(false)
-// const tasks = ref([])
 const todos = ref([])
 const progresses = ref([])
 const dones = ref([])
@@ -107,6 +106,7 @@ const deleteTask = async (id, arrayName) => {
   try {
     const response = await fetch(endpoint, { method: 'DELETE' })
     console.log(response)
+    // list.value = list.value.filter((task) => task.id !== id)
     if (arrayName === 'todos') {
       todos.value = todos.value.filter((task) => task.id !== id)
     } else if (arrayName === 'progresses') {
