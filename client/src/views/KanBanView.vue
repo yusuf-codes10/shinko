@@ -74,7 +74,7 @@ const createTask = async () => {
       }),
     })
     const newTask = await response.json()
-    tasks.value = [...tasks.value, newTask] // append the new task
+    todos.value = [...todos.value, newTask] // append the new task
     newTaskName.value = '' // clear input
     toggleModal() // close modal
     console.log(`this item has been created${newTask}`)

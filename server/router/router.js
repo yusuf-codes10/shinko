@@ -92,7 +92,7 @@ router.post("/", async (req, res) => {
     "INSERT INTO task (title, created_at, status) values ($1, now(), $2) RETURNING *",
     [title, status], // do not know if it is conpatible with js now
   );
-  res.status(201).json(result.rows[0]);
+  res.status(201).json(result.rows);
 });
 
 // delete
