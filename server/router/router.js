@@ -117,26 +117,31 @@ router.put("/:id", async (req, res) => {
   const { id } = req.params;
   const { title, status } = req.body;
 
-  // First check the car exists
-  const existing = await pool.query("SELECT * FROM task WHERE id = $1", [id]);
-  if (existing.rows.length === 0) {
-    return res.status(404).json({ error: "Item not Found" });
-  }
+  try {
+    // First check the car exists
+    const existing = await pool.query("SELECT * FROM task WHERE id = $1", [id]);
+    if (existing.rows.length === 0) {
+      return res.status(404).json({ error: "Item not Found" });
+    }
 
-  // Merge new values with existing ones (so partial updates work)
-  const current = existing.rows[0];
-  const updatedTitle = title ?? current.title;
-  const updatedStatus = status ?? current.status;
+    // Merge new values with existing ones (so partial updates work)
+    const current = existing.rows[0];
+    const updatedTitle = title ?? current.title;
+    const updatedStatus = status ?? current.status;
 
-  const result = await pool.query(
-    `UPDATE task
+    const result = await pool.query(
+      `UPDATE task
      SET title = $1, status = $2
      WHERE id = $3
      RETURNING *`,
-    [updatedTitle, updatedStatus, id],
-  );
+      [updatedTitle, updatedStatus, id],
+    );
 
-  res.json(result.rows[0]);
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ msg: "server error" });
+  }
 });
 
 export default router;
