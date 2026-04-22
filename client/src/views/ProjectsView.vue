@@ -27,6 +27,7 @@ onMounted(async () => {
     <KanProject
       v-for="project in projects"
       :key="project.id"
+      :id="project.id"
       :name="project.name"
       :description="project.description"
     />
