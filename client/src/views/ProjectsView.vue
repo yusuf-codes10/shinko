@@ -2,10 +2,12 @@
 import KanProject from '@/components/KanProject.vue'
 import { ref, onMounted } from 'vue'
 
+const BASE_URL = import.meta.env.VITE_API_URL
+
 const projects = ref([])
 
 const getAllProjects = async () => {
-  const endpoint = 'http://localhost:8080/api/projects'
+  const endpoint = `${BASE_URL}/api/projects`
   try {
     const response = await fetch(endpoint)
     const data = await response.json()
