@@ -20,7 +20,7 @@ router.get("/", async (req, res) => {
 });
 
 // more get requests
-router.get("/todo", async (req, res) => {
+router.get("/todo/:id", async (req, res) => {
   const projectId = req.params.id;
   try {
     const result = await pool.query(
@@ -34,7 +34,7 @@ router.get("/todo", async (req, res) => {
   }
 });
 
-router.get("/progress", async (req, res) => {
+router.get("/progress/:id", async (req, res) => {
   const projectId = req.params.id;
   try {
     const result = await pool.query(
@@ -48,7 +48,7 @@ router.get("/progress", async (req, res) => {
   }
 });
 
-router.get("/done", async (req, res) => {
+router.get("/done/:id", async (req, res) => {
   const projectId = req.params.id;
   try {
     const result = await pool.query(
