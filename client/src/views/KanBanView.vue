@@ -66,7 +66,7 @@ console.log(getTaskById)
 // post request
 const createTask = async () => {
   if (!newTaskName.value.trim()) return // guard against empty
-  const endpoint = 'http://localhost:8080/api'
+  const endpoint = `http://localhost:8080/api/${projectId}`
   try {
     const response = await fetch(endpoint, {
       method: 'POST',
