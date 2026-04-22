@@ -102,12 +102,20 @@ const updateTask = async (id, stat) => {
 }
 
 // delete request
-const deleteTask = async (id, array) => {
+const deleteTask = async (id, arrayName) => {
   const endpoint = `http://localhost:8080/api/${id}`
   try {
     const response = await fetch(endpoint, { method: 'DELETE' })
     console.log(response)
-    array.value = array.value.filter((task) => task.id !== id)
+    if (arrayName === 'todos') {
+      todos.value = todos.value.filter((task) => task.id !== id)
+    } else if (arrayName === 'progresses') {
+      progresses.value = progresses.value.filter((task) => task.id !== id)
+    } else if (arrayName === 'dones') {
+      dones.value = dones.value.filter((task) => task.id !== id)
+    } else {
+      throw Error('cannot find item')
+    }
   } catch (error) {
     console.log(error)
   }
@@ -167,7 +175,7 @@ const handleDrop = async (list, status, event) => {
             <KanTask
               :title="task.title"
               :status="task.status"
-              @delete="deleteTask(task.id, todos)"
+              @delete="deleteTask(task.id, 'todos')"
             />
           </template>
         </draggable>
@@ -183,7 +191,7 @@ const handleDrop = async (list, status, event) => {
             <KanTask
               :title="task.title"
               :status="task.status"
-              @delete="deleteTask(task.id, progresses)"
+              @delete="deleteTask(task.id, 'progresses')"
             />
           </template>
         </draggable>
@@ -199,7 +207,7 @@ const handleDrop = async (list, status, event) => {
             <KanTask
               :title="task.title"
               :status="task.status"
-              @delete="deleteTask(task.id, dones)"
+              @delete="deleteTask(task.id, 'dones')"
             />
           </template>
         </draggable>
