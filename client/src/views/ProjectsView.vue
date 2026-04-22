@@ -5,7 +5,7 @@ import { ref, onMounted } from 'vue'
 const projects = ref([])
 
 const getAllProjects = async () => {
-  const endpoint = 'http//:localhost:8080/api/projects'
+  const endpoint = 'http://localhost:8080/api/projects'
   try {
     const response = await fetch(endpoint)
     const data = await response.json()
