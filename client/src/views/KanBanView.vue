@@ -102,12 +102,12 @@ const updateTask = async (id, stat) => {
 }
 
 // delete request
-const deleteTask = async (id) => {
+const deleteTask = async (id, array) => {
   const endpoint = `http://localhost:8080/api/${id}`
   try {
     const response = await fetch(endpoint, { method: 'DELETE' })
     console.log(response)
-    tasks.value = tasks.value.filter((task) => task.id !== id)
+    array.value = array.value.filter((task) => task.id !== id)
   } catch (error) {
     console.log(error)
   }
