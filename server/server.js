@@ -1,6 +1,7 @@
 import express from "express";
 import logger from "./middlewares/logger.js";
 import router from "./router/router.js";
+import projectsRouter from "./router/projects.js";
 import cors from "cors";
 
 const app = express();
@@ -12,6 +13,7 @@ app.use(cors(corsOptions));
 app.use(logger);
 app.use(express.json()); //for reading the body
 app.use("/api", router);
+app.use("/api/projects", projectsRouter);
 
 app.listen(8080, () => {
   console.log(`server's running on 8080`);
