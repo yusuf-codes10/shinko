@@ -1,5 +1,6 @@
 // this is the register controller
 import pool from "../db/pool.js";
+import bcrypt from "bcrypt";
 
 const handleUser = async (req, res) => {
   const { username, password } = req.body;
