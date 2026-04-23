@@ -34,7 +34,6 @@ const handleUser = async (req, res) => {
       [username, hashedPassword],
     );
     res.status(201).json({ msg: `${username} has been created` });
-    console.log(newUser);
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ msg: "Internal Server Error!" });

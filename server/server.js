@@ -15,7 +15,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(logger);
 app.use(express.json()); //for reading the body
-app.use(registerRouter);
+app.use("/register", registerRouter);
 app.use("/api/projects", projectsRouter);
 app.use("/api", router);
 
