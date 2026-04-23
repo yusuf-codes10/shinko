@@ -5,7 +5,7 @@ const projectsRouter = express.Router();
 
 projectsRouter.get("/", async (req, res, next) => {
   try {
-    const result = await pool.query("SELECT * FOM project");
+    const result = await pool.query("SELECT * FROM project");
     res.status(200).json(result.rows);
   } catch (error) {
     console.log(error);
