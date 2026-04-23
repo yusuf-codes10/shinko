@@ -1,6 +1,6 @@
 
 ###
-GET http://localhost:8080/api
+GET http://localhost:8080/apikj
 
 ###
 
@@ -11,7 +11,7 @@ GET http://localhost:8080/api/2
 
 ###
 
-POST http://localhost:8080/api
+POST http://localhost:8080/api/p
 
 ###
 
@@ -19,4 +19,4 @@ DELETE http://localhost:8080/api/1
 
 # this is the get all projects route
 ###
-GET http://localhost:8080/api/projects
+GET http://localhost:8080/api/prrojects
