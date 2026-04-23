@@ -3,6 +3,7 @@ import HomeView from '@/views/HomeView.vue'
 import KanBanView from '@/views/KanBanView.vue'
 import LoginView from '@/views/LoginView.vue'
 import ProjectsView from '@/views/ProjectsView.vue'
+import RegisterView from '@/views/RegisterView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
@@ -35,6 +36,11 @@ const routes = [
     path: '/project/:id/kanban',
     name: 'Kanban',
     component: KanBanView,
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: RegisterView,
   },
 ]
 
