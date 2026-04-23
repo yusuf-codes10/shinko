@@ -9,15 +9,18 @@ const router = express.Router();
 // });
 
 // ! the postgres get request
-router.get("/", async (req, res) => {
-  try {
-    const response = await pool.query("SELECT id, title, status FROM task");
-    res.status(200).json(response.rows);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: "Database error" });
-  }
-});
+// ? this is is for testing purposes never allow this to be exposed
+// router.get("/", async (req, res) => {
+//   try {
+//     const response = await pool.query(
+//       "SELECT id, title, status, project_id FROM task",
+//     );
+//     res.status(200).json(response.rows);
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).json({ error: "Database error" });
+//   }
+// });
 
 // more get requests
 router.get("/todo/:id", async (req, res, next) => {
