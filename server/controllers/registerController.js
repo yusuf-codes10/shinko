@@ -29,6 +29,7 @@ const handleUser = async (req, res) => {
       "INSERT INTO users (username, password_hash, created_at) VALUES  ($1, $2, now())",
       [username, hashedPassword],
     );
+    res.status(201).json({ msg: `${username} has been created` });
     console.log(newUser);
   } catch (error) {
     console.log(error.message);
