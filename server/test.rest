@@ -20,3 +20,13 @@ DELETE http://localhost:8080/api/1
 # this is the get all projects route
 ###
 GET http://localhost:8080/api/prrojects
+
+###
+
+POST http://localhost:8080/register
+Content-Type: application/json
+
+{
+  "username": "youcef",
+  "password": "123456"
+}
