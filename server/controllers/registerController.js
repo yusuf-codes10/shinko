@@ -15,7 +15,7 @@ const handleUser = async (req, res) => {
     [username],
   );
 
-  if (duplicate.rows.length > 1)
+  if (duplicate.rows.length > 0)
     return res.status(400).json({ msg: "username already exists" });
   // handling the user regestering here
   try {
