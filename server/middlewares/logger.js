@@ -8,10 +8,10 @@ const logger = (req, res, next) => {
     DELETE: "red",
   };
 
-  const colorsList = methodColors[req.method] || white;
+  const colors = methodColors[req.method] || white;
   console.log(
     `${req.method} ${req.protocol}://${req.get("host")}${req.originalUrl}`[
-      colorsList
+      colors
     ],
   );
   next();
