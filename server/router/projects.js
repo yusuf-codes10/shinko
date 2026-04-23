@@ -3,13 +3,13 @@ import pool from "../db/pool.js";
 
 const projectsRouter = express.Router();
 
-projectsRouter.get("/", async (req, res) => {
+projectsRouter.get("/", async (req, res, next) => {
   try {
-    const result = await pool.query("SELECT * FROM project");
+    const result = await pool.query("SELECT * FOM project");
     res.status(200).json(result.rows);
   } catch (error) {
     console.log(error);
-    res.status(404).json({ msg: "not found" });
+    next(error);
   }
 });
 
