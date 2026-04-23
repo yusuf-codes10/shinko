@@ -9,9 +9,12 @@ const handleUser = async (req, res) => {
 
   //   we have the username and password
   // check for duplicates
-  const duplicate = await pool.query("SELECT username FROM users");
+  const duplicate = await pool.query(
+    "SELECT username FROM users WHERE username = $1",
+    [username],
+  );
 
-  if (duplicate)
+  if (duplicate.rows.length > 1)
     return res.status(400).json({ msg: "username already exists" });
   // handling the user regestering here
   try {
