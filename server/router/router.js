@@ -20,13 +20,19 @@ router.get("/", async (req, res) => {
 });
 
 // more get requests
-router.get("/todo/:id", async (req, res) => {
+router.get("/todo/:id", async (req, res, next) => {
   const projectId = req.params.id;
   try {
     const result = await pool.query(
       "SELECT id, title, status FROM task WHERE status = 'todo' AND project_id = $1",
       [projectId],
     );
+    if (result.rows.length === 0) {
+      const error = new Error("Oops! not found");
+      error.status = 404;
+      return next(error);
+    }
+
     res.status(200).json(result.rows);
   } catch (error) {
     console.log(error.message);
