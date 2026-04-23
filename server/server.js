@@ -3,6 +3,7 @@ import logger from "./middlewares/logger.js";
 import router from "./router/router.js";
 import projectsRouter from "./router/projects.js";
 import handleError from "./middlewares/errorHandler.js";
+import catchAllError from "./middlewares/catchAll.js";
 import cors from "cors";
 
 const app = express();
@@ -17,6 +18,7 @@ app.use("/api/projects", projectsRouter);
 app.use("/api", router);
 
 // custom error handler
+app.use(catchAllError);
 app.use(handleError);
 
 app.listen(8080, () => {
