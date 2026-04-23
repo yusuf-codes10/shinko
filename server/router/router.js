@@ -24,7 +24,7 @@ router.get("/todo/:id", async (req, res, next) => {
   const projectId = req.params.id;
   try {
     const result = await pool.query(
-      "SELECT id, titlus, status FROM task WHERE status = 'todo' AND project_id = $1",
+      "SELECT id, title, status FROM task WHERE status = 'todo' AND project_id = $1",
       [projectId],
     );
     res.status(200).json(result.rows);
@@ -34,17 +34,16 @@ router.get("/todo/:id", async (req, res, next) => {
   }
 });
 
-router.get("/progress/:id", async (req, res) => {
+router.get("/progress/:id", async (req, res, next) => {
   const projectId = req.params.id;
   try {
     const result = await pool.query(
-      "SELECT id, title, status FROM task WHERE status = 'progress' AND project_id = $1",
+      "SELECT id, titlus, status FROM task WHERE status = 'progress' AND project_id = $1",
       [projectId],
     );
     res.status(200).json(result.rows);
   } catch (error) {
-    console.log(error.message);
-    res.status(500).json({ msg: "Database error" });
+    next(error);
   }
 });
 
