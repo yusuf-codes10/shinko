@@ -38,7 +38,7 @@ router.get("/progress/:id", async (req, res, next) => {
   const projectId = req.params.id;
   try {
     const result = await pool.query(
-      "SELECT id, titlus, status FROM task WHERE status = 'progress' AND project_id = $1",
+      "SELECT id, title, status FROM task WHERE status = 'progress' AND project_id = $1",
       [projectId],
     );
     res.status(200).json(result.rows);
@@ -47,7 +47,7 @@ router.get("/progress/:id", async (req, res, next) => {
   }
 });
 
-router.get("/done/:id", async (req, res) => {
+router.get("/done/:id", async (req, res, next) => {
   const projectId = req.params.id;
   try {
     const result = await pool.query(
@@ -56,8 +56,7 @@ router.get("/done/:id", async (req, res) => {
     );
     res.status(200).json(result.rows);
   } catch (error) {
-    console.log(error.message);
-    res.status(500).json({ msg: "Database error" });
+    next(error);
   }
 });
 
@@ -72,22 +71,6 @@ router.get("/:id", async (req, res) => {
   }
   res.json(response.rows[0]);
 });
-
-// // get user by id
-// router.get("/:id", (req, res) => {
-//   // first grab the id from the url
-//   const id = parseInt(req.params.id);
-
-//   // find that on the data
-//   const foundData = data.find((item) => item.id === id);
-
-//   //in case not found
-//   if (!foundData) {
-//     return res.status(404).json({ msg: "User not found" });
-//   }
-
-//   res.status(200).json(foundData);
-// });
 
 // post req
 router.post("/:id", async (req, res) => {
