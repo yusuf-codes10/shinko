@@ -26,3 +26,7 @@ app.use(handleError);
 app.listen(8080, () => {
   console.log(`server's running on 8080`);
 });
+
+// TODO: write the login route, and use jwt
+// TODO: build the vue side requests to send to the apu
+// TODO: update the project router, to fetch relative to users

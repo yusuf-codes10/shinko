@@ -27,6 +27,6 @@ POST http://localhost:8080/register
 Content-Type: application/json
 
 {
-  "username": "jessica",
+  "username": "olivia",
   "password": "123456"
 }
