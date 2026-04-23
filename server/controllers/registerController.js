@@ -10,6 +10,8 @@ const handleUser = (req, res) => {
   // check for duplicates
   const duplicate = "something in the db";
 
-  if (username === duplicate)
+  if (duplicate)
     return res.status(400).json({ msg: "username already exists" });
 };
+
+export default handleUser;
