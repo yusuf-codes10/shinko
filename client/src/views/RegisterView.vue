@@ -1,11 +1,14 @@
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 const username = ref('')
 const password = ref('')
 const verifiedPassword = ref('')
 const email = ref('')
 const isLogin = ref(true)
+
+const router = useRouter()
 
 const createUser = async () => {
   const endpoint = `http://localhost:8080/register`
@@ -45,6 +48,9 @@ const logUserIn = async () => {
     })
     const data = await response.json()
     // this is where we have to store the token and redirect
+    // store token
+    localStorage.setItem('token', data.token)
+    router.push('/projects')
     console.log(data)
   } catch (error) {
     console.log(error.message)
@@ -72,18 +78,24 @@ const toggleLogin = () => {
         type="email"
         id="email"
         placeholder="example@email.com"
-        class="bg-white"
+        class="bg-white p-2"
         v-model="email"
       />
       <label for="username">Username</label>
-      <input type="text" id="username" placeholder="johnDoe" class="bg-white" v-model="username" />
+      <input
+        type="text"
+        id="username"
+        placeholder="johnDoe"
+        class="bg-white p-2"
+        v-model="username"
+      />
       <label for="password">Password</label>
       <input
         type="password"
         id="password"
         minlength="8"
         placeholder="Password ..."
-        class="bg-white"
+        class="bg-white p-2"
         v-model="password"
       />
       <label for="password">Confirm Password</label>
@@ -92,7 +104,7 @@ const toggleLogin = () => {
         id="password"
         minlength="8"
         placeholder="Confirm Password"
-        class="bg-white"
+        class="bg-white p-2"
         v-model="verifiedPassword"
       />
       <div>
@@ -112,14 +124,20 @@ const toggleLogin = () => {
     <div v-else class="flex flex-col w-80 gap-2">
       <h1 class="text-3xl extrabold">Login</h1>
       <label for="username">Username</label>
-      <input type="text" id="username" placeholder="johnDoe" class="bg-white" v-model="username" />
+      <input
+        type="text"
+        id="username"
+        placeholder="johnDoe"
+        class="bg-white p-2"
+        v-model="username"
+      />
       <label for="password">Password</label>
       <input
         type="password"
         id="password"
         minlength="8"
         placeholder="Password ..."
-        class="bg-white"
+        class="bg-white p-2"
         v-model="password"
       />
       <label for="password">Confirm Password</label>
@@ -128,7 +146,7 @@ const toggleLogin = () => {
         id="password"
         minlength="8"
         placeholder="Confirm Password"
-        class="bg-white"
+        class="bg-white p-2"
         v-model="verifiedPassword"
       />
       <div>
