@@ -30,3 +30,5 @@ app.listen(8080, () => {
 // TODO: write the login route, and use jwt
 // TODO: build the vue side requests to send to the apu
 // TODO: update the project router, to fetch relative to users
+
+// TODO: next we have to clean up the entire app
