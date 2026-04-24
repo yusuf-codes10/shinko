@@ -40,3 +40,13 @@ Content-Type: application/json
   "username": "olivia-rodrigo",
   "password": "123456"
 }
+
+###
+
+POST  http://localhost:8080/api/projects
+Content-Type: application/json
+
+{
+  "id": "22",
+  "name": "Jackson"
+}
