@@ -1,6 +1,7 @@
 // this is the register controller
 import pool from "../db/pool.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 const handleUser = async (req, res) => {
   const { username, password, email } = req.body;
