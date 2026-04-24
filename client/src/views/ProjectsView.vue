@@ -34,9 +34,9 @@ const createProject = async () => {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
-      body: {
-        name: newProjectName,
-      },
+      body: JSON.stringify({
+        name: newProjectName.value,
+      }),
     })
     const data = await response.json()
     console.log(data)
