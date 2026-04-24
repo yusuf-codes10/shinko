@@ -50,7 +50,7 @@ const logUserIn = async () => {
     // this is where we have to store the token and redirect
     // store token
     localStorage.setItem('token', data.token)
-    router.push('/projects')
+    router.push(`/${username.value}/projects`)
     console.log(data)
   } catch (error) {
     console.log(error.message)
