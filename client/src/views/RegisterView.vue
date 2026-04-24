@@ -28,6 +28,13 @@ const createUser = async () => {
     console.log(error)
   }
 }
+
+const cancelForm = () => {
+  username.value = ''
+  password.value = ''
+  verifiedPassword.value = ''
+  email.value = ''
+}
 </script>
 
 <template>
@@ -64,7 +71,7 @@ const createUser = async () => {
       <button @click="createUser" class="bg-blue-300 cursor-pointer px-2 py rounded">
         Register
       </button>
-      <button class="bg-blue-300 cursor-pointer px-2 py rounded">Cancel</button>
+      <button @click="cancelForm" class="bg-blue-300 cursor-pointer px-2 py rounded">Cancel</button>
     </div>
   </div>
 </template>

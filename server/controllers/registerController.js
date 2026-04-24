@@ -38,8 +38,8 @@ const handleUser = async (req, res) => {
 
     // add that user to the database
     await pool.query(
-      "INSERT INTO users (username, password_hash, created_at) VALUES  ($1, $2, now())",
-      [username, hashedPassword],
+      "INSERT INTO users (username, email, password_hash, created_at) VALUES  ($1, $2, $3, now())",
+      [username, email, hashedPassword],
     );
     res.status(201).json({ msg: `${username} has been created` });
   } catch (error) {
