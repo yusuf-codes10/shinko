@@ -70,7 +70,7 @@ export const logUserIn = async (req, res) => {
 
     // 3. everything good, sign a token and send it back
     const token = jwt.sign(
-      { id: user.id, email: user.email }, // payload, what you embed in the token
+      { id: user.id, email: user.email, username: user.username }, // payload, what you embed in the token
       process.env.JWT_SECRET, // secret key, keep this in .env
       { expiresIn: "7d" }, // token expires in 7 days
     );
