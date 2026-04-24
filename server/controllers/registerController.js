@@ -47,4 +47,8 @@ const handleUser = async (req, res) => {
     res.status(500).json({ msg: "Internal Server Error!" });
   }
 };
+
+const logUserIn = async (req, res) => {
+  const { username, password } = req.body;
+};
 export default handleUser;
