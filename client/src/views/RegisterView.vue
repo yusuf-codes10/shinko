@@ -5,6 +5,25 @@ const username = ref('')
 const password = ref('')
 const verifiedPassword = ref('')
 const email = ref('')
+
+const createUser = async () => {
+  const endpoint = ``
+  try {
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username: username.value,
+        password: password.value,
+        email: email.value,
+      }),
+    })
+    const data = await response.json()
+    console.log(data)
+  } catch (error) {
+    console.log(error)
+  }
+}
 </script>
 
 <template>
@@ -38,7 +57,9 @@ const email = ref('')
       v-model="verifiedPassword"
     />
     <div class="flex justify-between">
-      <button class="bg-blue-300 cursor-pointer px-2 py rounded">Register</button>
+      <button @click="createUser" class="bg-blue-300 cursor-pointer px-2 py rounded">
+        Register
+      </button>
       <button class="bg-blue-300 cursor-pointer px-2 py rounded">Cancel</button>
     </div>
   </div>
