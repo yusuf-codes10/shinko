@@ -30,6 +30,28 @@ const createUser = async () => {
   }
 }
 
+const logUserIn = async () => {
+  alert('Hey dude')
+  const endpoint = `http://localhost:8080/register/login`
+  if (password.value !== verifiedPassword.value) return console.log('password do not match')
+
+  try {
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username: username.value,
+        password: password.value,
+      }),
+    })
+    const data = await response.json()
+    // this is where we have to store the token and redirect
+    console.log(data)
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
 const cancelForm = () => {
   username.value = ''
   password.value = ''
@@ -114,9 +136,7 @@ const toggleLogin = () => {
         <p @click="toggleLogin" class="text-blue-700 underline cursor-pointer">Log in instead?</p>
       </div>
       <div class="flex justify-between">
-        <button @click="createUser" class="bg-blue-300 cursor-pointer px-2 py rounded">
-          Login
-        </button>
+        <button @click="logUserIn" class="bg-blue-300 cursor-pointer px-2 py rounded">Login</button>
         <button @click="cancelForm" class="bg-blue-300 cursor-pointer px-2 py rounded">
           Cancel
         </button>
