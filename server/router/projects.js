@@ -1,9 +1,10 @@
 import express from "express";
 import pool from "../db/pool.js";
+import authMw from "../middlewares/authMiddleWare.js";
 
 const projectsRouter = express.Router();
 
-projectsRouter.get("/", async (req, res, next) => {
+projectsRouter.get("/", authMw, async (req, res, next) => {
   try {
     const result = await pool.query("SELECT * FROM project");
     res.status(200).json(result.rows);
