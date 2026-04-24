@@ -53,12 +53,21 @@ const logUserIn = async (req, res) => {
 
   try {
     // check if the user exists
-    const user = await pool.query(
+    const result = await pool.query(
       "SELECT username FROM users WHERE username = $1",
       [username],
     );
-    if (user.rows.length > 0) {
-      return res.status(400).json({ msg: `${username} already exists!` });
+    if (result.rows.length === 0) {
+      return res.status(400).json({ msg: `${username} does not exist!` });
+    }
+    // user exits
+    const user = result.rows[0];
+
+    // check the password
+    const validPwd = await bcrypt.compare(password, user.password);
+    if (!validPwd) return res.status(401).json({ msg: "Wrong password!" });
+
+    if (grabbedPassword.row.result === 0) {
     }
   } catch (error) {
     console.log(error);
