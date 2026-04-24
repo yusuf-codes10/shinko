@@ -8,6 +8,10 @@ const email = ref('')
 
 const createUser = async () => {
   const endpoint = `http://localhost:8080/register`
+
+  // check if the two passwords match
+  if (password.value !== verifiedPassword.value) return console.log('wrong password!')
+
   try {
     const response = await fetch(endpoint, {
       method: 'POST',
