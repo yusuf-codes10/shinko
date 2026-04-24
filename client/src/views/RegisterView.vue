@@ -43,8 +43,9 @@ const toggleLogin = () => {
 </script>
 
 <template>
-  <div>
-    <div class="flex flex-col w-80 gap-2" v-if="isLogin">
+  <div class="flex justify-center items-center h-dvh">
+    <div v-if="isLogin" class="flex flex-col w-80 gap-2">
+      <h1 class="text-3xl extrabold">Create a new account</h1>
       <label for="email">Email</label>
       <input
         type="email"
@@ -87,10 +88,38 @@ const toggleLogin = () => {
         </button>
       </div>
     </div>
-    <div v-else>
-      Login in instead
+    <div v-else class="flex flex-col w-80 gap-2">
+      <h1 class="text-3xl extrabold">Login</h1>
+      <label for="username">Username</label>
+      <input type="text" id="username" placeholder="johnDoe" class="bg-white" v-model="username" />
+      <label for="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        minlength="8"
+        placeholder="Password ..."
+        class="bg-white"
+        v-model="password"
+      />
+      <label for="password">Confirm Password</label>
+      <input
+        type="password"
+        id="password"
+        minlength="8"
+        placeholder="Confirm Password"
+        class="bg-white"
+        v-model="verifiedPassword"
+      />
       <div>
         <p @click="toggleLogin" class="text-blue-700 underline cursor-pointer">Log in instead?</p>
+      </div>
+      <div class="flex justify-between">
+        <button @click="createUser" class="bg-blue-300 cursor-pointer px-2 py rounded">
+          Login
+        </button>
+        <button @click="cancelForm" class="bg-blue-300 cursor-pointer px-2 py rounded">
+          Cancel
+        </button>
       </div>
     </div>
   </div>
