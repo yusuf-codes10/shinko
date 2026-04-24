@@ -3,7 +3,7 @@ import pool from "../db/pool.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-const handleUser = async (req, res) => {
+export const handleUser = async (req, res) => {
   const { username, password, email } = req.body;
 
   if (!username || !password || !email)
@@ -49,13 +49,13 @@ const handleUser = async (req, res) => {
   }
 };
 
-const logUserIn = async (req, res) => {
+export const logUserIn = async (req, res) => {
   const { username, password } = req.body;
 
   try {
     // check if the user exists
     const result = await pool.query(
-      "SELECT username FROM users WHERE username = $1",
+      "SELECT username, password_hash  FROM users WHERE username = $1",
       [username],
     );
     if (result.rows.length === 0) {
@@ -78,7 +78,6 @@ const logUserIn = async (req, res) => {
     res.json({ token });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ msg: "Internal Server Error" });
+    res.status(500).json({ msg: error.message });
   }
 };
-export default handleUser;
