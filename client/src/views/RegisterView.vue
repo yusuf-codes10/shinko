@@ -31,7 +31,6 @@ const createUser = async () => {
 }
 
 const logUserIn = async () => {
-  alert('Hey dude')
   const endpoint = `http://localhost:8080/register/login`
   if (password.value !== verifiedPassword.value) return console.log('password do not match')
 
