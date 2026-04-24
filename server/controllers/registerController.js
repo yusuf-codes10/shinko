@@ -65,7 +65,7 @@ export const logUserIn = async (req, res) => {
     const user = result.rows[0];
 
     // check the password
-    const validPwd = await bcrypt.compare(password, user.password);
+    const validPwd = await bcrypt.compare(password, user.password_hash);
     if (!validPwd) return res.status(401).json({ msg: "Wrong password!" });
 
     // 3. everything good, sign a token and send it back
