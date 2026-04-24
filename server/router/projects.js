@@ -5,11 +5,12 @@ import authMw from "../middlewares/authMiddleWare.js";
 const projectsRouter = express.Router();
 
 projectsRouter.get("/", authMw, async (req, res, next) => {
-  const username = req.params.username;
+  // const username = req.params.username;
+  const userId = req.user.id; // <-- comes from your auth middleware
   try {
     const result = await pool.query(
       "SELECT * FROM project WHERE user_id = $1",
-      [username],
+      [userId],
     );
     res.status(200).json(result.rows);
   } catch (error) {
