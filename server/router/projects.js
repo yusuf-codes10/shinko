@@ -21,12 +21,13 @@ projectsRouter.get("/", authMw, async (req, res, next) => {
 // create a new project
 projectsRouter.post("/", authMw, async (req, res, next) => {
   // const username = req.params.username;
-  const { id, name } = req.body;
+  const { name } = req.body;
+  const userId = req.user.id; // <-- comes from your auth middleware
 
   try {
     const result = await pool.query(
       "INSERT INTO project (name, user_id, created_at) VALUES ($1, $2, NOW())",
-      [name, id],
+      [name, userId],
     );
     console.log(result);
     res.status(201).json({ msg: "project has been created successfuly" });
