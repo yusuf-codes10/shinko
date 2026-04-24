@@ -50,5 +50,19 @@ const handleUser = async (req, res) => {
 
 const logUserIn = async (req, res) => {
   const { username, password } = req.body;
+
+  try {
+    // check if the user exists
+    const user = await pool.query(
+      "SELECT username FROM users WHERE username = $1",
+      [username],
+    );
+    if (user.rows.length > 0) {
+      return res.status(400).json({ msg: `${username} already exists!` });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ msg: "Internal Server Error" });
+  }
 };
 export default handleUser;
