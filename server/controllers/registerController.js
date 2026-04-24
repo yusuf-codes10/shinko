@@ -55,7 +55,7 @@ export const logUserIn = async (req, res) => {
   try {
     // check if the user exists
     const result = await pool.query(
-      "SELECT username, password_hash  FROM users WHERE username = $1",
+      "SELECT id, username, password_hash  FROM users WHERE username = $1",
       [username],
     );
     if (result.rows.length === 0) {
