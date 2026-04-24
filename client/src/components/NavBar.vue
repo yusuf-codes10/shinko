@@ -1,11 +1,14 @@
 <script setup>
-import jwtDecode from 'jwt-decode'
+import { jwtDecode } from 'jwt-decode'
 
 const token = localStorage.getItem('token')
 
-const decoded = jwtDecode(token)
-
-console.log(decoded.username)
+let decoded = null
+console.log(decoded)
+if (token) {
+  decoded = jwtDecode(token)
+  console.log(decoded.username)
+}
 </script>
 
 <template>
