@@ -10,9 +10,15 @@ const email = ref('')
 <template>
   <div class="flex flex-col w-80 gap-2">
     <label for="email">Email</label>
-    <input type="email" id="email" placeholder="example@email.com" class="bg-white" />
+    <input
+      type="email"
+      id="email"
+      placeholder="example@email.com"
+      class="bg-white"
+      v-model="email"
+    />
     <label for="username">Username</label>
-    <input type="text" id="username" placeholder="johnDoe" class="bg-white" />
+    <input type="text" id="username" placeholder="johnDoe" class="bg-white" v-model="username" />
     <label for="password">Password</label>
     <input
       type="password"
@@ -20,6 +26,7 @@ const email = ref('')
       minlength="8"
       placeholder="Password ..."
       class="bg-white"
+      v-model="password"
     />
     <label for="password">Confirm Password</label>
     <input
@@ -28,6 +35,7 @@ const email = ref('')
       minlength="8"
       placeholder="Confirm Password"
       class="bg-white"
+      v-model="verifiedPassword"
     />
     <div class="flex justify-between">
       <button class="bg-blue-300 cursor-pointer px-2 py rounded">Register</button>
