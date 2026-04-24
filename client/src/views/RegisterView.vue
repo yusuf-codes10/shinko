@@ -7,7 +7,7 @@ const verifiedPassword = ref('')
 const email = ref('')
 
 const createUser = async () => {
-  const endpoint = ``
+  const endpoint = `http://localhost:8080/register`
   try {
     const response = await fetch(endpoint, {
       method: 'POST',
