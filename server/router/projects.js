@@ -18,6 +18,24 @@ projectsRouter.get("/", authMw, async (req, res, next) => {
   }
 });
 
+// create a new project
+projectsRouter.post("/", authMw, async (req, res, next) => {
+  // const username = req.params.username;
+  const { id, name } = req.body;
+
+  try {
+    const result = await pool.query(
+      "INSERT INTO project (name, user_id, created_at) VALUES ($1, $2, NOW())",
+      [name, id],
+    );
+    console.log(result);
+    res.status(201).json({ msg: "project has been created successfuly" });
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+});
+
 // TODO: we have to update the project get req too, relative to the user
 // TODO: next is sign up and auth
 
