@@ -1,4 +1,10 @@
 <script setup>
+import { ref } from 'vue'
+
+const username = ref('')
+const password = ref('')
+const verifiedPassword = ref('')
+const email = ref('')
 </script>
 
 <template>
@@ -7,6 +13,8 @@
     <input type="email" id="email" class="bg-white" />
     <label for="username">Username</label>
     <input type="text" id="username" class="bg-white" />
+    <label for="password">Password</label>
+    <input type="password" id="password" minlength="8" class="bg-white" />
     <label for="password">Password</label>
     <input type="password" id="password" minlength="8" class="bg-white" />
     <div class="flex justify-between">
