@@ -50,3 +50,5 @@ const router = createRouter({
 })
 
 export default router
+
+// TODO: we need to redirect /projects to the current loggend in user
