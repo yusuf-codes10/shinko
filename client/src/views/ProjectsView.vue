@@ -24,7 +24,26 @@ const getAllProjects = async () => {
   }
 }
 
-const createProject = () => {}
+const createProject = async () => {
+  const endpoint = `${BASE_URL}/api/projects`
+
+  try {
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+      body: {
+        name: newProjectName,
+      },
+    })
+    const data = await response.json()
+    console.log(data)
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 const toggleModal = () => {
   isModalOpen.value = !isModalOpen.value
