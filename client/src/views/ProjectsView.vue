@@ -9,7 +9,11 @@ const projects = ref([])
 const getAllProjects = async () => {
   const endpoint = `${BASE_URL}/api/projects`
   try {
-    const response = await fetch(endpoint)
+    const response = await fetch(endpoint, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    })
     const data = await response.json()
     console.log(data)
     return data
