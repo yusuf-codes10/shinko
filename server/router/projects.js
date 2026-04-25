@@ -1,18 +1,21 @@
 import express from "express";
-import pool from "../db/pool.js";
+import supabase from "../db/supabase.js";
 import authMw from "../middlewares/authMiddleWare.js";
 
 const projectsRouter = express.Router();
 
+// get all projects for the user
 projectsRouter.get("/", authMw, async (req, res, next) => {
-  // const username = req.params.username;
-  const userId = req.user.id; // <-- comes from your auth middleware
+  const userId = req.user.id;
   try {
-    const result = await pool.query(
-      "SELECT * FROM project WHERE user_id = $1",
-      [userId],
-    );
-    res.status(200).json(result.rows);
+    const { data, error } = await supabase
+      .from("project")
+      .select("*")
+      .eq("user_id", userId);
+
+    if (error) throw error;
+
+    res.status(200).json(data);
   } catch (error) {
     console.log(error);
     next(error);
@@ -21,24 +24,21 @@ projectsRouter.get("/", authMw, async (req, res, next) => {
 
 // create a new project
 projectsRouter.post("/", authMw, async (req, res, next) => {
-  // const username = req.params.username;
   const { name } = req.body;
-  const userId = req.user.id; // <-- comes from your auth middleware
+  const userId = req.user.id;
 
   try {
-    const result = await pool.query(
-      "INSERT INTO project (name, user_id, created_at) VALUES ($1, $2, NOW())",
-      [name, userId],
-    );
-    console.log(result);
-    res.status(201).json({ msg: "project has been created successfuly" });
+    const { error } = await supabase
+      .from("project")
+      .insert({ name, user_id: userId, created_at: new Date() });
+
+    if (error) throw error;
+
+    res.status(201).json({ msg: "project has been created successfully" });
   } catch (error) {
     console.log(error);
     next(error);
   }
 });
-
-// TODO: we have to update the project get req too, relative to the user
-// TODO: next is sign up and auth
 
 export default projectsRouter;
