@@ -5,6 +5,7 @@ import projectsRouter from "./router/projects.js";
 import registerRouter from "./router/register.js";
 import handleError from "./middlewares/errorHandler.js";
 import catchAllError from "./middlewares/catchAll.js";
+import supabase from "./db/supabase.js";
 import cors from "cors";
 
 const app = express();
@@ -12,6 +13,13 @@ const corsOptions = {
   origin: ["http://localhost:5173"],
   credentials: true,
 };
+const { data, error } = await supabase.from("users").select("*").limit(1);
+
+if (error) {
+  console.log("❌ Supabase connection failed:", error.message);
+} else {
+  console.log("✅ Supabase connected successfully!", data);
+}
 app.use(cors(corsOptions));
 app.use(logger);
 app.use(express.json()); //for reading the body
