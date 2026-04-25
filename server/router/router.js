@@ -1,38 +1,20 @@
 import express from "express";
-import pool from "../db/pool.js";
+import supabase from "../db/supabase.js";
 
 const router = express.Router();
 
-// ! the original get request
-// router.get("/", (req, res) => {
-//   res.status(200).json(data);
-// });
-
-// ! the postgres get request
-// ? this is is for testing purposes never allow this to be exposed
-// router.get("/", async (req, res) => {
-//   try {
-//     const response = await pool.query(
-//       "SELECT id, title, status, project_id FROM task",
-//     );
-//     res.status(200).json(response.rows);
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json({ error: "Database error" });
-//   }
-// });
-
-// more get requests
 router.get("/todo/:id", async (req, res, next) => {
   const projectId = req.params.id;
   try {
-    const result = await pool.query(
-      "SELECT id, title, status FROM task WHERE status = 'todo' AND project_id = $1",
-      [projectId],
-    );
-    res.status(200).json(result.rows);
+    const { data, error } = await supabase
+      .from("task")
+      .select("id, title, status")
+      .eq("status", "todo")
+      .eq("project_id", projectId);
+
+    if (error) throw error;
+    res.status(200).json(data);
   } catch (error) {
-    console.log(error.message);
     next(error);
   }
 });
@@ -40,11 +22,14 @@ router.get("/todo/:id", async (req, res, next) => {
 router.get("/progress/:id", async (req, res, next) => {
   const projectId = req.params.id;
   try {
-    const result = await pool.query(
-      "SELECT id, title, status FROM task WHERE status = 'progress' AND project_id = $1",
-      [projectId],
-    );
-    res.status(200).json(result.rows);
+    const { data, error } = await supabase
+      .from("task")
+      .select("id, title, status")
+      .eq("status", "progress")
+      .eq("project_id", projectId);
+
+    if (error) throw error;
+    res.status(200).json(data);
   } catch (error) {
     next(error);
   }
@@ -53,76 +38,84 @@ router.get("/progress/:id", async (req, res, next) => {
 router.get("/done/:id", async (req, res, next) => {
   const projectId = req.params.id;
   try {
-    const result = await pool.query(
-      "SELECT id, title, status FROM task WHERE status = 'done' AND project_id = $1",
-      [projectId],
-    );
-    res.status(200).json(result.rows);
+    const { data, error } = await supabase
+      .from("task")
+      .select("id, title, status")
+      .eq("status", "done")
+      .eq("project_id", projectId);
+
+    if (error) throw error;
+    res.status(200).json(data);
   } catch (error) {
     next(error);
   }
 });
 
-// get a user by id
 router.get("/:id", async (req, res) => {
-  const response = await pool.query(
-    "SELECT id, title FROM task WHERE task.id = $1",
-    [req.params.id], // this pervent ssql injection
-  );
-  if (response.rows.length === 0) {
-    return res.status(404).json({ msg: "error: user not found!" });
+  const { data, error } = await supabase
+    .from("task")
+    .select("id, title")
+    .eq("id", req.params.id)
+    .single();
+
+  if (error || !data) {
+    return res.status(404).json({ msg: "error: task not found!" });
   }
-  res.json(response.rows[0]);
+  res.json(data);
 });
 
-// post req
 router.post("/:id", async (req, res) => {
   const projectId = req.params.id;
   const { title } = req.body;
-  const status = req.body.status ?? "todo"; // use sent status or default to 'todo'
-  const result = await pool.query(
-    "INSERT INTO task (title, created_at, status, project_id) values ($1, now(), $2, $3) RETURNING *",
-    [title, status, projectId], // do not know if it is conpatible with js now
-  );
-  res.status(201).json(result.rows[0]);
+  const status = req.body.status ?? "todo";
+
+  const { data, error } = await supabase
+    .from("task")
+    .insert({ title, status, project_id: projectId, created_at: new Date() })
+    .select()
+    .single();
+
+  if (error) return res.status(500).json({ error: error.message });
+  res.status(201).json(data);
 });
 
-// delete
 router.delete("/:id", async (req, res) => {
-  // grab the id
-  const result = await pool.query("DELETE FROM task WHERE task.id = $1", [
-    req.params.id,
-  ]);
-  res.status(200).json(result.rows[0]);
+  const { error } = await supabase
+    .from("task")
+    .delete()
+    .eq("id", req.params.id);
+
+  if (error) return res.status(500).json({ error: error.message });
+  res.status(200).json({ msg: "task deleted successfully" });
 });
 
-// put request
 router.put("/:id", async (req, res) => {
-  // const projectId = req.params.id;
   const { id } = req.params;
   const { title, status } = req.body;
 
   try {
-    // First check the car exists
-    const existing = await pool.query("SELECT * FROM task WHERE id = $1", [id]);
-    if (existing.rows.length === 0) {
-      return res.status(404).json({ error: "Item not Found" });
+    const { data: current, error: fetchError } = await supabase
+      .from("task")
+      .select("*")
+      .eq("id", id)
+      .single();
+
+    if (fetchError || !current) {
+      return res.status(404).json({ error: "Item not found" });
     }
 
-    // Merge new values with existing ones (so partial updates work)
-    const current = existing.rows[0];
-    const updatedTitle = title ?? current.title;
-    const updatedStatus = status ?? current.status;
+    const { data, error } = await supabase
+      .from("task")
+      .update({
+        title: title ?? current.title,
+        status: status ?? current.status,
+      })
+      .eq("id", id)
+      .select()
+      .single();
 
-    const result = await pool.query(
-      `UPDATE task
-     SET title = $1, status = $2
-     WHERE id = $3
-     RETURNING *`,
-      [updatedTitle, updatedStatus, id],
-    );
-
-    res.json(result.rows[0]);
+    if (error) throw error;
+    res.json(data);
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ msg: "server error" });
