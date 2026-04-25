@@ -38,7 +38,6 @@ projectsRouter.post("/", authMw, async (req, res, next) => {
   }
 });
 
-// TODO: we have to update the project get req too, relative to the user
-// TODO: next is sign up and auth
-
 export default projectsRouter;
+
+// TODO: from now on, we are going to use supaabse istead of pool and pg
