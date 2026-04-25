@@ -1,5 +1,4 @@
-// this is the register controller
-import pool from "../db/pool.js";
+import supabase from "../db/supabase.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
@@ -9,39 +8,40 @@ export const handleUser = async (req, res) => {
   if (!username || !password || !email)
     return res.status(400).json({ msg: "username and password are required!" });
 
-  //   we have the username and password
-  // check for duplicates
-  const duplicate = await pool.query(
-    "SELECT username FROM users WHERE username = $1",
-    [username],
-  );
-
-  const duplicate_email = await pool.query(
-    "SELECT email FROM users WHERE email = $1",
-    [email],
-  );
-
-  if (duplicate.rows.length > 0)
-    return res.status(400).json({ msg: "username already exists" });
-
-  if (duplicate_email.rows.length > 0)
-    return res.status(400).json({ msg: "email already exists" });
-  // handling the user regestering here
   try {
-    // create the new user and hash the psw with bcrypt
+    // check for duplicate username
+    const { data: duplicateUser } = await supabase
+      .from("users")
+      .select("username")
+      .eq("username", username)
+      .single();
+
+    if (duplicateUser)
+      return res.status(400).json({ msg: "username already exists" });
+
+    // check for duplicate email
+    const { data: duplicateEmail } = await supabase
+      .from("users")
+      .select("email")
+      .eq("email", email)
+      .single();
+
+    if (duplicateEmail)
+      return res.status(400).json({ msg: "email already exists" });
+
+    // hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // store a new user
-    // const newUser = {
-    //   username: username,
-    //   password: hashedPassword,
-    // };
+    // insert the new user
+    const { error } = await supabase.from("users").insert({
+      username,
+      email,
+      password_hash: hashedPassword,
+      created_at: new Date(),
+    });
 
-    // add that user to the database
-    await pool.query(
-      "INSERT INTO users (username, email, password_hash, created_at) VALUES  ($1, $2, $3, now())",
-      [username, email, hashedPassword],
-    );
+    if (error) throw error;
+
     res.status(201).json({ msg: `${username} has been created` });
   } catch (error) {
     console.log(error.message);
@@ -53,26 +53,25 @@ export const logUserIn = async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    // check if the user exists
-    const result = await pool.query(
-      "SELECT id, username, password_hash  FROM users WHERE username = $1",
-      [username],
-    );
-    if (result.rows.length === 0) {
+    // check if user exists
+    const { data: user, error } = await supabase
+      .from("users")
+      .select("id, username, password_hash")
+      .eq("username", username)
+      .single();
+
+    if (error || !user)
       return res.status(400).json({ msg: `${username} does not exist!` });
-    }
-    // user exits
-    const user = result.rows[0];
 
     // check the password
     const validPwd = await bcrypt.compare(password, user.password_hash);
     if (!validPwd) return res.status(401).json({ msg: "Wrong password!" });
 
-    // 3. everything good, sign a token and send it back
+    // sign the token
     const token = jwt.sign(
-      { id: user.id, email: user.email, username: user.username }, // payload, what you embed in the token
-      process.env.JWT_SECRET, // secret key, keep this in .env
-      { expiresIn: "7d" }, // token expires in 7 days
+      { id: user.id, email: user.email, username: user.username },
+      process.env.JWT_SECRET,
+      { expiresIn: "7d" },
     );
 
     res.json({ token });
