@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { useUserStore } from '@/stores/useUserStore'
+import { useUserStore } from '@/stores/authStore.js'
 import api from '@/services/api.js'
 
 const username = ref('')
