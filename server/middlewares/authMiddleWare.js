@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 
 const authMw = (req, res, next) => {
-  const token = eq.cookies.token; // 👈 only change
+  const token = req.cookies.token; // 👈 only change
 
   if (!token) return res.status(401).json({ msg: "No token provided!" });
 

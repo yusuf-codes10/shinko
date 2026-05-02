@@ -1,57 +1,24 @@
 <script setup>
 import KanProject from '@/components/KanProject.vue'
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
+import { fetchAllProjects, useCreateProject } from '@/composables/useProjects.js'
 
-const BASE_URL = import.meta.env.VITE_API_URL
+const { projects, loading: fetching } = fetchAllProjects()
 
-const projects = ref([])
+const { create } = useCreateProject()
+
+const handleSubmit = async () => {
+  const newProject = await create({ name: newProjectName.value })
+  projects.value.push(newProject) // optimistic update
+}
+
+// const projects = ref([])
 const isModalOpen = ref(false)
 const newProjectName = ref('')
-
-const getAllProjects = async () => {
-  const endpoint = `${BASE_URL}/api/projects`
-  try {
-    const response = await fetch(endpoint, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-    })
-    const data = await response.json()
-    console.log(data)
-    return data
-  } catch (error) {
-    console.log(error)
-  }
-}
-
-const createProject = async () => {
-  const endpoint = `${BASE_URL}/api/projects`
-
-  try {
-    const response = await fetch(endpoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-      body: JSON.stringify({
-        name: newProjectName.value,
-      }),
-    })
-    const data = await response.json()
-    console.log(data)
-  } catch (error) {
-    console.log(error)
-  }
-}
 
 const toggleModal = () => {
   isModalOpen.value = !isModalOpen.value
 }
-
-onMounted(async () => {
-  projects.value = await getAllProjects()
-})
 </script>
 
 <template>
@@ -63,11 +30,15 @@ onMounted(async () => {
         <div class="modal" @click.stop>
           <label for="name">Name: </label>
           <input type="text" id="name" placeholder="name.." v-model="newProjectName" />
-          <button @click="createProject">Submit</button>
+          <button @click="handleSubmit">Submit</button>
         </div>
       </div>
     </teleport>
+    <div v-if="fetching">
+      <h2>Loading...</h2>
+    </div>
     <KanProject
+      v-else
       v-for="project in projects"
       :key="project.id"
       :id="project.id"
