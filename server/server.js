@@ -7,6 +7,7 @@ import handleError from "./middlewares/errorHandler.js";
 import catchAllError from "./middlewares/catchAll.js";
 import supabase from "./db/supabase.js";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 
 const app = express();
 const corsOptions = {
@@ -20,6 +21,8 @@ if (error) {
 } else {
   console.log("✅ Supabase connected successfully!", data);
 }
+
+app.use(cookieParser());
 app.use(cors(corsOptions));
 app.use(logger);
 app.use(express.json()); //for reading the body
