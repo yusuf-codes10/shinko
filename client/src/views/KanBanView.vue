@@ -18,7 +18,7 @@ const newTaskName = ref('')
 const route = useRoute()
 
 const getTaskById = async (id) => {
-  const endpoint = `http://localhost:8080/api${id}`
+  const endpoint = `${BASE_URL}/api/task/${id}`
   try {
     const response = await fetch(endpoint)
     const data = await response.json()
@@ -32,7 +32,7 @@ const getTaskById = async (id) => {
 const projectId = route.params.id // reads "1" from /project/1/kanban
 
 const getTodos = async () => {
-  const endpoint = `${BASE_URL}/api/todo/${projectId}`
+  const endpoint = `${BASE_URL}/api/task/todo/${projectId}`
   try {
     const response = await fetch(endpoint)
     const data = await response.json()
@@ -43,7 +43,7 @@ const getTodos = async () => {
 }
 
 const getProgresses = async () => {
-  const endpoint = `${BASE_URL}/api/progress/${projectId}`
+  const endpoint = `${BASE_URL}/api/task/progress/${projectId}`
   try {
     const response = await fetch(endpoint)
     const data = await response.json()
@@ -54,7 +54,7 @@ const getProgresses = async () => {
 }
 
 const getDones = async () => {
-  const endpoint = `${BASE_URL}/api/done/${projectId}`
+  const endpoint = `${BASE_URL}/api/task/done/${projectId}`
   try {
     const response = await fetch(endpoint)
     const data = await response.json()
@@ -68,7 +68,7 @@ console.log(getTaskById)
 // post request
 const createTask = async () => {
   if (!newTaskName.value.trim()) return // guard against empty
-  const endpoint = `${BASE_URL}/api/${projectId}`
+  const endpoint = `${BASE_URL}/api/task/${projectId}`
   try {
     const response = await fetch(endpoint, {
       method: 'POST',
@@ -90,7 +90,7 @@ const createTask = async () => {
 
 // put req
 const updateTask = async (id, stat) => {
-  const endpoint = `${BASE_URL}/api/${id}`
+  const endpoint = `${BASE_URL}/api/task/${id}`
   try {
     const response = await fetch(endpoint, {
       method: 'PUT',
@@ -108,7 +108,7 @@ const updateTask = async (id, stat) => {
 
 // delete request
 const deleteTask = async (id, arrayName) => {
-  const endpoint = `${BASE_URL}/api/${id}`
+  const endpoint = `${BASE_URL}/api/task/${id}`
   try {
     const response = await fetch(endpoint, { method: 'DELETE' })
     console.log(response)

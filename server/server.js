@@ -25,7 +25,7 @@ app.use(logger);
 app.use(express.json()); //for reading the body
 app.use("/register", registerRouter);
 app.use("/api/projects", projectsRouter);
-app.use("/api", router);
+app.use("/api/task", router);
 
 // custom error handler
 app.use(catchAllError);
