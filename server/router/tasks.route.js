@@ -1,9 +1,12 @@
 import express from "express";
-import supabase from "../db/supabase.js";
 import {
   getTodosById,
   getProgressById,
   getDonesById,
+  createNewTask,
+  deleteTask,
+  updateTask,
+  getTaskById,
 } from "../controllers/tasksController.js";
 
 const router = express.Router();
@@ -14,75 +17,13 @@ router.get("/progress/:id", getProgressById);
 
 router.get("/done/:id", getDonesById);
 
-router.get("/:id", async (req, res) => {
-  const { data, error } = await supabase
-    .from("task")
-    .select("id, title")
-    .eq("id", req.params.id)
-    .single();
+// ? Forgot the point of this
+router.get("/:id", getTaskById);
 
-  if (error || !data) {
-    return res.status(404).json({ msg: "error: task not found!" });
-  }
-  res.json(data);
-});
+router.post("/:id", createNewTask);
 
-router.post("/:id", async (req, res) => {
-  const projectId = req.params.id;
-  const { title } = req.body;
-  const status = req.body.status ?? "todo";
+router.delete("/:id", deleteTask);
 
-  const { data, error } = await supabase
-    .from("task")
-    .insert({ title, status, project_id: projectId, created_at: new Date() })
-    .select()
-    .single();
-
-  if (error) return res.status(500).json({ error: error.message });
-  res.status(201).json(data);
-});
-
-router.delete("/:id", async (req, res) => {
-  const { error } = await supabase
-    .from("task")
-    .delete()
-    .eq("id", req.params.id);
-
-  if (error) return res.status(500).json({ error: error.message });
-  res.status(200).json({ msg: "task deleted successfully" });
-});
-
-router.put("/:id", async (req, res) => {
-  const { id } = req.params;
-  const { title, status } = req.body;
-
-  try {
-    const { data: current, error: fetchError } = await supabase
-      .from("task")
-      .select("*")
-      .eq("id", id)
-      .single();
-
-    if (fetchError || !current) {
-      return res.status(404).json({ error: "Item not found" });
-    }
-
-    const { data, error } = await supabase
-      .from("task")
-      .update({
-        title: title ?? current.title,
-        status: status ?? current.status,
-      })
-      .eq("id", id)
-      .select()
-      .single();
-
-    if (error) throw error;
-    res.json(data);
-  } catch (error) {
-    console.log(error.message);
-    res.status(500).json({ msg: "server error" });
-  }
-});
+router.put("/:id", updateTask);
 
 export default router;
