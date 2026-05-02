@@ -1,4 +1,3 @@
-import CreateView from '@/views/CreateView.vue'
 import HomeView from '@/views/HomeView.vue'
 import KanBanView from '@/views/KanBanView.vue'
 import ProjectsView from '@/views/ProjectsView.vue'
@@ -16,11 +15,6 @@ const routes = [
   //   name: 'Kanban',
   //   component: KanBanView,
   // },
-  {
-    path: '/create',
-    name: 'Create',
-    component: CreateView,
-  },
   {
     path: '/:username/projects',
     name: 'Projects',
