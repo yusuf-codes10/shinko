@@ -17,5 +17,5 @@ router.get("/me", verifyToken, (req, res) => {
 });
 
 // logout
-router.get("/logout", logUserOut);
+router.post("/logout", logUserOut);
 export default router;
