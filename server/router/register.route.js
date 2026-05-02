@@ -1,5 +1,9 @@
 import express from "express";
-import { handleUser, logUserIn } from "../controllers/registerController.js";
+import {
+  handleUser,
+  logUserIn,
+  logUserOut,
+} from "../controllers/registerController.js";
 import verifyToken from "../middlewares/verifyToken.js";
 
 const router = express.Router();
@@ -12,4 +16,6 @@ router.get("/me", verifyToken, (req, res) => {
   res.status(200).json({ user: req.user });
 });
 
+// logout
+router.get("/logout", logUserOut);
 export default router;

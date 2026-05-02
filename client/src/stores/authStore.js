@@ -8,24 +8,24 @@ export const useAuthStore = defineStore('auth', () => {
 
   // * actions
   const register = async (credentials) => {
-    await api.post('/auth/register', credentials)
+    await api.post('/register', credentials)
   }
 
   const login = async (credentials) => {
-    await api.post('/auth/login', credentials)
+    await api.post('/register/login', credentials)
     // user.value = res.data.user
     await fetchUser()
     // populate user after login
   }
 
   const logout = async () => {
-    await api.post('/auth/logout')
+    await api.post('/register/logout')
     user.value = null
   }
 
   const fetchUser = async () => {
     try {
-      const res = await api.get('/auth/me')
+      const res = await api.get('/register/me')
       user.value = res.data.user
     } catch {
       user.value = null // cookie expired or invalid
