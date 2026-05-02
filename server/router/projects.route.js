@@ -2,10 +2,10 @@ import express from "express";
 import supabase from "../db/supabase.js";
 import authMw from "../middlewares/authMiddleWare.js";
 
-const projectsRouter = express.Router();
+const router = express.Router();
 
 // get all projects for the user
-projectsRouter.get("/", authMw, async (req, res, next) => {
+router.get("/", authMw, async (req, res, next) => {
   const userId = req.user.id;
   try {
     const { data, error } = await supabase
@@ -23,7 +23,7 @@ projectsRouter.get("/", authMw, async (req, res, next) => {
 });
 
 // create a new project
-projectsRouter.post("/", authMw, async (req, res, next) => {
+router.post("/", authMw, async (req, res, next) => {
   const { name } = req.body;
   const userId = req.user.id;
 
@@ -41,4 +41,4 @@ projectsRouter.post("/", authMw, async (req, res, next) => {
   }
 });
 
-export default projectsRouter;
+export default router;
