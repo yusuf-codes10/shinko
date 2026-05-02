@@ -1,8 +1,8 @@
 import express from "express";
 import logger from "./middlewares/logger.js";
-import router from "./router/router.js";
-import projectsRouter from "./router/projects.js";
-import registerRouter from "./router/register.js";
+import taskRouter from "./router/tasks.route.js";
+import projectsRouter from "./router/projects.route.js";
+import registerRouter from "./router/register.route.js";
 import handleError from "./middlewares/errorHandler.js";
 import catchAllError from "./middlewares/catchAll.js";
 import supabase from "./db/supabase.js";
@@ -25,7 +25,7 @@ app.use(logger);
 app.use(express.json()); //for reading the body
 app.use("/register", registerRouter);
 app.use("/api/projects", projectsRouter);
-app.use("/api/task", router);
+app.use("/api/task", taskRouter);
 
 // custom error handler
 app.use(catchAllError);
