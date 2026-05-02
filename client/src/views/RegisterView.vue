@@ -1,8 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { useUserStore } from '@/stores/authStore.js'
-import api from '@/services/api.js'
+import { useAuthStore } from '@/stores/authStore.js'
 
 const username = ref('')
 const password = ref('')
@@ -11,33 +10,20 @@ const email = ref('')
 const isLogin = ref(true)
 
 const router = useRouter()
-const userStore = useUserStore()
+const authStore = useAuthStore()
 
 const createUser = async () => {
   if (password.value !== verifiedPassword.value) return console.log('Passwords do not match!')
-  try {
-    const { data } = await api.post('/register', {
-      username: username.value,
-      password: password.value,
-      email: email.value,
-    })
-    console.log(data)
-  } catch (error) {
-    console.log(error)
-  }
+  await authStore.register({
+    username: username.value,
+    password: password.value,
+    email: email.value,
+  })
 }
 
 const logUserIn = async () => {
-  try {
-    const { data } = await api.post('/register/login', {
-      username: username.value,
-      password: password.value,
-    })
-    userStore.setUser(data.user) // cookie is set automatically by the browser
-    router.push(`/${username.value}/projects`)
-  } catch (error) {
-    console.log(error.message)
-  }
+  await authStore.login({ username: username.value, password: password.value })
+  router.push(`/${username.value}/projects`)
 }
 
 const cancelForm = () => {
