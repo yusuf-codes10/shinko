@@ -22,13 +22,21 @@ export const createNewProject = async (req, res, next) => {
   const userId = req.user.id;
 
   try {
-    const { error } = await supabase
+    const { data, error } = await supabase
       .from("project")
-      .insert({ name, user_id: userId, created_at: new Date() });
+      .insert([
+        {
+          name,
+          user_id: userId,
+          created_at: new Date(),
+        },
+      ])
+      .select()
+      .single();
 
     if (error) throw error;
 
-    res.status(201).json({ msg: "project has been created successfully" });
+    res.status(201).json(data);
   } catch (error) {
     console.log(error);
     next(error);
