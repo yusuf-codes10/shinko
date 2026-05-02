@@ -4,11 +4,19 @@ import ProjectsView from '@/views/ProjectsView.vue'
 import RegisterView from '@/views/RegisterView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
+import { useAuthStore } from '@/stores/authStore.js'
+
 const routes = [
   {
     path: '/',
     name: 'Home',
     component: HomeView,
+    beforeEnter: () => {
+      const auth = useAuthStore()
+      if (auth.isLoggedIn) {
+        return { name: 'DashboardHome' }
+      }
+    },
   },
   // {
   //   path: '/kanban',
@@ -29,6 +37,12 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: RegisterView,
+    beforeEnter: () => {
+      const auth = useAuthStore()
+      if (auth.isLoggedIn) {
+        return { name: 'DashboardHome' }
+      }
+    },
   },
 ]
 
