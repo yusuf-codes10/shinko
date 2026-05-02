@@ -1,6 +1,8 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useUserStore } from '@/stores/useUserStore'
+import api from '@/services/api.js'
 
 const username = ref('')
 const password = ref('')
@@ -9,24 +11,16 @@ const email = ref('')
 const isLogin = ref(true)
 
 const router = useRouter()
+const userStore = useUserStore()
 
 const createUser = async () => {
-  const endpoint = `http://localhost:8080/register`
-
-  // check if the two passwords match
-  if (password.value !== verifiedPassword.value) return console.log('wrong password!')
-
+  if (password.value !== verifiedPassword.value) return console.log('Passwords do not match!')
   try {
-    const response = await fetch(endpoint, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        username: username.value,
-        password: password.value,
-        email: email.value,
-      }),
+    const { data } = await api.post('/register', {
+      username: username.value,
+      password: password.value,
+      email: email.value,
     })
-    const data = await response.json()
     console.log(data)
   } catch (error) {
     console.log(error)
@@ -34,24 +28,13 @@ const createUser = async () => {
 }
 
 const logUserIn = async () => {
-  const endpoint = `http://localhost:8080/register/login`
-  if (password.value !== verifiedPassword.value) return console.log('password do not match')
-
   try {
-    const response = await fetch(endpoint, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        username: username.value,
-        password: password.value,
-      }),
+    const { data } = await api.post('/register/login', {
+      username: username.value,
+      password: password.value,
     })
-    const data = await response.json()
-    // this is where we have to store the token and redirect
-    // store token
-    localStorage.setItem('token', data.token)
+    userStore.setUser(data.user) // cookie is set automatically by the browser
     router.push(`/${username.value}/projects`)
-    console.log(data)
   } catch (error) {
     console.log(error.message)
   }
@@ -68,7 +51,6 @@ const toggleLogin = () => {
   isLogin.value = !isLogin.value
 }
 </script>
-
 <template>
   <div class="flex justify-center items-center h-dvh">
     <div v-if="isLogin" class="flex flex-col w-80 gap-2">
