@@ -14,7 +14,7 @@ const handleLogout = async () => {
 </script>
 
 <template>
-  <nav class="flex justify-between items-center w-full">
+  <nav class="bg-bg-base flex justify-between items-center w-full">
     <h1 class="text-3xl">Shinko</h1>
     <div v-if="isLoggedIn" class="flex justify-between gap-4">
       <h2>{{ user?.username }}</h2>

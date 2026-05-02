@@ -1,51 +1,80 @@
 @import "tailwindcss";
 
 :root {
-  --neon-purple: #8B5CF6;
-  --neon-blue: #00D4FF;
-  --dark-bg: #0A0A0A;
-  --gray: #2A2A2A;
+  /* ── Backgrounds ─────────────────────────────────────────── */
+  --color-bg-base: #0A0F1E;
+  --color-bg-surface: #111827;
+  --color-bg-raised: #1A2236;
+  --color-bg-border: #1F2D45;
+
+  /* ── Accent ──────────────────────────────────────────────── */
+  --color-accent: #00C896;
+  --color-accent-light: #33D9AB;
+  --color-accent-dark: #009E77;
+
+  /* ── Text ────────────────────────────────────────────────── */
+  --color-text-primary: #F0F4FF;
+  --color-text-secondary: #8B9FC0;
+  --color-text-muted: #4A5C7A;
+  --color-text-inverse: #0A0F1E;
+
+  /* ── Semantic ────────────────────────────────────────────── */
+  --color-danger: #F05252;
+  --color-warning: #F5A623;
+  --color-success: #00C896;
+  --color-info: #3B82F6;
+
+  /* ── Typography ──────────────────────────────────────────── */
+  --font-sans: 'DM Sans', sans-serif;
+  --font-display: 'Sora', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* ── Border Radius ───────────────────────────────────────── */
+  --radius-card: 1rem;
+  --radius-btn: 0.625rem;
+
+  /* ── Shadows ─────────────────────────────────────────────── */
+  --shadow-card: 0 0 0 1px #1F2D45, 0 4px 24px rgba(0, 0, 0, 0.4);
+  --shadow-accent: 0 0 20px rgba(0, 200, 150, 0.25);
+  --shadow-input: 0 0 0 2px rgba(0, 200, 150, 0.4);
+
 }
 
-body {
-  margin: 0;
-  height: 100vh;
-  background: var(--dark-bg);
-  overflow: hidden;
-  position: relative;
-}
+@theme {
+  /* ── Backgrounds ─────────────────────────────────────────── */
+  --color-bg-base: #0A0F1E;
+  --color-bg-surface: #111827;
+  --color-bg-raised: #1A2236;
+  --color-bg-border: #1F2D45;
 
-body::before {
-  content: "";
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(135deg,
-      var(--neon-purple),
-      var(--neon-blue),
-      var(--gray),
-      var(--dark-bg));
-  filter: blur(80px);
-  /* the magic */
-  opacity: 0.7;
-  /* control intensity */
-  z-index: -1;
-  /* behind content */
-  animation: neonPulse 8s ease infinite;
-}
+  /* ── Accent ──────────────────────────────────────────────── */
+  --color-accent: #00C896;
+  --color-accent-light: #33D9AB;
+  --color-accent-dark: #009E77;
 
-@keyframes neonPulse {
-  0% {
-    background-position: 0% 50%;
-  }
+  /* ── Text ────────────────────────────────────────────────── */
+  --color-text-primary: #F0F4FF;
+  --color-text-secondary: #8B9FC0;
+  --color-text-muted: #4A5C7A;
+  --color-text-inverse: #0A0F1E;
 
-  50% {
-    background-position: 100% 50%;
-  }
+  /* ── Semantic ────────────────────────────────────────────── */
+  --color-danger: #F05252;
+  --color-warning: #F5A623;
+  --color-success: #00C896;
+  --color-info: #3B82F6;
 
-  100% {
-    background-position: 0% 50%;
-  }
+  /* ── Typography ──────────────────────────────────────────── */
+  --font-sans: 'DM Sans', sans-serif;
+  --font-display: 'Sora', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* ── Border Radius ───────────────────────────────────────── */
+  --radius-card: 1rem;
+  --radius-btn: 0.625rem;
+
+  /* ── Shadows ─────────────────────────────────────────────── */
+  --shadow-card: 0 0 0 1px #1F2D45, 0 4px 24px rgba(0, 0, 0, 0.4);
+  --shadow-accent: 0 0 20px rgba(0, 200, 150, 0.25);
+  --shadow-input: 0 0 0 2px rgba(0, 200, 150, 0.4);
 }
