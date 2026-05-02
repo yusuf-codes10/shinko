@@ -1,4 +1,4 @@
-import supabase from "../db/supabase";
+import supabase from "../db/supabase.js";
 
 export const getAllUserProjects = async (req, res, next) => {
   const userId = req.user.id;

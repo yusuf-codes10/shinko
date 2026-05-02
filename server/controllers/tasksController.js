@@ -1,4 +1,4 @@
-import supabase from "../db/supabase";
+import supabase from "../db/supabase.js";
 
 // Get each sub task by user id
 export const getTodosById = async (req, res, next) => {
