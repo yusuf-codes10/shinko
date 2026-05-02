@@ -1,5 +1,6 @@
 import express from "express";
 import supabase from "../db/supabase.js";
+import { getTodosById } from "../controllers/tasksController.js";
 
 const router = express.Router();
 
@@ -19,21 +20,7 @@ router.get("/todo/:id", async (req, res, next) => {
   }
 });
 
-router.get("/progress/:id", async (req, res, next) => {
-  const projectId = req.params.id;
-  try {
-    const { data, error } = await supabase
-      .from("task")
-      .select("id, title, status")
-      .eq("status", "progress")
-      .eq("project_id", projectId);
-
-    if (error) throw error;
-    res.status(200).json(data);
-  } catch (error) {
-    next(error);
-  }
-});
+router.get("/progress/:id", getTodosById);
 
 router.get("/done/:id", async (req, res, next) => {
   const projectId = req.params.id;
