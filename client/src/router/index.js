@@ -18,11 +18,6 @@ const routes = [
       }
     },
   },
-  // {
-  //   path: '/kanban',
-  //   name: 'Kanban',
-  //   component: KanBanView,
-  // },
   {
     path: '/:username/projects',
     name: 'Projects',
