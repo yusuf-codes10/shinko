@@ -96,9 +96,9 @@ const deleteTheTask = async (id, arrayName) => {
 }
 
 onMounted(async () => {
-  todos.value = await getTodos()
-  progresses.value = await getProgresses()
-  dones.value = await getDones()
+  await getTodos()
+  await getProgresses()
+  await getDones()
 })
 
 const toggleModal = () => {
