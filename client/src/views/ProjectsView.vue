@@ -23,8 +23,11 @@ const toggleModal = () => {
 
 <template>
   <div>
-    <h1>This is the projects view</h1>
-    <button @click="toggleModal" class="bg-green-500 p-2 rounded">Create a new project</button>
+    <header class="flex">
+      <button @click="toggleModal" class="bg-bg-surface p-2 rounded ml-auto cursor-pointer">
+        +New Project
+      </button>
+    </header>
     <teleport to="#modal" v-if="isModalOpen">
       <div class="modal-bg" @click="toggleModal">
         <div class="modal" @click.stop>

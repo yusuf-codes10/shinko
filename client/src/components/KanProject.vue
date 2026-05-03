@@ -13,7 +13,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="p-4 m-4 bg-blue-300">
+  <div class="p-4 m-4 bg-bg-surface">
     <h1>
       <RouterLink :to="{ name: 'Kanban', params: { id: props.id } }">{{ props.name }}</RouterLink>
     </h1>
