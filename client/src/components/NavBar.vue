@@ -20,7 +20,9 @@ const handleLogout = async () => {
       <h2>{{ user?.username }}</h2>
       <button class="cursor-pointer" @click="handleLogout">logout</button>
     </div>
-    <button v-else class="bg-blue-300 px-4 py-2 cursor-pointer rounded-2xl">Login</button>
+    <RouterLink v-else :to="{ name: 'Register' }">
+      <button class="bg-blue-300 px-4 py-2 cursor-pointer rounded-2xl">Login</button>
+    </RouterLink>
   </nav>
 </template>
 
