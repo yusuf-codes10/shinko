@@ -112,7 +112,7 @@ const handleDrop = async (list, status, event) => {
   const task = tasks.value.find((t) => t.id === droppedTask.id)
   if (task) task.status = status
 
-  await updateTask(droppedTask.id, status)
+  await update(droppedTask.id, status)
 }
 
 const tasks = computed(() => {
