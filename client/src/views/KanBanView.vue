@@ -15,8 +15,6 @@ import {
   deleteTask,
 } from '@/services/taskService.js'
 
-const BASE_URL = import.meta.env.VITE_API_URL
-
 const todos = ref([])
 const progresses = ref([])
 const dones = ref([])
@@ -24,7 +22,7 @@ const isModalOpen = ref(false)
 const newTaskName = ref('')
 const route = useRoute()
 
-const getTask = async () => {}
+// const getTask = async () => {}
 
 const projectId = route.params.id // reads "1" from /project/1/kanban
 
@@ -59,7 +57,10 @@ const getDones = async () => {
 const createTask = async () => {
   if (!newTaskName.value.trim()) return // guard against empty
   try {
-    const { data } = await createNewTask({ title: newTaskName.value.trim(), status: 'todo' })
+    const { data } = await createNewTask(projectId, {
+      title: newTaskName.value.trim(),
+      status: 'todo',
+    })
     todos.value = [...todos.value, data]
     newTaskName.value = ''
     toggleModal()
@@ -76,6 +77,7 @@ const update = async (id, stat) => {
     console.log(error)
   }
 }
+console.log(update)
 
 // delete request
 const deleteTheTask = async (id, arrayName) => {
