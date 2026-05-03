@@ -24,7 +24,7 @@ const toggleModal = () => {
 <template>
   <div>
     <header class="flex">
-      <button @click="toggleModal" class="bg-bg-surface p-2 rounded ml-auto cursor-pointer">
+      <button @click="toggleModal" class="bg-bg-raised p-2 rounded ml-auto cursor-pointer">
         +New Project
       </button>
     </header>
