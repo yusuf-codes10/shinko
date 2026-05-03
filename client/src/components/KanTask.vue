@@ -12,7 +12,7 @@ const emit = defineEmits(['delete'])
 </script>
 
 <template>
-  <div class="bg-yellow-300 flex justify-between p-4 cursor-grab active:cursor-grabbing">
+  <div class="flex justify-between p-4 cursor-grab active:cursor-grabbing rounded-xl">
     <p>{{ props.title }} | {{ props.status }}</p>
     <i @click="emit('delete')" class="fa-solid fa-trash cursor-pointer"></i>
   </div>

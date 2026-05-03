@@ -7,9 +7,6 @@ import draggable from 'vuedraggable'
 
 const BASE_URL = import.meta.env.VITE_API_URL
 
-const projects = ref([])
-const loading = ref(false)
-const isOld = ref(false)
 const todos = ref([])
 const progresses = ref([])
 const dones = ref([])
@@ -154,17 +151,7 @@ const tasks = computed(() => {
 
 <template>
   <div>
-    <div v-if="isOld" class="h-screen bg-amber-600">
-      <h1 class="text-7xl">Is this woking?</h1>
-      <div v-if="loading">
-        <h1 class="text-5xl">Laoding....</h1>
-      </div>
-      <div class="bg-green-400 my-7" v-else v-for="project in projects" :key="project.id">
-        <h1>Name: {{ project.name }}</h1>
-        <h2>Status: {{ project.status }}</h2>
-      </div>
-    </div>
-    <div v-else class="grid grid-cols-3 justify-center gap-10 w-full">
+    <div class="grid grid-cols-3 justify-center gap-10 w-full">
       <teleport to="#modal" v-if="isModalOpen">
         <div class="modal-bg" @click="toggleModal">
           <div class="modal" @click.stop>
