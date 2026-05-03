@@ -118,6 +118,11 @@ const handleDrop = async (list, status, event) => {
 const tasks = computed(() => {
   return [...todos.value, ...progresses.value, ...dones.value]
 })
+
+// computed properties for count
+const todosCount = computed(() => todos.value.length)
+const progressesCount = computed(() => progresses.value.length)
+const donesCount = computed(() => dones.value.length)
 </script>
 
 <template>
@@ -133,7 +138,7 @@ const tasks = computed(() => {
         <input type="text" id="name" placeholder="name.." v-model="newTaskName" />
         <button @click="createTask">Submit</button>
       </KanModal>
-      <KanCard :title="'ToDo'" @create="toggleModal">
+      <KanCard :title="'ToDo'" :count="todosCount">
         <draggable
           v-model="todos"
           item-key="id"
@@ -149,7 +154,7 @@ const tasks = computed(() => {
           </template>
         </draggable>
       </KanCard>
-      <KanCard :title="'Progress'">
+      <KanCard :title="'Progress'" :count="progressesCount">
         <draggable
           v-model="progresses"
           item-key="id"
@@ -165,7 +170,7 @@ const tasks = computed(() => {
           </template>
         </draggable>
       </KanCard>
-      <KanCard :title="'Done'">
+      <KanCard :title="'Done'" :count="donesCount">
         <draggable
           v-model="dones"
           item-key="id"
