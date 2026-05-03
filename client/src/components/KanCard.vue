@@ -5,8 +5,6 @@ const props = defineProps({
     required: true,
   },
 })
-
-const emit = defineEmits(['create'])
 </script>
 
 <template>
@@ -14,7 +12,6 @@ const emit = defineEmits(['create'])
     <div class="border-bg-border rounded-xl border-2">
       <header class="flex justify-between">
         <h2>{{ props.title }}</h2>
-        <i @click="emit('create')" class="fa-solid fa-plus cursor-pointer"></i>
       </header>
       <slot></slot>
     </div>

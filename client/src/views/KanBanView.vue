@@ -151,6 +151,11 @@ const tasks = computed(() => {
 
 <template>
   <div>
+    <header class="felx">
+      <button @click="toggleModal" class="bg-bg-raised p-2 rounded ml-auto cursor-pointer">
+        +New Task
+      </button>
+    </header>
     <div class="grid grid-cols-3 justify-center gap-10 w-full">
       <teleport to="#modal" v-if="isModalOpen">
         <div class="modal-bg" @click="toggleModal">
