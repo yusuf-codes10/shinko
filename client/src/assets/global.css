@@ -3,9 +3,10 @@
 :root {
   /* ── Backgrounds ─────────────────────────────────────────── */
   --color-bg-base: #0A0F1E;
-  --color-bg-surface: #111827;
+  --color-bg-surface: #171527;
   --color-bg-raised: #1A2236;
   --color-bg-border: #1F2D45;
+  --color-bg-purple: #7c6dea;
 
   /* ── Accent ──────────────────────────────────────────────── */
   --color-accent: #00C896;
@@ -46,6 +47,8 @@
   --color-bg-surface: #111827;
   --color-bg-raised: #1A2236;
   --color-bg-border: #1F2D45;
+  --color-bg-purple: #7c6dea;
+
 
   /* ── Accent ──────────────────────────────────────────────── */
   --color-accent: #00C896;
@@ -77,4 +80,13 @@
   --shadow-card: 0 0 0 1px #1F2D45, 0 4px 24px rgba(0, 0, 0, 0.4);
   --shadow-accent: 0 0 20px rgba(0, 200, 150, 0.25);
   --shadow-input: 0 0 0 2px rgba(0, 200, 150, 0.4);
+}
+
+body {
+  background-color: var(--color-bg-base);
+  color: var(--color-text-primary);
+}
+
+input {
+  color: var(--color-text-muted);
 }
