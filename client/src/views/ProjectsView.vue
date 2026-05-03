@@ -1,20 +1,34 @@
 <script setup>
 import KanProject from '@/components/KanProject.vue'
-import { ref } from 'vue'
-import { fetchAllProjects, useCreateProject } from '@/composables/useProjects.js'
+import { ref, onMounted } from 'vue'
+import { getAllProjects, createProject } from '@/services/projectService.js'
 
-const { projects, loading: fetching } = fetchAllProjects()
-
-const { create } = useCreateProject()
-
-const handleSubmit = async () => {
-  const newProject = await create({ name: newProjectName.value })
-  projects.value.push(newProject) // optimistic update
-}
-
-// const projects = ref([])
+const projects = ref([])
+const loading = ref(false)
 const isModalOpen = ref(false)
 const newProjectName = ref('')
+
+onMounted(async () => {
+  try {
+    loading.value = true
+    const { data } = await getAllProjects()
+    projects.value = data
+  } catch (error) {
+    console.log(error)
+  } finally {
+    loading.value = false
+  }
+})
+
+const createNewProject = async () => {
+  try {
+    const { data } = await createProject({ name: newProjectName.value })
+    projects.value.push(data)
+    toggleModal()
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 const toggleModal = () => {
   isModalOpen.value = !isModalOpen.value
@@ -33,7 +47,7 @@ const toggleModal = () => {
         <div class="modal" @click.stop>
           <label for="name">Name: </label>
           <input type="text" id="name" placeholder="name.." v-model="newProjectName" />
-          <button @click="handleSubmit">Submit</button>
+          <button @click="createNewProject">Submit</button>
         </div>
       </div>
     </teleport>
