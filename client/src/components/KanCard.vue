@@ -12,6 +12,7 @@ const props = defineProps({
     <div class="border-bg-border rounded-xl border-2">
       <header class="flex justify-between">
         <h2>{{ props.title }}</h2>
+        <!-- TODO: we might add some sort of task category -->
       </header>
       <slot></slot>
     </div>
