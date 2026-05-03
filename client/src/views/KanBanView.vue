@@ -4,6 +4,7 @@ import KanTask from '@/components/KanTask.vue'
 import { useRoute } from 'vue-router'
 import { ref, onMounted, computed } from 'vue'
 import draggable from 'vuedraggable'
+import KanModal from '@/components/ui/KanModal.vue'
 
 const BASE_URL = import.meta.env.VITE_API_URL
 
@@ -157,15 +158,11 @@ const tasks = computed(() => {
       </button>
     </header>
     <div class="grid grid-cols-3 justify-center gap-10 w-full">
-      <teleport to="#modal" v-if="isModalOpen">
-        <div class="modal-bg" @click="toggleModal">
-          <div class="modal" @click.stop>
-            <label for="name">Name: </label>
-            <input type="text" id="name" placeholder="name.." v-model="newTaskName" />
-            <button @click="createTask">Submit</button>
-          </div>
-        </div>
-      </teleport>
+      <KanModal :isOpen="isModalOpen" @close="toggleModal">
+        <label for="name">Name: </label>
+        <input type="text" id="name" placeholder="name.." v-model="newTaskName" />
+        <button @click="createTask">Submit</button>
+      </KanModal>
       <KanCard :title="'ToDo'" @create="toggleModal">
         <draggable
           v-model="todos"
@@ -219,41 +216,5 @@ const tasks = computed(() => {
 </template>
 
 <style scoped>
-.modal-bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  z-index: 1000;
-}
-
-.modal {
-  background: white;
-  padding: 20px;
-  border-radius: 12px;
-  width: 300px;
-  max-width: 90%;
-
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-  animation: fadeIn 0.2s ease;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
 </style>
 <!-- TODO: I really hate writable computed properties -->
