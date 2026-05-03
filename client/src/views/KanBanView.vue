@@ -5,6 +5,15 @@ import { useRoute } from 'vue-router'
 import { ref, onMounted, computed } from 'vue'
 import draggable from 'vuedraggable'
 import KanModal from '@/components/ui/KanModal.vue'
+import {
+  getTodosById,
+  getProgressesById,
+  getDonesById,
+  // getTaskById,
+  createNewTask,
+  updateTask,
+  deleteTask,
+} from '@/services/taskService.js'
 
 const BASE_URL = import.meta.env.VITE_API_URL
 
@@ -15,110 +24,69 @@ const isModalOpen = ref(false)
 const newTaskName = ref('')
 const route = useRoute()
 
-const getTaskById = async (id) => {
-  const endpoint = `${BASE_URL}/api/task/${id}`
-  try {
-    const response = await fetch(endpoint)
-    const data = await response.json()
-    console.log(data)
-    return data
-  } catch (error) {
-    console.log(error)
-  }
-}
+const getTask = async () => {}
 
 const projectId = route.params.id // reads "1" from /project/1/kanban
 
 const getTodos = async () => {
-  const endpoint = `${BASE_URL}/api/task/todo/${projectId}`
   try {
-    const response = await fetch(endpoint)
-    const data = await response.json()
-    return data
+    const { data } = await getTodosById(projectId)
+    todos.value = data
   } catch (error) {
     console.log(error)
   }
 }
 
 const getProgresses = async () => {
-  const endpoint = `${BASE_URL}/api/task/progress/${projectId}`
   try {
-    const response = await fetch(endpoint)
-    const data = await response.json()
-    return data
+    const { data } = await getProgressesById(projectId)
+    progresses.value = data
   } catch (error) {
     console.log(error)
   }
 }
 
 const getDones = async () => {
-  const endpoint = `${BASE_URL}/api/task/done/${projectId}`
   try {
-    const response = await fetch(endpoint)
-    const data = await response.json()
-    return data
+    const { data } = await getDonesById(projectId)
+    dones.value = data
   } catch (error) {
     console.log(error)
   }
 }
-console.log(getTaskById)
 
 // post request
 const createTask = async () => {
   if (!newTaskName.value.trim()) return // guard against empty
-  const endpoint = `${BASE_URL}/api/task/${projectId}`
   try {
-    const response = await fetch(endpoint, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        title: newTaskName.value.trim(),
-        status: 'todo', // explicitly send status
-      }),
-    })
-    const newTask = await response.json()
-    todos.value = [...todos.value, newTask] // append the new task
-    newTaskName.value = '' // clear input
-    toggleModal() // close modal
-    console.log(`this item has been created${newTask}`)
+    const { data } = await createNewTask({ title: newTaskName.value.trim(), status: 'todo' })
+    todos.value = [...todos.value, data]
+    newTaskName.value = ''
+    toggleModal()
   } catch (error) {
     console.log(error)
   }
 }
 
 // put req
-const updateTask = async (id, stat) => {
-  const endpoint = `${BASE_URL}/api/task/${id}`
+const update = async (id, stat) => {
   try {
-    const response = await fetch(endpoint, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        status: stat,
-      }),
-    })
-    const data = await response.json()
-    console.log(data)
+    await updateTask(id, { status: stat })
   } catch (error) {
     console.log(error)
   }
 }
 
 // delete request
-const deleteTask = async (id, arrayName) => {
-  const endpoint = `${BASE_URL}/api/task/${id}`
+const deleteTheTask = async (id, arrayName) => {
   try {
-    const response = await fetch(endpoint, { method: 'DELETE' })
-    console.log(response)
-    // list.value = list.value.filter((task) => task.id !== id)
+    await deleteTask(id)
     if (arrayName === 'todos') {
       todos.value = todos.value.filter((task) => task.id !== id)
     } else if (arrayName === 'progresses') {
       progresses.value = progresses.value.filter((task) => task.id !== id)
     } else if (arrayName === 'dones') {
       dones.value = dones.value.filter((task) => task.id !== id)
-    } else {
-      throw Error('cannot find item')
     }
   } catch (error) {
     console.log(error)
@@ -174,7 +142,7 @@ const tasks = computed(() => {
             <KanTask
               :title="task.title"
               :status="task.status"
-              @delete="deleteTask(task.id, 'todos')"
+              @delete="deleteTheTask(task.id, 'todos')"
             />
           </template>
         </draggable>
@@ -190,7 +158,7 @@ const tasks = computed(() => {
             <KanTask
               :title="task.title"
               :status="task.status"
-              @delete="deleteTask(task.id, 'progresses')"
+              @delete="deleteTheTask(task.id, 'progresses')"
             />
           </template>
         </draggable>
@@ -206,7 +174,7 @@ const tasks = computed(() => {
             <KanTask
               :title="task.title"
               :status="task.status"
-              @delete="deleteTask(task.id, 'dones')"
+              @delete="deleteTheTask(task.id, 'dones')"
             />
           </template>
         </draggable>
