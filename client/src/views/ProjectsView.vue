@@ -51,7 +51,7 @@ const toggleModal = () => {
         </div>
       </div>
     </teleport>
-    <div v-if="fetching">
+    <div v-if="loading">
       <h2>Loading...</h2>
     </div>
     <KanProject
