@@ -25,6 +25,7 @@ onMounted(async () => {
   }
 })
 
+// ? FIXME: debug this
 onMounted(() => {
   console.log(`username is ${authStore.user?.username}`)
   console.log(`user id is ${authStore.user?.id}`)
