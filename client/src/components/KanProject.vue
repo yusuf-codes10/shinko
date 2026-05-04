@@ -20,7 +20,7 @@ const props = defineProps({
     <p>{{ props.description }}</p>
   </div> -->
   <div
-    class="group relative bg-bg-surface border border-bg-border rounded-card p-5 flex flex-col gap-4 hover:border-accent/40 hover:shadow-accent transition-all duration-200 cursor-pointer overflow-hidden"
+    class="group relative bg-bg-raised border border-bg-border rounded-card p-5 flex flex-col gap-4 hover:border-accent/40 hover:shadow-accent transition-all duration-200 cursor-pointer overflow-hidden"
   >
     <!-- Top accent line -->
     <div

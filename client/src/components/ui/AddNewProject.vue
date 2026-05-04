@@ -3,7 +3,7 @@
 
 <template>
   <div
-    class="group bg-bg-surface border border-dashed border-bg-border rounded-card p-5 flex flex-col items-center justify-center gap-3 hover:border-accent/50 hover:bg-bg-raised transition-all duration-200 cursor-pointer min-h-50"
+    class="group bg-bg-raised border border-dashed border-bg-border rounded-card p-5 flex flex-col items-center justify-center gap-3 hover:border-accent/50 hover:bg-bg-raised transition-all duration-200 cursor-pointer min-h-50"
   >
     <div
       class="w-10 h-10 rounded-full bg-bg-border group-hover:bg-accent/10 border border-bg-border group-hover:border-accent/30 flex items-center justify-center transition-all duration-200"
