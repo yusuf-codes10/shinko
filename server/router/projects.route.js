@@ -4,6 +4,7 @@ import {
   getAllUserProjects,
   createNewProject,
 } from "../controllers/projectsController.js";
+import { countCompletedTasksByProject } from "../repositories/project.repository.js";
 
 const router = express.Router();
 
@@ -12,5 +13,8 @@ router.get("/", authMw, getAllUserProjects);
 
 // create a new project
 router.post("/", authMw, createNewProject);
+
+// stats
+router.get("/count", authMw, countCompletedTasksByProject);
 
 export default router;
