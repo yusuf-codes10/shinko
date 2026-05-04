@@ -129,7 +129,7 @@ const donesCount = computed(() => dones.value.length)
 <template>
   <div>
     <header class="felx">
-      <KanButton @click="toggleModal" :btnTitle="'+New Task'" />
+      <KanButton :isDisabled="true" @click="toggleModal" :btnTitle="'+New Task'" />
     </header>
     <div class="grid grid-cols-3 justify-center gap-10 w-full">
       <KanModal :isOpen="isModalOpen" @close="toggleModal">
