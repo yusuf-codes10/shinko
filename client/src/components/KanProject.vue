@@ -64,7 +64,7 @@ const props = defineProps({
 
     <!-- Description -->
     <p class="text-text-secondary text-xs leading-relaxed line-clamp-2">
-      Tokens, components, and guidelines for the entire shinko product suite.
+      {{ props.description }}
     </p>
 
     <!-- Progress -->

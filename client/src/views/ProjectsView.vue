@@ -38,11 +38,11 @@ const toggleModal = () => {
 
 <template>
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl">
-    <header class="flex">
+    <!-- <header class="flex">
       <button @click="toggleModal" class="bg-bg-raised p-2 rounded ml-auto cursor-pointer">
         +New Project
       </button>
-    </header>
+    </header> -->
     <KanModal :isOpen="isModalOpen" @close="toggleModal">
       <label for="name">Name: </label>
       <input type="text" id="name" placeholder="name.." v-model="newProjectName" />
