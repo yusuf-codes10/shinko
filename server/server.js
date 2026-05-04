@@ -11,7 +11,7 @@ import cookieParser from "cookie-parser";
 
 const app = express();
 const corsOptions = {
-  origin: ["http://localhost:5173"],
+  origin: [process.env.CLIENT_URL],
   credentials: true,
 };
 const { data, error } = await supabase.from("users").select("*").limit(1);
