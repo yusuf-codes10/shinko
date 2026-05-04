@@ -3,6 +3,7 @@ import KanProject from '@/components/KanProject.vue'
 import { ref, onMounted } from 'vue'
 import { getAllProjects, createProject } from '@/services/projectService.js'
 import KanModal from '@/components/ui/KanModal.vue'
+import AddNewProject from '@/components/ui/AddNewProject.vue'
 
 const projects = ref([])
 const loading = ref(false)
@@ -48,6 +49,7 @@ const toggleModal = () => {
       <input type="text" id="name" placeholder="name.." v-model="newProjectName" />
       <button @click="createNewProject">Submit</button>
     </KanModal>
+    <AddNewProject />
     <div v-if="loading">
       <h2>Loading...</h2>
     </div>
