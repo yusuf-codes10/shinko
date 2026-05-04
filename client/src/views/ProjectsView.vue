@@ -5,11 +5,13 @@ import { getAllProjects, createProject } from '@/services/projectService.js'
 import KanModal from '@/components/ui/KanModal.vue'
 import AddNewProject from '@/components/ui/AddNewProject.vue'
 import KanButton from '@/components/ui/KanButton.vue'
+import { useAuthStore } from '@/stores/authStore.js'
 
 const projects = ref([])
 const loading = ref(false)
 const isModalOpen = ref(false)
 const newProjectName = ref('')
+const authStore = useAuthStore()
 
 onMounted(async () => {
   try {
@@ -21,6 +23,12 @@ onMounted(async () => {
   } finally {
     loading.value = false
   }
+})
+
+onMounted(() => {
+  console.log(`username is ${authStore.user?.username}`)
+  console.log(`user id is ${authStore.user?.id}`)
+  console.log(`user is ${authStore.user}`)
 })
 
 const createNewProject = async () => {
