@@ -11,7 +11,7 @@ import cookieParser from "cookie-parser";
 
 const app = express();
 const corsOptions = {
-  origin: [process.env.CLIENT_URL],
+  origin: ["https://shinko-two.vercel.app"],
   credentials: true,
 };
 const { data, error } = await supabase.from("users").select("*").limit(1);
