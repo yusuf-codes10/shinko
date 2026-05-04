@@ -7,6 +7,9 @@ defineEmits(['close'])
   <teleport to="#modal" v-if="isOpen">
     <div class="modal-bg" @click="$emit('close')">
       <div class="modal" @click.stop>
+        <h2 class="font-display text-xs uppercase tracking-widest text-text-muted font-semibold">
+          Inputs
+        </h2>
         <slot />
         <!-- anything you put inside <Modal> renders here -->
       </div>
@@ -29,7 +32,7 @@ defineEmits(['close'])
 }
 
 .modal {
-  background: white;
+  background: var(--color-bg-raised);
   padding: 20px;
   border-radius: 12px;
   width: 300px;
