@@ -5,6 +5,7 @@ import RegisterView from '@/views/RegisterView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 import { useAuthStore } from '@/stores/authStore.js'
+import GlobalView from '@/views/GlobalView.vue'
 
 const routes = [
   {
@@ -38,6 +39,11 @@ const routes = [
         return { name: 'DashboardHome' }
       }
     },
+  },
+  {
+    path: '/global',
+    name: 'Global',
+    component: GlobalView,
   },
 ]
 
