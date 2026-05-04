@@ -37,6 +37,7 @@ const toggleModal = () => {
   isModalOpen.value = !isModalOpen.value
 }
 
+// TODO: we should change this to computed property
 const checkNewProjectName = () => (newProjectName.value ? true : false)
 </script>
 
@@ -56,6 +57,14 @@ const checkNewProjectName = () => (newProjectName.value ? true : false)
           class="w-full bg-bg-raised border border-bg-border text-text-primary placeholder:text-text-muted text-sm px-3.5 py-2.5 rounded-btn focus:outline-none focus:border-accent focus:shadow-input transition-all duration-150"
           v-model="newProjectName"
         />
+        <div class="flex flex-col gap-1.5">
+          <label class="text-xs font-medium text-text-secondary">Description</label>
+          <textarea
+            placeholder="What's this project about?"
+            rows="3"
+            class="w-full bg-bg-raised border border-bg-border text-text-primary placeholder:text-text-muted text-sm px-3.5 py-2.5 rounded-btn resize-none focus:outline-none focus:border-accent focus:shadow-input transition-all duration-150"
+          />
+        </div>
         <KanButton
           :isDisabled="checkNewProjectName()"
           @click="createNewProject"
