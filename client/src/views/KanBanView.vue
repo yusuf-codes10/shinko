@@ -14,6 +14,7 @@ import {
   updateTask,
   deleteTask,
 } from '@/services/taskService.js'
+import KanButton from '@/components/ui/KanButton.vue'
 
 const todos = ref([])
 const progresses = ref([])
@@ -128,9 +129,7 @@ const donesCount = computed(() => dones.value.length)
 <template>
   <div>
     <header class="felx">
-      <button @click="toggleModal" class="bg-bg-raised p-2 rounded ml-auto cursor-pointer">
-        +New Task
-      </button>
+      <KanButton @click="toggleModal" :btnTitle="'+New Task'" />
     </header>
     <div class="grid grid-cols-3 justify-center gap-10 w-full">
       <KanModal :isOpen="isModalOpen" @close="toggleModal">
