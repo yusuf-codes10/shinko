@@ -6,7 +6,7 @@ const props = defineProps({
 
 <template>
   <button
-    class="inline-flex items-center gap-2 bg-bg-purple hover:bg-purple/50 text-text-inverse font-medium text-sm px-4 py-2 rounded-btn transition-all duration-150 hover:shadow-accent cursor-pointer"
+    class="inline-flex items-center gap-2 bg-accent hover:bg-accent-light text-text-inverse font-medium text-sm px-4 py-2 rounded-btn transition-all duration-150 hover:shadow-accent cursor-pointer"
   >
     {{ props.btnTitle }}
   </button>
