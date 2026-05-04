@@ -36,6 +36,8 @@ const createNewProject = async () => {
 const toggleModal = () => {
   isModalOpen.value = !isModalOpen.value
 }
+
+const checkNewProjectName = () => (newProjectName.value ? true : false)
 </script>
 
 <template>
@@ -54,7 +56,11 @@ const toggleModal = () => {
           class="w-full bg-bg-raised border border-bg-border text-text-primary placeholder:text-text-muted text-sm px-3.5 py-2.5 rounded-btn focus:outline-none focus:border-accent focus:shadow-input transition-all duration-150"
           v-model="newProjectName"
         />
-        <KanButton :disabled="true" @click="createNewProject" :btnTitle="'Submit'" />
+        <KanButton
+          :isDisabled="checkNewProjectName()"
+          @click="createNewProject"
+          :btnTitle="'Submit'"
+        />
       </div>
     </KanModal>
     <AddNewProject @click="toggleModal" />
