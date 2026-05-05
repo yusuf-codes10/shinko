@@ -50,7 +50,7 @@ const createNewProject = async () => {
 const testCount = async (id) => {
   try {
     const { data } = await countCompletedTasksByProject(id)
-    console.log(`the count data is: ${data}`)
+    console.log(`the count data is: ${data.count}`)
   } catch (error) {
     console.log(error)
   }
