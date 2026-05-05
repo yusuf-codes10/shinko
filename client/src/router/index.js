@@ -52,6 +52,14 @@ const router = createRouter({
   routes,
 })
 
+// runs before every route, guarantees user is resolved before any component mounts
+router.beforeEach(async () => {
+  const authStore = useAuthStore()
+  if (authStore.user === null) {
+    await authStore.fetchUser()
+  }
+})
+
 export default router
 
 // TODO: we need to redirect /projects to the current loggend in user
