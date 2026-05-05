@@ -1,13 +1,15 @@
-import pool from "../db/pool.js";
+export const countCompletedTasksByProject = async (req, res) => {
+  const { id } = req.params; // project id from URL
+  const userId = req.user.id; // user from session
 
-export const countCompletedTasksByProject = async (userId, projectId) => {
   const { rows } = await pool.query(
-    `SELECT Count(*) FROM Project
-    join task on task.project_id = project.id
-    where project.user_id = $1 and project_id = $2
-    group by task.status
-    having task.status = 'done'; `,
-    [userId, projectId],
+    `SELECT COUNT(*) FROM project
+     JOIN task ON task.project_id = project.id
+     WHERE project.user_id = $1 AND project_id = $2
+     GROUP BY task.status
+     HAVING task.status = 'done'`,
+    [userId, id],
   );
-  return rows[0];
+
+  res.json({ count: rows[0]?.count ?? 0 }); // returning 0 in case no result
 };

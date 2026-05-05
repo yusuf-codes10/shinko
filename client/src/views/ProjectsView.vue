@@ -1,7 +1,11 @@
 <script setup>
 import KanProject from '@/components/KanProject.vue'
 import { ref, onMounted, computed } from 'vue'
-import { getAllProjects, createProject } from '@/services/projectService.js'
+import {
+  getAllProjects,
+  createProject,
+  countCompletedTasksByProject,
+} from '@/services/projectService.js'
 import KanModal from '@/components/ui/KanModal.vue'
 import AddNewProject from '@/components/ui/AddNewProject.vue'
 import KanButton from '@/components/ui/KanButton.vue'
@@ -30,6 +34,7 @@ onMounted(() => {
   console.log(`username is ${authStore.user?.username}`)
   console.log(`user id is ${authStore.user?.id}`)
   console.log(`user is ${authStore.user}`)
+  testCount(authStore.user?.id)
 })
 
 const createNewProject = async () => {
@@ -37,6 +42,15 @@ const createNewProject = async () => {
     const { data } = await createProject({ name: newProjectName.value })
     projects.value.push(data)
     toggleModal()
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const testCount = async (id) => {
+  try {
+    const { data } = await countCompletedTasksByProject(id)
+    console.log(`the count data is: ${data}`)
   } catch (error) {
     console.log(error)
   }
