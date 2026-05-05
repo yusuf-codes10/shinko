@@ -11,5 +11,5 @@ export const countCompletedTasksByProject = async (userId, projectId) => {
     [userId, projectId],
   );
 
-  return { count: rows[0]?.count ?? 0 }; // returning 0 in case no result
+  return Number(rows[0]?.count) || 0;
 };
