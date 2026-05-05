@@ -20,9 +20,10 @@ const routes = [
     },
   },
   {
-    path: '/:username/projects',
+    path: '/projects',
     name: 'Projects',
     component: ProjectsView,
+    meta: { requiresAuth: true },
   },
   {
     path: '/project/:id/kanban',
