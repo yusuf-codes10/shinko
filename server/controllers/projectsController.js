@@ -48,6 +48,7 @@ export const createNewProject = async (req, res, next) => {
 export const getCompletedTasksCount = async (req, res) => {
   const { id } = req.params;
   const userId = req.user.id;
-  const result = await countCompletedTasksByProject(userId, id);
-  res.json({ count: result?.count ?? 0 });
+  console.log("projectId:", id, "userId:", userId); // 👈 add this to verify values
+  const count = await countCompletedTasksByProject(userId, id);
+  res.json({ count });
 };
