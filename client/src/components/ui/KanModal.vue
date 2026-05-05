@@ -1,5 +1,13 @@
 <script setup>
-defineProps(['isOpen'])
+const props = defineProps({
+  isOpen: {
+    type: Boolean,
+    default: false,
+  },
+  title: {
+    type: String,
+  },
+})
 defineEmits(['close'])
 </script>
 
@@ -8,7 +16,7 @@ defineEmits(['close'])
     <div class="modal-bg" @click="$emit('close')">
       <div class="modal" @click.stop>
         <h2 class="font-display text-xs uppercase tracking-widest text-text-muted font-semibold">
-          Inputs
+          {{ props?.title }}
         </h2>
         <slot />
         <!-- anything you put inside <Modal> renders here -->

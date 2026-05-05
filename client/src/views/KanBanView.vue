@@ -126,7 +126,8 @@ const progressesCount = computed(() => progresses.value.length)
 const donesCount = computed(() => dones.value.length)
 
 // TODO: this also needs to be a computed property
-const checkNewTaskName = () => (newTaskName.value ? true : false)
+// const checkNewTaskName = () => (newTaskName.value ? true : false)
+const checkedTaskName = computed(() => !!newTaskName.value)
 </script>
 
 <template>
@@ -135,10 +136,7 @@ const checkNewTaskName = () => (newTaskName.value ? true : false)
       <KanButton :isDisabled="true" @click="toggleModal" :btnTitle="'+New Task'" />
     </header>
     <div class="grid grid-cols-3 justify-center gap-10 w-full">
-      <KanModal :isOpen="isModalOpen" @close="toggleModal">
-        <!-- <label for="name">Name: </label>
-        <input type="text" id="name" placeholder="name.." v-model="newTaskName" /> -->
-        <!-- <button @click="createTask">Submit</button> -->
+      <KanModal :isOpen="isModalOpen" :title="'Task'" @close="toggleModal">
         <div class="flex flex-col gap-1.5">
           <label class="text-xs font-medium text-text-secondary">Task title</label>
           <input
@@ -155,7 +153,7 @@ const checkNewTaskName = () => (newTaskName.value ? true : false)
               class="w-full bg-bg-raised border border-bg-border text-text-primary placeholder:text-text-muted text-sm px-3.5 py-2.5 rounded-btn resize-none focus:outline-none focus:border-accent focus:shadow-input transition-all duration-150"
             />
           </div>
-          <KanButton :isDisabled="checkNewTaskName()" @click="createTask" :btnTitle="'Submit'" />
+          <KanButton :isDisabled="checkedTaskName" @click="createTask" :btnTitle="'Submit'" />
         </div>
       </KanModal>
       <KanCard :title="'ToDo'" :count="todosCount">

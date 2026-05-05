@@ -1,6 +1,6 @@
 <script setup>
 import KanProject from '@/components/KanProject.vue'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { getAllProjects, createProject } from '@/services/projectService.js'
 import KanModal from '@/components/ui/KanModal.vue'
 import AddNewProject from '@/components/ui/AddNewProject.vue'
@@ -47,7 +47,8 @@ const toggleModal = () => {
 }
 
 // TODO: we should change this to computed property
-const checkNewProjectName = () => (newProjectName.value ? true : false)
+// const checkNewProjectName = () => (newProjectName.value ? true : false)
+const checkedProjectName = computed(() => !!newProjectName.value)
 </script>
 
 <template>
@@ -57,7 +58,7 @@ const checkNewProjectName = () => (newProjectName.value ? true : false)
         +New Project
       </button>
     </header> -->
-    <KanModal :isOpen="isModalOpen" @close="toggleModal">
+    <KanModal :title="'Project'" :isOpen="isModalOpen" @close="toggleModal">
       <div class="flex flex-col gap-1.5">
         <label class="text-xs font-medium text-text-secondary">Project name</label>
         <input
@@ -75,7 +76,7 @@ const checkNewProjectName = () => (newProjectName.value ? true : false)
           />
         </div>
         <KanButton
-          :isDisabled="checkNewProjectName()"
+          :isDisabled="checkedProjectName"
           @click="createNewProject"
           :btnTitle="'Submit'"
         />
