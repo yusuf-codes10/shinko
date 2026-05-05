@@ -15,6 +15,6 @@ router.get("/", authMw, getAllUserProjects);
 router.post("/", authMw, createNewProject);
 
 // stats
-router.get("/count", authMw, getCompletedTasksCount);
+router.get("/:id/count", authMw, getCompletedTasksCount);
 
 export default router;
