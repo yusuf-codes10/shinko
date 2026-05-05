@@ -1,3 +1,6 @@
+// repositories/project.repository.js
+import pool from "../db/pool.js";
+
 export const countCompletedTasksByProject = async (userId, projectId) => {
   const { rows } = await pool.query(
     `SELECT COUNT(*) FROM project
