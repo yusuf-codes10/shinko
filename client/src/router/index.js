@@ -15,7 +15,7 @@ const routes = [
     beforeEnter: () => {
       const auth = useAuthStore()
       if (auth.isLoggedIn) {
-        return { name: 'DashboardHome' }
+        return { name: 'Home' }
       }
     },
   },
@@ -37,7 +37,7 @@ const routes = [
     beforeEnter: () => {
       const auth = useAuthStore()
       if (auth.isLoggedIn) {
-        return { name: 'DashboardHome' }
+        return { name: 'Home' }
       }
     },
   },
