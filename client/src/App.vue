@@ -5,8 +5,8 @@ import { useAuthStore } from '@/stores/authStore'
 
 const authStore = useAuthStore()
 
-onMounted(() => {
-  authStore.fetchUser()
+onMounted(async () => {
+  await authStore.fetchUser()
 })
 </script>
 
