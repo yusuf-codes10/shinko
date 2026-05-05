@@ -3,8 +3,8 @@ import authMw from "../middlewares/authMiddleWare.js";
 import {
   getAllUserProjects,
   createNewProject,
+  getCompletedTasksCount,
 } from "../controllers/projectsController.js";
-import { countCompletedTasksByProject } from "../repositories/project.repository.js";
 
 const router = express.Router();
 
@@ -15,6 +15,6 @@ router.get("/", authMw, getAllUserProjects);
 router.post("/", authMw, createNewProject);
 
 // stats
-router.get("/count", authMw, countCompletedTasksByProject);
+router.get("/count", authMw, getCompletedTasksCount);
 
 export default router;

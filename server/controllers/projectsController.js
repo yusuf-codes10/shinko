@@ -1,4 +1,5 @@
 import supabase from "../db/supabase.js";
+import { countCompletedTasksByProject } from "../repositories/project.repository.js";
 
 export const getAllUserProjects = async (req, res, next) => {
   const userId = req.user.id;
@@ -41,4 +42,12 @@ export const createNewProject = async (req, res, next) => {
     console.log(error);
     next(error);
   }
+};
+
+// controllers/projectsController.js
+export const getCompletedTasksCount = async (req, res) => {
+  const { id } = req.params;
+  const userId = req.user.id;
+  const result = await countCompletedTasksByProject(userId, id);
+  res.json({ count: result?.count ?? 0 });
 };
