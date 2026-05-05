@@ -74,7 +74,7 @@ const authStore = useAuthStore()
           <RouterLink :to="{ name: 'Register' }">
             <button class="btn-primary text-sm px-5 py-2.5">Get started free &rarr;</button>
           </RouterLink>
-          <RouterLink :to="{ name: 'Login' }">
+          <RouterLink :to="{ name: 'Register' }">
             <button class="btn-ghost text-sm px-5 py-2.5">Sign in</button>
           </RouterLink>
         </template>
