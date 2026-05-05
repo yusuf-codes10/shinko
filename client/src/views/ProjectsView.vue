@@ -34,8 +34,10 @@ onMounted(() => {
   console.log(`username is ${authStore.user?.username}`)
   console.log(`user id is ${authStore.user?.id}`)
   console.log(`user is ${authStore.user}`)
-  testCount(authStore.user?.id)
 })
+
+// counting for every single project
+onMounted(async () => await countCompletedTodos())
 
 const createNewProject = async () => {
   try {
@@ -47,12 +49,14 @@ const createNewProject = async () => {
   }
 }
 
-const testCount = async (id) => {
-  try {
-    const { data } = await countCompletedTasksByProject(id)
-    console.log(`the count data is: ${data.count}`)
-  } catch (error) {
-    console.log(error)
+const countCompletedTodos = async () => {
+  const { data } = await getAllProjects()
+  projects.value = data
+
+  // now you have the actual project ids
+  for (const project of projects.value) {
+    const { data } = await countCompletedTasksByProject(project.id)
+    console.log(`project ${project.id} has ${data.count} completed tasks`)
   }
 }
 
