@@ -76,15 +76,21 @@ const toggleLogin = () => {
         v-model="verifiedPassword"
       />
       <div>
-        <p @click="toggleLogin" class="text-blue-700 underline cursor-pointer">
+        <p @click="toggleLogin" class="text-xs font-medium text-text-secondary underline">
           Don't have an account?
         </p>
       </div>
       <div class="flex justify-between">
-        <button @click="createUser" class="bg-blue-300 cursor-pointer px-2 py rounded">
+        <button
+          @click="createUser"
+          class="inline-flex items-center gap-2 bg-accent hover:bg-accent-light active:bg-accent-dark text-text-inverse font-medium text-sm px-5 py-2.5 rounded-btn transition-all duration-150 hover:shadow-accent cursor-pointer"
+        >
           Register
         </button>
-        <button @click="cancelForm" class="bg-blue-300 cursor-pointer px-2 py rounded">
+        <button
+          @click="cancelForm"
+          class="inline-flex items-center gap-2 bg-transparent hover:bg-bg-raised text-text-secondary hover:text-text-primary border border-bg-border hover:border-accent/40 font-medium text-sm px-5 py-2.5 rounded-btn transition-all duration-150 cursor-pointer"
+        >
           Cancel
         </button>
       </div>
@@ -118,11 +124,21 @@ const toggleLogin = () => {
         v-model="verifiedPassword"
       />
       <div>
-        <p @click="toggleLogin" class="text-blue-700 underline cursor-pointer">Log in instead?</p>
+        <p @click="toggleLogin" class="text-xs font-medium text-text-secondary underline">
+          Log in instead?
+        </p>
       </div>
       <div class="flex justify-between">
-        <button @click="logUserIn" class="bg-blue-300 cursor-pointer px-2 py rounded">Login</button>
-        <button @click="cancelForm" class="bg-blue-300 cursor-pointer px-2 py rounded">
+        <button
+          @click="logUserIn"
+          class="inline-flex items-center gap-2 bg-accent hover:bg-accent-light active:bg-accent-dark text-text-inverse font-medium text-sm px-5 py-2.5 rounded-btn transition-all duration-150 hover:shadow-accent cursor-pointer"
+        >
+          Login
+        </button>
+        <button
+          @click="cancelForm"
+          class="inline-flex items-center gap-2 bg-transparent hover:bg-bg-raised text-text-secondary hover:text-text-primary border border-bg-border hover:border-accent/40 font-medium text-sm px-5 py-2.5 rounded-btn transition-all duration-150 cursor-pointer"
+        >
           Cancel
         </button>
       </div>
