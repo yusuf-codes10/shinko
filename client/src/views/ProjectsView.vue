@@ -46,18 +46,11 @@ const toggleModal = () => {
   isModalOpen.value = !isModalOpen.value
 }
 
-// TODO: we should change this to computed property
-// const checkNewProjectName = () => (newProjectName.value ? true : false)
 const checkedProjectName = computed(() => !!newProjectName.value)
 </script>
 
 <template>
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl">
-    <!-- <header class="flex">
-      <button @click="toggleModal" class="bg-bg-raised p-2 rounded ml-auto cursor-pointer">
-        +New Project
-      </button>
-    </header> -->
     <KanModal :title="'Project'" :isOpen="isModalOpen" @close="toggleModal">
       <div class="flex flex-col gap-1.5">
         <label class="text-xs font-medium text-text-secondary">Project name</label>

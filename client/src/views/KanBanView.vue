@@ -125,8 +125,6 @@ const todosCount = computed(() => todos.value.length)
 const progressesCount = computed(() => progresses.value.length)
 const donesCount = computed(() => dones.value.length)
 
-// TODO: this also needs to be a computed property
-// const checkNewTaskName = () => (newTaskName.value ? true : false)
 const checkedTaskName = computed(() => !!newTaskName.value)
 </script>
 
