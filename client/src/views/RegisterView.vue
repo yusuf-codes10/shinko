@@ -23,7 +23,7 @@ const createUser = async () => {
 
 const logUserIn = async () => {
   await authStore.login({ username: username.value, password: password.value })
-  router.push(`/${username.value}/projects`)
+  router.push(`/projects`)
 }
 
 const cancelForm = () => {
