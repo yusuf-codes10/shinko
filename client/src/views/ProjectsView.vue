@@ -60,6 +60,12 @@ const countCompletedTodos = async () => {
   }
 }
 
+const countCompletedTodosPerProject = async (projectId) => {
+  const { data } = await countCompletedTasksByProject(projectId)
+  console.log(`project ${projectId} has ${data.count} completed tasks`)
+  return Number(data.count) || 0
+}
+
 const toggleModal = () => {
   isModalOpen.value = !isModalOpen.value
 }
@@ -104,6 +110,7 @@ const checkedProjectName = computed(() => !!newProjectName.value)
       :id="project.id"
       :name="project.name"
       :description="project.description"
+      :precentage="countCompletedTodosPerProject(project.id)"
     />
   </div>
 </template>
