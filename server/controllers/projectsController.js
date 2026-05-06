@@ -6,8 +6,8 @@ export const getAllUserProjects = async (req, res, next) => {
   try {
     const { rows } = await pool.query(
       `SELECT p.*,
-        COUNT(t.id) FILTER (WHERE t.status = 'done') AS completed_count,
-        COUNT(t.id) AS total_count
+        COUNT(t.id) FILTER (WHERE t.status = 'done')::int AS completed_count,
+        COUNT(t.id)::int AS total_count
        FROM project p
        LEFT JOIN task t ON t.project_id = p.id
        WHERE p.user_id = $1
