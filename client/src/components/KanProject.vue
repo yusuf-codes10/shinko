@@ -39,6 +39,8 @@ const timeAgo = computed(() => {
   if (!props.updatedAt) return 'No activity'
   return formatDistanceToNow(new Date(props.updatedAt), { addSuffix: true })
 })
+
+const isProjectCompleted = computed(() => props.allTasks === props.completedTasks)
 </script>
 
 <template>
@@ -85,6 +87,13 @@ const timeAgo = computed(() => {
       </div>
       <!-- Status badge -->
       <span
+        v-if="isProjectCompleted"
+        class="text-xs font-mono font-medium px-2 py-0.5 rounded-full bg-accent/10 text-orange-600 border border-accent/20 shrink-0"
+      >
+        Completed
+      </span>
+      <span
+        v-else
         class="text-xs font-mono font-medium px-2 py-0.5 rounded-full bg-accent/10 text-accent border border-accent/20 shrink-0"
       >
         Active
