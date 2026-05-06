@@ -1,17 +1,22 @@
 import supabase from "../db/supabase.js";
+import pool from "../db/pool.js";
 import { countCompletedTasksByProject } from "../repositories/project.repository.js";
 
 export const getAllUserProjects = async (req, res, next) => {
   const userId = req.user.id;
   try {
-    const { data, error } = await supabase
-      .from("project")
-      .select("*")
-      .eq("user_id", userId);
+    const { rows } = await pool.query(
+      `SELECT p.*,
+        COUNT(t.id) FILTER (WHERE t.status = 'done') AS completed_count,
+        COUNT(t.id) AS total_count
+       FROM project p
+       LEFT JOIN task t ON t.project_id = p.id
+       WHERE p.user_id = $1
+       GROUP BY p.id`,
+      [userId],
+    );
 
-    if (error) throw error;
-
-    res.status(200).json(data);
+    res.status(200).json(rows);
   } catch (error) {
     console.log(error);
     next(error);

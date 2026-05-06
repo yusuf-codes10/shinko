@@ -72,8 +72,6 @@ const toggleModal = () => {
 }
 
 const checkedProjectName = computed(() => !!newProjectName.value)
-const allTasks = computed(() => )
-const completedTask
 </script>
 
 <template>
