@@ -1,4 +1,3 @@
-import supabase from "../db/supabase.js";
 import pool from "../db/pool.js";
 import { countCompletedTasksByProject } from "../repositories/project.repository.js";
 
@@ -28,21 +27,14 @@ export const createNewProject = async (req, res, next) => {
   const userId = req.user.id;
 
   try {
-    const { data, error } = await supabase
-      .from("project")
-      .insert([
-        {
-          name,
-          user_id: userId,
-          created_at: new Date(),
-        },
-      ])
-      .select()
-      .single();
+    const { rows } = await pool.query(
+      `INSERT INTO project (name, user_id, created_at)
+       VALUES ($1, $2, $3)
+       RETURNING *`,
+      [name, userId, new Date()],
+    );
 
-    if (error) throw error;
-
-    res.status(201).json(data);
+    res.status(201).json(rows[0]);
   } catch (error) {
     console.log(error);
     next(error);
