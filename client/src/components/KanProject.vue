@@ -18,9 +18,11 @@ const props = defineProps({
   },
   allTasks: {
     type: Number,
+    default: 0,
   },
   completedTasks: {
     type: Number,
+    default: 0,
   },
 })
 
