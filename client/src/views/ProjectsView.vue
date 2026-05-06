@@ -99,6 +99,7 @@ const checkedProjectName = computed(() => !!newProjectName.value)
     </div>
     <KanProject
       v-else
+      @click="console.log(project.updated_at)"
       v-for="project in projects"
       :key="project.id"
       :id="project.id"
@@ -106,6 +107,7 @@ const checkedProjectName = computed(() => !!newProjectName.value)
       :description="project.description"
       :completedTasks="project.completed_count"
       :allTasks="project.total_count"
+      :updatedAt="project.updated_at"
     />
   </div>
 </template>

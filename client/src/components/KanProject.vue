@@ -1,6 +1,7 @@
 <script setup>
 import ProgressBar from './ui/ProgressBar.vue'
 import { computed } from 'vue'
+import { formatDistanceToNow } from 'date-fns'
 
 const props = defineProps({
   id: {
@@ -24,11 +25,19 @@ const props = defineProps({
     type: Number,
     default: 0,
   },
+  updatedAt: {
+    type: String,
+  },
 })
 
 const progress = computed(() => {
   if (props.allTasks === 0) return 0
   return Math.round((props.completedTasks / props.allTasks) * 100)
+})
+
+const timeAgo = computed(() => {
+  if (!props.updatedAt) return 'No activity'
+  return formatDistanceToNow(new Date(props.updatedAt), { addSuffix: true })
 })
 </script>
 
@@ -120,7 +129,7 @@ const progress = computed(() => {
           SR
         </div>
       </div>
-      <span class="text-text-muted text-xs font-mono">2d ago</span>
+      <span class="text-text-muted text-xs font-mono">{{ timeAgo }} ago</span>
     </div>
   </div>
 </template>
