@@ -16,6 +16,7 @@ const loading = ref(false)
 const isModalOpen = ref(false)
 const newProjectName = ref('')
 const authStore = useAuthStore()
+const countedCompleted = ref(0)
 
 onMounted(async () => {
   try {
@@ -63,7 +64,7 @@ const countCompletedTodos = async () => {
 const countCompletedTodosPerProject = async (projectId) => {
   const { data } = await countCompletedTasksByProject(projectId)
   console.log(`project ${projectId} has ${data.count} completed tasks`)
-  return Number(data.count) || 0
+  countedCompleted.value = Number(data.count) || 0
 }
 
 const toggleModal = () => {
@@ -110,7 +111,7 @@ const checkedProjectName = computed(() => !!newProjectName.value)
       :id="project.id"
       :name="project.name"
       :description="project.description"
-      :precentage="countCompletedTodosPerProject(project.id)"
+      :precentage=""
     />
   </div>
 </template>
