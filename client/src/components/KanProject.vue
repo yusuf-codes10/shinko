@@ -26,7 +26,7 @@ const props = defineProps({
 
 const progress = computed(() => {
   if (props.allTasks === 0) return 0
-  return Math.round((props.completedCount / props.totalCount) * 100)
+  return Math.round((props.completedTasks / props.allTasks) * 100)
 })
 </script>
 
