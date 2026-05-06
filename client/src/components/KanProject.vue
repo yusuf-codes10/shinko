@@ -1,5 +1,6 @@
 <script setup>
 import ProgressBar from './ui/ProgressBar.vue'
+import { computed } from 'vue'
 
 const props = defineProps({
   id: {
@@ -21,6 +22,11 @@ const props = defineProps({
   completedTasks: {
     type: Number,
   },
+})
+
+const progress = computed(() => {
+  if (props.allTasks === 0) return 0
+  return Math.round((props.completedCount / props.totalCount) * 100)
 })
 </script>
 
@@ -90,7 +96,7 @@ const props = defineProps({
       <!-- <div class="h-1 bg-bg-border rounded-full overflow-hidden">
         <div class="h-full bg-accent rounded-full" style="width: 70%" />
       </div> -->
-      <ProgressBar :width="'70%'" />
+      <ProgressBar :width="progress + '%'" />
     </div>
 
     <!-- Footer -->
