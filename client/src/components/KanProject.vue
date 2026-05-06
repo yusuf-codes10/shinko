@@ -15,6 +15,12 @@ const props = defineProps({
     type: String,
     default: '0%',
   },
+  allTasks: {
+    type: Number,
+  },
+  completedTasks: {
+    type: Number,
+  },
 })
 </script>
 
@@ -77,7 +83,9 @@ const props = defineProps({
     <div class="space-y-1.5">
       <div class="flex justify-between text-xs">
         <span class="text-text-muted">Progress</span>
-        <span class="text-text-secondary font-mono">{{ props.precentage }} / 20 tasks</span>
+        <span class="text-text-secondary font-mono"
+          >{{ props.completedTasks }} / {{ props.allTasks }} tasks</span
+        >
       </div>
       <!-- <div class="h-1 bg-bg-border rounded-full overflow-hidden">
         <div class="h-full bg-accent rounded-full" style="width: 70%" />
