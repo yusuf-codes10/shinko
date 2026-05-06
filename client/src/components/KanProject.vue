@@ -1,4 +1,6 @@
 <script setup>
+import ProgressBar from './ui/ProgressBar.vue'
+
 const props = defineProps({
   id: {
     type: [String, Number],
@@ -73,9 +75,10 @@ const props = defineProps({
         <span class="text-text-muted">Progress</span>
         <span class="text-text-secondary font-mono">14 / 20 tasks</span>
       </div>
-      <div class="h-1 bg-bg-border rounded-full overflow-hidden">
+      <!-- <div class="h-1 bg-bg-border rounded-full overflow-hidden">
         <div class="h-full bg-accent rounded-full" style="width: 70%" />
-      </div>
+      </div> -->
+      <ProgressBar :width="'70%'" />
     </div>
 
     <!-- Footer -->
