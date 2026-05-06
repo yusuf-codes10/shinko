@@ -12,7 +12,9 @@ const props = defineProps({
       <h2 class="font-display font-semibold text-text-primary text-sm tracking-wide uppercase">
         {{ props.title }}
       </h2>
-      <span class="text-xs font-mono text-text-muted bg-bg-border px-2 py-0.5 rounded-full">
+      <span
+        class="text-xs font-mono font-medium px-2 py-0.5 rounded-full bg-accent/10 text-accent border border-accent/20 shrink-0"
+      >
         {{ props.count }}
       </span>
     </header>

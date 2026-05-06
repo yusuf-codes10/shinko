@@ -127,16 +127,6 @@ const isProjectCompleted = computed(() => props.allTasks === props.completedTask
         >
           AM
         </div>
-        <div
-          class="w-6 h-6 rounded-full bg-accent/20 border-2 border-bg-surface flex items-center justify-center text-accent text-[9px] font-bold"
-        >
-          JK
-        </div>
-        <div
-          class="w-6 h-6 rounded-full bg-warning/20 border-2 border-bg-surface flex items-center justify-center text-warning text-[9px] font-bold"
-        >
-          SR
-        </div>
       </div>
       <span class="text-text-muted text-xs font-mono">{{ timeAgo }} ago</span>
     </div>
