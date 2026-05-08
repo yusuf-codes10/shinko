@@ -114,6 +114,7 @@ const toggleLogin = () => {
         autocomplete="new-password"
         placeholder="Password ..."
         class="w-full bg-bg-raised border border-bg-border text-text-primary placeholder:text-text-muted text-sm px-3.5 py-2.5 rounded-btn focus:outline-none focus:border-accent focus:shadow-input transition-all duration-150"
+        :class="{ 'border-red-500': errors.clientError }"
         v-model="password"
         required
       />
@@ -128,6 +129,7 @@ const toggleLogin = () => {
         autocomplete="new-password"
         placeholder="Confirm Password"
         class="w-full bg-bg-raised border border-bg-border text-text-primary placeholder:text-text-muted text-sm px-3.5 py-2.5 rounded-btn focus:outline-none focus:border-accent focus:shadow-input transition-all duration-150"
+        :class="{ 'border-red-500': errors.clientError }"
         v-model="verifiedPassword"
         required
       />
