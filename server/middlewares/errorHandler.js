@@ -4,7 +4,9 @@ const handleError = (err, req, res, next) => {
   console.log(next);
   const statusCode = err.status || 500;
   const message = statusCode === 500 ? "Internal Server Error" : err.message;
-  res.status(statusCode).json({ msg: message });
+  res
+    .status(statusCode)
+    .json({ msg: message, code: err.code || "SERVER_ERROR" });
   // next();
 };
 
