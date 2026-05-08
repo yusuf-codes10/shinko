@@ -134,6 +134,16 @@ const toggleLogin = () => {
         required
       />
 
+      <!-- error messages conditionally rendered -->
+      <div v-if="errors.clientError" class="text-red-500 text-xm">
+        <p>{{ errors.clientError }}</p>
+      </div>
+
+      <!-- server errors conditionally rendered -->
+      <div v-if="errors.serverError" class="text-red-500 text-xm">
+        <p>{{ errors.serverError }}</p>
+      </div>
+
       <div>
         <p @click="toggleLogin" class="text-xs font-medium text-text-secondary underline">
           Don't have an account?
