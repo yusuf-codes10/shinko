@@ -1,14 +1,19 @@
 // import supabase from "../db/supabase.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { createError } from "../utils/createError.js";
+import createError from "../utils/createError.js";
 import pool from "../db/pool.js";
 
 export const handleUser = async (req, res) => {
   const { username, password, email } = req.body;
 
   if (!username || !password || !email)
-    return res.status(400).json({ msg: "username and password are required!" });
+    // return res.status(400).json({ msg: "username and password are required!" });
+    throw createError(
+      400,
+      "username and password must be provided!",
+      "BAD_REQUEST",
+    );
 
   try {
     // check for duplicate username
@@ -17,7 +22,7 @@ export const handleUser = async (req, res) => {
       [username],
     );
 
-    if (duplicateUser)
+    if (duplicateUser.length > 0)
       // return res.status(400).json({ msg: "username already exists" });
       throw createError(409, "Username already exists!", "USERNAME_TAKEN");
 
@@ -40,12 +45,13 @@ export const handleUser = async (req, res) => {
       [username, email, hashedPassword, new Date()],
     );
 
-    if (error) throw error;
+    if (error) throw createError(error.statusCode, error.message);
 
     res.status(201).json({ msg: `${username} has been created` });
   } catch (error) {
     console.log(error.message);
-    res.status(500).json({ msg: "Internal Server Error!" });
+    // res.status(500).json({ msg: "Internal Server Error!" });
+    throw createError(error.statusCode, error.message);
   }
 };
 
@@ -54,17 +60,18 @@ export const logUserIn = async (req, res) => {
 
   try {
     // check if user exists
-    const { data: user, error } = await pool.query(
+    const { data: user } = await pool.query(
       "SELECT id, username, password_hash FROM users WHERE username = $1 LIMIT 1",
       [username],
     );
 
-    if (error || !user)
-      return res.status(400).json({ msg: `${username} does not exist!` });
+    if (user.length > 0)
+      // return res.status(400).json({ msg: `${username} does not exist!` });
+      throw createError(400, `${username} does not exist!`, "BAD_REQUEST");
 
     // check the password
     const validPwd = await bcrypt.compare(password, user.password_hash);
-    if (!validPwd) return res.status(401).json({ msg: "Wrong password!" });
+    if (!validPwd) throw createError(401, "Wrong Password!", "WRONG_PASSWORD");
 
     // sign the token
     const token = jwt.sign(
