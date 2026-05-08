@@ -32,7 +32,7 @@ export const handleUser = async (req, res) => {
       [email],
     );
 
-    if (duplicateEmail)
+    if (duplicateEmail.length > 0)
       // return res.status(400).json({ msg: "email already exists" });
       throw createError(409, "Email already exists!", "EMAIL_TAKEN");
 
@@ -60,12 +60,12 @@ export const logUserIn = async (req, res) => {
 
   try {
     // check if user exists
-    const { data: user } = await pool.query(
+    const { rows: user } = await pool.query(
       "SELECT id, username, password_hash FROM users WHERE username = $1 LIMIT 1",
       [username],
     );
 
-    if (user.length > 0)
+    if (user.length === 0)
       // return res.status(400).json({ msg: `${username} does not exist!` });
       throw createError(400, `${username} does not exist!`, "BAD_REQUEST");
 
