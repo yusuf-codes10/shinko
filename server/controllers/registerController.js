@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import createError from "../utils/createError.js";
 import pool from "../db/pool.js";
 
-export const handleUser = async (req, res) => {
+export const handleUser = async (req, res, next) => {
   const { username, password, email } = req.body;
 
   if (!username || !password || !email)
@@ -51,7 +51,7 @@ export const handleUser = async (req, res) => {
   } catch (error) {
     console.log(error.message);
     // res.status(500).json({ msg: "Internal Server Error!" });
-    throw createError(error.statusCode, error.message);
+    next(error);
   }
 };
 
@@ -75,7 +75,7 @@ export const logUserIn = async (req, res) => {
 
     // sign the token
     const token = jwt.sign(
-      { id: user.id, email: user.email, username: user.username },
+      { id: user[0].id, email: user[0].email, username: user[0].username },
       process.env.JWT_SECRET,
       { expiresIn: "7d" },
     );
