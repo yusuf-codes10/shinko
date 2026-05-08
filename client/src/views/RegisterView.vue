@@ -21,6 +21,7 @@ const authStore = useAuthStore()
 const createUser = async () => {
   if (password.value !== verifiedPassword.value) {
     console.log('Passwords do not match!')
+    errors.value.clientError = 'Passwords Do not match!'
     return
   }
 
@@ -35,6 +36,20 @@ const createUser = async () => {
     router.push('/projects')
   } catch (err) {
     console.log('REGISTER ERROR:', err.response?.data || err.message)
+
+    // handling all kind of errors
+    const code = err.response?.data?.code
+    switch (code) {
+      case 'EMAIL_TAKEN':
+        errors.value.serverError = `Email already taken!`
+        break
+      case 'USERNAME_TAKEN':
+        errors.value.serverError = `${username.value} already taken`
+        break
+      default:
+        errors.value.serverError = 'Oops! Something went wrong!'
+        break
+    }
   }
 }
 
