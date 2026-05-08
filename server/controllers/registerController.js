@@ -1,4 +1,4 @@
-import supabase from "../db/supabase.js";
+// import supabase from "../db/supabase.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { createError } from "../utils/createError.js";
@@ -54,11 +54,10 @@ export const logUserIn = async (req, res) => {
 
   try {
     // check if user exists
-    const { data: user, error } = await supabase
-      .from("users")
-      .select("id, username, password_hash")
-      .eq("username", username)
-      .single();
+    const { data: user, error } = await pool.query(
+      "SELECT id, username, password_hash FROM users WHERE username = $1 LIMIT 1",
+      [username],
+    );
 
     if (error || !user)
       return res.status(400).json({ msg: `${username} does not exist!` });
