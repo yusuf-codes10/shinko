@@ -90,7 +90,7 @@ export const logUserIn = async (req, res) => {
     res.status(200).json({ msg: "logged in successfully" }); // ← no token in body
   } catch (error) {
     console.log(error);
-    res.status(500).json({ msg: error.message });
+    next(error);
   }
 };
 
