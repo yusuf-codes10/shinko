@@ -14,6 +14,7 @@ const corsOptions = {
   origin: process.env.CLIENT_URL,
   credentials: true,
 };
+console.log(process.env.CLIENT_URL);
 const { data, error } = await supabase.from("users").select("*").limit(1);
 
 if (error) {
