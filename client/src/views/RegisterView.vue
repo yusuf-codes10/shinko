@@ -35,8 +35,12 @@ const createUser = async () => {
       password: password.value,
       email: email.value,
     })
+
     // log user in automatically
-    await logUserIn()
+    await authStore.login({
+      username: username.value,
+      password: password.value,
+    })
     router.push('/projects')
   } catch (err) {
     console.log('REGISTER ERROR:', err.response?.data || err.message)
