@@ -40,12 +40,12 @@ export const handleUser = async (req, res, next) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // insert the new user
-    const { error } = await pool.query(
+    await pool.query(
       "INSERT INTO users (username, email, password_hash, created_at) VALUES ($1, $2, $3, $4)",
       [username, email, hashedPassword, new Date()],
     );
 
-    if (error) throw createError(error.statusCode, error.message);
+    // if (error) throw createError(error.statusCode, error.message);
 
     res.status(201).json({ msg: `${username} has been created` });
   } catch (error) {
