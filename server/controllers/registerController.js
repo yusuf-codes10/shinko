@@ -2,6 +2,7 @@ import supabase from "../db/supabase.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { createError } from "../utils/createError.js";
+import pool from "../db/pool.js";
 
 export const handleUser = async (req, res) => {
   const { username, password, email } = req.body;
@@ -11,22 +12,20 @@ export const handleUser = async (req, res) => {
 
   try {
     // check for duplicate username
-    const { data: duplicateUser } = await supabase
-      .from("users")
-      .select("username")
-      .eq("username", username)
-      .single();
+    const { rows: duplicateUser } = await pool.query(
+      "SELECT username FROM users WHERE username = $1 LIMIT 1",
+      [username],
+    );
 
     if (duplicateUser)
       // return res.status(400).json({ msg: "username already exists" });
       throw createError(409, "Username already exists!", "USERNAME_TAKEN");
 
     // check for duplicate email
-    const { data: duplicateEmail } = await supabase
-      .from("users")
-      .select("email")
-      .eq("email", email)
-      .single();
+    const { rows: duplicateEmail } = await pool.query(
+      "SELECT email FROM users WHERE email = $1",
+      [email],
+    );
 
     if (duplicateEmail)
       // return res.status(400).json({ msg: "email already exists" });
@@ -36,12 +35,10 @@ export const handleUser = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // insert the new user
-    const { error } = await supabase.from("users").insert({
-      username,
-      email,
-      password_hash: hashedPassword,
-      created_at: new Date(),
-    });
+    const { error } = await pool.query(
+      "INSERT INTO users (username, email, password_hash, created_at) VALUES ($1, $2, $3, $4)",
+      [username, email, hashedPassword, new Date()],
+    );
 
     if (error) throw error;
 
