@@ -67,7 +67,7 @@ export const logUserIn = async (req, res) => {
 
     if (user.length === 0)
       // return res.status(400).json({ msg: `${username} does not exist!` });
-      throw createError(400, `${username} does not exist!`, "BAD_REQUEST");
+      throw createError(400, `${username} does not exist!`, "NO_USER");
 
     // check the password
     const validPwd = await bcrypt.compare(password, user[0].password_hash);

@@ -78,8 +78,11 @@ const logUserIn = async () => {
 
     const code = err.response?.data?.code
     switch (code) {
-      case 'USERNAME_TAKEN':
-        errors.value.serverError = `${username.value} already taken`
+      case 'WRONG_PASSWORD':
+        errors.value.serverError = `Wrong password!`
+        break
+      case 'NO_USER':
+        errors.value.serverError = `${username.value} do not exist`
         break
       default:
         errors.value.serverError = 'Oops! Something went wrong!'
