@@ -20,7 +20,7 @@
   </defs>
 
   <!-- Background -->
-  <rect width="512" height="512" fill="black"/>
+  <!-- <rect width="512" height="512" fill="black"/> -->
 
   <!-- Left tall column -->
   <rect
