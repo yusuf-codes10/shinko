@@ -70,7 +70,7 @@ export const logUserIn = async (req, res) => {
       throw createError(400, `${username} does not exist!`, "BAD_REQUEST");
 
     // check the password
-    const validPwd = await bcrypt.compare(password, user.password_hash);
+    const validPwd = await bcrypt.compare(password, user[0].password_hash);
     if (!validPwd) throw createError(401, "Wrong Password!", "WRONG_PASSWORD");
 
     // sign the token
