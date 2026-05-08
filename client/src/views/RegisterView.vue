@@ -25,7 +25,8 @@ const createUser = async () => {
       password: password.value,
       email: email.value,
     })
-
+    // log user in automatically
+    await logUserIn()
     router.push('/projects')
   } catch (err) {
     console.log('REGISTER ERROR:', err.response?.data || err.message)
