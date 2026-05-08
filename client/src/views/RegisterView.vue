@@ -58,6 +58,10 @@ const createUser = async () => {
 }
 
 const logUserIn = async () => {
+  // reset the errors
+  errors.value.clientError = null
+  errors.value.serverError = null
+
   try {
     await authStore.login({
       username: username.value,
@@ -67,6 +71,16 @@ const logUserIn = async () => {
     router.push('/projects')
   } catch (err) {
     console.log('LOGIN ERROR:', err.response?.data || err.message)
+
+    const code = err.response?.data?.code
+    switch (code) {
+      case 'USERNAME_TAKEN':
+        errors.value.serverError = `${username.value} already taken`
+        break
+      default:
+        errors.value.serverError = 'Oops! Something went wrong!'
+        break
+    }
   }
 }
 
@@ -194,9 +208,19 @@ const toggleLogin = () => {
         placeholder="Password ..."
         autocomplete="current-password"
         class="w-full bg-bg-raised border border-bg-border text-text-primary placeholder:text-text-muted text-sm px-3.5 py-2.5 rounded-btn focus:outline-none focus:border-accent focus:shadow-input transition-all duration-150"
+        :class="{ 'border-red-500': errors.clientError }"
         v-model="password"
         required
       />
+
+      <!-- conditional render the error -->
+      <div v-if="errors.clientError" class="text-red-500 text-xm">
+        {{ errors.clientError }}
+      </div>
+
+      <div v-if="errors.serverError" class="text-red-500 text-xm">
+        {{ errors.serverError }}
+      </div>
 
       <div>
         <p @click="toggleLogin" class="text-xs font-medium text-text-secondary underline">
