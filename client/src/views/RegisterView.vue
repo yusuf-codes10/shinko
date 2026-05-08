@@ -10,6 +10,11 @@ const email = ref('')
 
 const isLogin = ref(true)
 
+const errors = ref({
+  clientError: null,
+  serverError: null,
+})
+
 const router = useRouter()
 const authStore = useAuthStore()
 
