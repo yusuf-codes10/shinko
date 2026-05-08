@@ -79,11 +79,20 @@ export const logUserIn = async (req, res, next) => {
       { expiresIn: "7d" },
     );
 
+    // res.cookie("token", token, {
+    //   httpOnly: true, // JS can't access it (safer)
+    //   secure: false, // set true in production (HTTPS only)
+    //   sameSite: "lax",
+    //   maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in ms
+    // });
+
+    const isProd = process.env.NODE_ENV === "production";
+
     res.cookie("token", token, {
-      httpOnly: true, // JS can't access it (safer)
-      secure: false, // set true in production (HTTPS only)
-      sameSite: "lax",
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in ms
+      httpOnly: true,
+      secure: isProd,
+      sameSite: isProd ? "none" : "lax",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
     res.status(200).json({ msg: "logged in successfully" }); // ← no token in body
