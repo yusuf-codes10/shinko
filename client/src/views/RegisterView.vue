@@ -19,6 +19,10 @@ const router = useRouter()
 const authStore = useAuthStore()
 
 const createUser = async () => {
+  // clear all the errors first
+  errors.value.clientError = null
+  errors.value.serverError = null
+
   if (password.value !== verifiedPassword.value) {
     console.log('Passwords do not match!')
     errors.value.clientError = 'Passwords Do not match!'
