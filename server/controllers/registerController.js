@@ -55,7 +55,7 @@ export const handleUser = async (req, res, next) => {
   }
 };
 
-export const logUserIn = async (req, res) => {
+export const logUserIn = async (req, res, next) => {
   const { username, password } = req.body;
 
   try {
@@ -65,13 +65,18 @@ export const logUserIn = async (req, res) => {
       [username],
     );
 
-    if (user.length === 0)
+    if (user.length === 0) {
       // return res.status(400).json({ msg: `${username} does not exist!` });
+      console.log("user does not exist");
       throw createError(400, `${username} does not exist!`, "NO_USER");
+    }
 
     // check the password
     const validPwd = await bcrypt.compare(password, user[0].password_hash);
-    if (!validPwd) throw createError(401, "Wrong Password!", "WRONG_PASSWORD");
+    if (!validPwd) {
+      console.log("Wrong password");
+      throw createError(401, "Wrong Password!", "WRONG_PASSWORD");
+    }
 
     // sign the token
     const token = jwt.sign(
