@@ -1,6 +1,7 @@
 import supabase from "../db/supabase.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { createError } from "../utils/createError.js";
 
 export const handleUser = async (req, res) => {
   const { username, password, email } = req.body;
@@ -17,7 +18,8 @@ export const handleUser = async (req, res) => {
       .single();
 
     if (duplicateUser)
-      return res.status(400).json({ msg: "username already exists" });
+      // return res.status(400).json({ msg: "username already exists" });
+      throw createError(409, "Username already exists!", "USERNAME_TAKEN");
 
     // check for duplicate email
     const { data: duplicateEmail } = await supabase
@@ -27,7 +29,8 @@ export const handleUser = async (req, res) => {
       .single();
 
     if (duplicateEmail)
-      return res.status(400).json({ msg: "email already exists" });
+      // return res.status(400).json({ msg: "email already exists" });
+      throw createError(409, "Email already exists!", "EMAIL_TAKEN");
 
     // hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
