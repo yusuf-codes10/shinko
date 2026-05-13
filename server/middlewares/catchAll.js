@@ -1,8 +1,7 @@
-// ! catch all routes that does not exit
+import createError from "../utils/createError.js";
+
 const catchAllError = (req, res, next) => {
-  const error = new Error("Page does not exit!");
-  error.status = 404;
-  next(error);
+  next(createError(404, "Page not found", "NOT_FOUND"));
 };
 
 export default catchAllError;
