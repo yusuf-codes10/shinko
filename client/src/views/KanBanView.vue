@@ -59,10 +59,11 @@ const getDones = async () => {
 
 // post request
 const createTask = async () => {
-  if (!newTaskName.value.trim()) return // guard against empty
+  if (!newTaskName.value.trim() || !newTaskCategory.value.trim()) return // guard against empty
   try {
     const { data } = await createNewTask(projectId, {
       title: newTaskName.value.trim(),
+      category: newTaskCategory.value.trim(),
       status: 'todo',
     })
     todos.value = [...todos.value, data]
@@ -148,6 +149,7 @@ const checkedTaskName = computed(() => !!newTaskName.value)
             class="w-full bg-bg-raised border border-bg-border text-text-primary placeholder:text-text-muted text-sm px-3.5 py-2.5 rounded-btn focus:outline-none focus:border-accent focus:shadow-input transition-all duration-150"
             v-model="newTaskName"
           />
+          <label class="text-xs font-medium text-text-secondary">Task category</label>
           <input
             type="text"
             placeholder="Task category"
