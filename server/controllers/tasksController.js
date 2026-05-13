@@ -43,19 +43,22 @@ export const getDonesById = async (req, res, next) => {
   }
 };
 
-export const createNewTask = async (req, res) => {
+export const createNewTask = async (req, res, next) => {
   const projectId = req.params.id;
-  const { title } = req.body;
+  const { title, category } = req.body;
   const status = req.body.status ?? "todo";
 
-  const { data, error } = await supabase
-    .from("task")
-    .insert({ title, status, project_id: projectId, created_at: new Date() })
-    .select()
-    .single();
+  try {
+    await pool.query(
+      "INSERT INTO task (title, status, project_id, created_at, category) VALUES ($1, $2, $3, now(), $4)",
+      [title, status, projectId, category],
+    );
 
-  if (error) return res.status(500).json({ error: error.message });
-  res.status(201).json(data);
+    res.status(201).json({ msg: "Inserted" });
+  } catch (err) {
+    console.log("error inserting data", err);
+    next(err);
+  }
 };
 
 export const deleteTask = async (req, res) => {
