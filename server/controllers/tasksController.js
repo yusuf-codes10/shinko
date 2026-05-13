@@ -9,7 +9,7 @@ export const getTodosById = async (req, res, next) => {
       "SELECT id, title, status, category FROM task WHERE status = $1 AND project_id = $2 ",
       ["todo", projectId],
     );
-    res.status(200).json(todos);
+    res.status(200).json(todos.rows);
   } catch (error) {
     console.log("error getting todos", error);
     next(error);
@@ -23,7 +23,7 @@ export const getProgressById = async (req, res, next) => {
       "SELECT id, title, status, category FROM task WHERE status = $1 AND project_id = $2",
       ["progress", projectId],
     );
-    res.status(200).json(progresses);
+    res.status(200).json(progresses.rows);
   } catch (error) {
     next(error);
   }
@@ -37,7 +37,7 @@ export const getDonesById = async (req, res, next) => {
       ["done", projectId],
     );
 
-    res.status(200).json(dones);
+    res.status(200).json(dones.rows);
   } catch (error) {
     next(error);
   }
