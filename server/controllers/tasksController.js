@@ -85,6 +85,8 @@ export const updateTask = async (req, res, next) => {
     if (foundTask.rows.length === 0)
       return next(createError(404, "Task does not exist!", "NOT_FOUND"));
 
+    const current = foundTask.rows[0];
+
     await pool.query(
       `
   UPDATE task
