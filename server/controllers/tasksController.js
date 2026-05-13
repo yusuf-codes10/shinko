@@ -49,12 +49,12 @@ export const createNewTask = async (req, res, next) => {
   const status = req.body.status ?? "todo";
 
   try {
-    await pool.query(
+    const { rows } = await pool.query(
       "INSERT INTO task (title, status, project_id, created_at, category) VALUES ($1, $2, $3, now(), $4)",
       [title, status, projectId, category],
     );
 
-    res.status(201).json({ msg: "Inserted" });
+    res.status(201).json(rows[0]);
   } catch (err) {
     console.log("error inserting data", err);
     next(err);
