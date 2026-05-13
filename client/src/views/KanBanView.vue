@@ -21,6 +21,7 @@ const progresses = ref([])
 const dones = ref([])
 const isModalOpen = ref(false)
 const newTaskName = ref('')
+const newTaskCategory = ref('')
 const route = useRoute()
 
 // const getTask = async () => {}
@@ -31,6 +32,8 @@ const getTodos = async () => {
   try {
     const { data } = await getTodosById(projectId)
     todos.value = data
+    console.log(data)
+    console.log(Array.isArray(data))
   } catch (error) {
     console.log(error)
   }
@@ -72,6 +75,8 @@ const createTask = async () => {
 
 // put req
 const update = async (id, stat) => {
+  console.log('id:', id)
+  console.log('status:', stat)
   try {
     await updateTask(id, { status: stat })
   } catch (error) {
@@ -139,9 +144,15 @@ const checkedTaskName = computed(() => !!newTaskName.value)
           <label class="text-xs font-medium text-text-secondary">Task title</label>
           <input
             type="text"
-            placeholder="Task ttile"
+            placeholder="Task title"
             class="w-full bg-bg-raised border border-bg-border text-text-primary placeholder:text-text-muted text-sm px-3.5 py-2.5 rounded-btn focus:outline-none focus:border-accent focus:shadow-input transition-all duration-150"
             v-model="newTaskName"
+          />
+          <input
+            type="text"
+            placeholder="Task category"
+            class="w-full bg-bg-raised border border-bg-border text-text-primary placeholder:text-text-muted text-sm px-3.5 py-2.5 rounded-btn focus:outline-none focus:border-accent focus:shadow-input transition-all duration-150"
+            v-model="newTaskCategory"
           />
           <div class="flex flex-col gap-1.5">
             <label class="text-xs font-medium text-text-secondary">Description</label>
