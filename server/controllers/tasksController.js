@@ -1,4 +1,3 @@
-import supabase from "../db/supabase.js";
 import pool from "../db/pool.js";
 import createError from "../utils/createError.js";
 
@@ -105,15 +104,15 @@ export const updateTask = async (req, res, next) => {
   }
 };
 
-export const getTaskById = async (req, res) => {
-  const { data, error } = await supabase
-    .from("task")
-    .select("id, title")
-    .eq("id", req.params.id)
-    .single();
+// export const getTaskById = async (req, res) => {
+//   const { data, error } = await supabase
+//     .from("task")
+//     .select("id, title")
+//     .eq("id", req.params.id)
+//     .single();
 
-  if (error || !data) {
-    return res.status(404).json({ msg: "error: task not found!" });
-  }
-  res.json(data);
-};
+//   if (error || !data) {
+//     return res.status(404).json({ msg: "error: task not found!" });
+//   }
+//   res.json(data);
+// };
