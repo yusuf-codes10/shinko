@@ -6,7 +6,7 @@ import {
   createNewTask,
   deleteTask,
   updateTask,
-  getTaskById,
+  // getTaskById,
 } from "../controllers/tasksController.js";
 
 const router = express.Router();
@@ -18,7 +18,7 @@ router.get("/progress/:id", getProgressById);
 router.get("/done/:id", getDonesById);
 
 // ? Forgot the point of this
-router.get("/:id", getTaskById);
+// router.get("/:id", getTaskById);
 
 router.post("/:id", createNewTask);
 
