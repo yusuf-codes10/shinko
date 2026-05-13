@@ -1,5 +1,6 @@
 import supabase from "../db/supabase.js";
 import pool from "../db/pool.js";
+import createError from "../utils/createError.js";
 
 // Get each sub task by user id
 export const getTodosById = async (req, res, next) => {
@@ -72,36 +73,35 @@ export const deleteTask = async (req, res, next) => {
   }
 };
 
-export const updateTask = async (req, res) => {
+export const updateTask = async (req, res, next) => {
   const { id } = req.params;
   const { title, status } = req.body;
 
   try {
-    const { data: current, error: fetchError } = await supabase
-      .from("task")
-      .select("*")
-      .eq("id", id)
-      .single();
+    const foundTask = await pool.query(
+      "SELECT DISTINCT * FROM task WHERE task.id = $1",
+      [id],
+    );
 
-    if (fetchError || !current) {
-      return res.status(404).json({ error: "Item not found" });
-    }
+    if (foundTask.rows.length === 0)
+      return next(createError(404, "Task does not exist!", "NOT_FOUND"));
 
-    const { data, error } = await supabase
-      .from("task")
-      .update({
-        title: title ?? current.title,
-        status: status ?? current.status,
-      })
-      .eq("id", id)
-      .select()
-      .single();
+    await pool.query(
+      `
+  UPDATE task
+  SET
+    title = $1,
+    status = $2
+  WHERE id = $3
+  RETURNING *
+  `,
+      [title ?? current.title, status ?? current.status, id],
+    );
 
-    if (error) throw error;
-    res.json(data);
-  } catch (error) {
-    console.log(error.message);
-    res.status(500).json({ msg: "server error" });
+    res.status(201).json({ msg: "task updated" });
+  } catch (err) {
+    console.log(err.message);
+    next(err);
   }
 };
 
