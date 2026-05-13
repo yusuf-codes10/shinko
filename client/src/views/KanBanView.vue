@@ -5,15 +5,7 @@ import { useRoute } from 'vue-router'
 import { ref, onMounted, computed } from 'vue'
 import draggable from 'vuedraggable'
 import KanModal from '@/components/ui/KanModal.vue'
-import {
-  getTodosById,
-  getProgressesById,
-  getDonesById,
-  // getTaskById,
-  createNewTask,
-  updateTask,
-  deleteTask,
-} from '@/services/taskService.js'
+import api from '@/services/api.js'
 import KanButton from '@/components/ui/KanButton.vue'
 
 const todos = ref([])
@@ -30,7 +22,7 @@ const projectId = route.params.id // reads "1" from /project/1/kanban
 
 const getTodos = async () => {
   try {
-    const { data } = await getTodosById(projectId)
+    const { data } = await api.get(` /api/task/todo/${projectId}`)
     todos.value = data
     console.log(data)
     console.log(Array.isArray(data))
@@ -41,7 +33,7 @@ const getTodos = async () => {
 
 const getProgresses = async () => {
   try {
-    const { data } = await getProgressesById(projectId)
+    const { data } = await api.get(` /api/task/progress/${projectId}`)
     progresses.value = data
   } catch (error) {
     console.log(error)
@@ -50,7 +42,7 @@ const getProgresses = async () => {
 
 const getDones = async () => {
   try {
-    const { data } = await getDonesById(projectId)
+    const { data } = await api.get(` /api/task/done/${projectId}`)
     dones.value = data
   } catch (error) {
     console.log(error)
@@ -61,7 +53,7 @@ const getDones = async () => {
 const createTask = async () => {
   if (!newTaskName.value.trim() || !newTaskCategory.value.trim()) return // guard against empty
   try {
-    const { data } = await createNewTask(projectId, {
+    const { data } = await api.post(`/api/task/${projectId}`, {
       title: newTaskName.value.trim(),
       category: newTaskCategory.value.trim(),
       status: 'todo',
@@ -80,7 +72,7 @@ const update = async (id, stat) => {
   console.log('id:', id)
   console.log('status:', stat)
   try {
-    await updateTask(id, { status: stat })
+    await api.put(`/api/task/${id}`, { status: stat })
   } catch (error) {
     console.log(error)
   }
@@ -90,7 +82,7 @@ console.log(update)
 // delete request
 const deleteTheTask = async (id, arrayName) => {
   try {
-    await deleteTask(id)
+    await api.delete(`/api/task/${id}`)
     if (arrayName === 'todos') {
       todos.value = todos.value.filter((task) => task.id !== id)
     } else if (arrayName === 'progresses') {
