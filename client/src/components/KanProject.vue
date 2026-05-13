@@ -82,7 +82,8 @@ const isProjectCompleted = computed(() => props.allTasks === props.completedTask
               {{ props.name }}
             </h3>
           </RouterLink>
-          <p class="text-text-muted text-xs font-mono mt-0.5">shinko / design-system</p>
+          <!-- ! here we will have the category -->
+          <!-- <p class="text-text-muted text-xs font-mono mt-0.5">shinko / design-system</p> -->
         </div>
       </div>
       <!-- Status badge -->
