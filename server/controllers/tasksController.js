@@ -1,18 +1,17 @@
 import supabase from "../db/supabase.js";
+import pool from "../db/pool.js";
 
 // Get each sub task by user id
 export const getTodosById = async (req, res, next) => {
   const projectId = req.params.id;
   try {
-    const { data, error } = await supabase
-      .from("task")
-      .select("id, title, status")
-      .eq("status", "todo")
-      .eq("project_id", projectId);
-
-    if (error) throw error;
-    res.status(200).json(data);
+    const todos = await pool.query(
+      "SELECT id, title, status, category FROM task WHERE status = $1 AND project_id = $2 ",
+      ["todo", projectId],
+    );
+    res.status(200).json(todos);
   } catch (error) {
+    console.log("error getting todos", error);
     next(error);
   }
 };
@@ -20,14 +19,11 @@ export const getTodosById = async (req, res, next) => {
 export const getProgressById = async (req, res, next) => {
   const projectId = req.params.id;
   try {
-    const { data, error } = await supabase
-      .from("task")
-      .select("id, title, status")
-      .eq("status", "progress")
-      .eq("project_id", projectId);
-
-    if (error) throw error;
-    res.status(200).json(data);
+    const progresses = await pool.query(
+      "SELECT id, title, status, category FROM task WHERE status = $1 AND project_id = $2",
+      ["progress", projectId],
+    );
+    res.status(200).json(progresses);
   } catch (error) {
     next(error);
   }
@@ -36,14 +32,12 @@ export const getProgressById = async (req, res, next) => {
 export const getDonesById = async (req, res, next) => {
   const projectId = req.params.id;
   try {
-    const { data, error } = await supabase
-      .from("task")
-      .select("id, title, status")
-      .eq("status", "done")
-      .eq("project_id", projectId);
+    const dones = await pool.query(
+      "SELECT id, title, status, category FROM task WHERE status = $1 AND project_id = $2",
+      ["done", projectId],
+    );
 
-    if (error) throw error;
-    res.status(200).json(data);
+    res.status(200).json(dones);
   } catch (error) {
     next(error);
   }
