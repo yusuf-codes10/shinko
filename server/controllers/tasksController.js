@@ -61,14 +61,15 @@ export const createNewTask = async (req, res, next) => {
   }
 };
 
-export const deleteTask = async (req, res) => {
-  const { error } = await supabase
-    .from("task")
-    .delete()
-    .eq("id", req.params.id);
-
-  if (error) return res.status(500).json({ error: error.message });
-  res.status(200).json({ msg: "task deleted successfully" });
+export const deleteTask = async (req, res, next) => {
+  const id = req.params.id;
+  try {
+    await pool.query("DELETE FROM task WHERE id = $1", [id]);
+    res.status(200).json({ msg: "task deleted successfully" });
+  } catch (err) {
+    console.log(err);
+    next(err);
+  }
 };
 
 export const updateTask = async (req, res) => {
