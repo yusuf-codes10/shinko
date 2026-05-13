@@ -66,7 +66,8 @@ const createTask = async () => {
       category: newTaskCategory.value.trim(),
       status: 'todo',
     })
-    todos.value = [...todos.value, data]
+    // todos.value = [...todos.value, data]
+    todos.value.push(data)
     newTaskName.value = ''
     toggleModal()
   } catch (error) {
