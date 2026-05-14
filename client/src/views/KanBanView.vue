@@ -15,6 +15,7 @@ const isModalOpen = ref(false)
 const newTaskName = ref('')
 const newTaskCategory = ref('')
 const route = useRoute()
+const btnLoading = ref(false)
 
 // const getTask = async () => {}
 
@@ -52,6 +53,7 @@ const getDones = async () => {
 // post request
 const createTask = async () => {
   if (!newTaskName.value.trim() || !newTaskCategory.value.trim()) return // guard against empty
+  btnLoading.value = true
   try {
     const { data } = await api.post(`/api/task/${projectId}`, {
       title: newTaskName.value.trim(),
@@ -62,9 +64,12 @@ const createTask = async () => {
     // todos.value = [...todos.value, data]
     todos.value.push(data)
     newTaskName.value = ''
+    newTaskCategory.value = ''
     toggleModal()
   } catch (error) {
     console.log(error)
+  } finally {
+    btnLoading.value = false
   }
 }
 
@@ -158,7 +163,12 @@ const checkedTaskName = computed(() => !!newTaskName.value)
               class="w-full bg-bg-raised border border-bg-border text-text-primary placeholder:text-text-muted text-sm px-3.5 py-2.5 rounded-btn resize-none focus:outline-none focus:border-accent focus:shadow-input transition-all duration-150"
             />
           </div>
-          <KanButton :isDisabled="checkedTaskName" @click="createTask" :btnTitle="'Submit'" />
+          <KanButton
+            :loading="btnLoading"
+            :isDisabled="checkedTaskName"
+            @click="createTask"
+            :btnTitle="'Submit'"
+          />
         </div>
       </KanModal>
       <KanCard :title="'ToDo'" :count="todosCount">
