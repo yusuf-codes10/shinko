@@ -58,7 +58,7 @@ const createTask = async () => {
       category: newTaskCategory.value.trim(),
       status: 'todo',
     })
-    console.log(`created task is ${data}`)
+    console.log(data)
     // todos.value = [...todos.value, data]
     todos.value.push(data)
     newTaskName.value = ''

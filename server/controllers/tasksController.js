@@ -50,7 +50,7 @@ export const createNewTask = async (req, res, next) => {
 
   try {
     const { rows } = await pool.query(
-      "INSERT INTO task (title, status, project_id, created_at, category) VALUES ($1, $2, $3, now(), $4)",
+      "INSERT INTO task (title, status, project_id, created_at, category) VALUES ($1, $2, $3, now(), $4) RETURNING *",
       [title, status, projectId, category],
     );
 
