@@ -130,13 +130,14 @@ const todosCount = computed(() => todos.value.length)
 const progressesCount = computed(() => progresses.value.length)
 const donesCount = computed(() => dones.value.length)
 
-const checkedTaskName = computed(() => !!newTaskName.value)
+const checkedTaskName = computed(() => !newTaskName.value.trim())
+const checledTaskCategory = computed(() => !newTaskCategory.value.trim())
 </script>
 
 <template>
   <div>
     <header class="felx">
-      <KanButton :isDisabled="true" @click="toggleModal" :btnTitle="'+New Task'" />
+      <KanButton @click="toggleModal" :btnTitle="'+New Task'" />
     </header>
     <div class="grid grid-cols-3 justify-center gap-10 w-full">
       <KanModal :isOpen="isModalOpen" :title="'Task'" @close="toggleModal">
@@ -158,14 +159,14 @@ const checkedTaskName = computed(() => !!newTaskName.value)
           <div class="flex flex-col gap-1.5">
             <label class="text-xs font-medium text-text-secondary">Description</label>
             <textarea
-              placeholder="Task Description"
+              placeholder="Task Description (Optional)"
               rows="3"
               class="w-full bg-bg-raised border border-bg-border text-text-primary placeholder:text-text-muted text-sm px-3.5 py-2.5 rounded-btn resize-none focus:outline-none focus:border-accent focus:shadow-input transition-all duration-150"
             />
           </div>
           <KanButton
             :loading="btnLoading"
-            :isDisabled="checkedTaskName"
+            :isDisabled="checkedTaskName || checledTaskCategory"
             @click="createTask"
             :btnTitle="'Submit'"
           />
