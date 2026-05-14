@@ -22,7 +22,7 @@ const projectId = route.params.id // reads "1" from /project/1/kanban
 
 const getTodos = async () => {
   try {
-    const { data } = await api.get(` /api/task/todo/${projectId}`)
+    const { data } = await api.get(`/api/task/todo/${projectId}`)
     todos.value = data
     console.log(data)
     console.log(Array.isArray(data))
@@ -33,7 +33,7 @@ const getTodos = async () => {
 
 const getProgresses = async () => {
   try {
-    const { data } = await api.get(` /api/task/progress/${projectId}`)
+    const { data } = await api.get(`/api/task/progress/${projectId}`)
     progresses.value = data
   } catch (error) {
     console.log(error)
@@ -42,7 +42,7 @@ const getProgresses = async () => {
 
 const getDones = async () => {
   try {
-    const { data } = await api.get(` /api/task/done/${projectId}`)
+    const { data } = await api.get(`/api/task/done/${projectId}`)
     dones.value = data
   } catch (error) {
     console.log(error)
@@ -58,6 +58,7 @@ const createTask = async () => {
       category: newTaskCategory.value.trim(),
       status: 'todo',
     })
+    console.log(`created task is ${data}`)
     // todos.value = [...todos.value, data]
     todos.value.push(data)
     newTaskName.value = ''
