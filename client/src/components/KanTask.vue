@@ -10,10 +10,10 @@ const props = defineProps({
 const emit = defineEmits(['delete'])
 
 const categoryColors = {
-  design: '#3B82F6',
-  bug: '#F05252',
-  feature: '#00C896',
-  research: '#F5A623',
+  Design: '#3B82F6',
+  Bug: '#F05252',
+  Feature: '#00C896',
+  Database: '#F5A623',
 }
 
 const dotColor = computed(() => categoryColors[props.category?.toLowerCase()] ?? '#4A5C7A')
