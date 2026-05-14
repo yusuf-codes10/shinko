@@ -182,6 +182,7 @@ const checkedTaskName = computed(() => !!newTaskName.value)
             <KanTask
               :title="task.title"
               :status="task.status"
+              :category="task.category"
               @delete="deleteTheTask(task.id, 'todos')"
             />
           </template>
@@ -198,6 +199,7 @@ const checkedTaskName = computed(() => !!newTaskName.value)
             <KanTask
               :title="task.title"
               :status="task.status"
+              :category="task.category"
               @delete="deleteTheTask(task.id, 'progresses')"
             />
           </template>
@@ -214,6 +216,7 @@ const checkedTaskName = computed(() => !!newTaskName.value)
             <KanTask
               :title="task.title"
               :status="task.status"
+              :category="task.category"
               @delete="deleteTheTask(task.id, 'dones')"
             />
           </template>
@@ -222,7 +225,4 @@ const checkedTaskName = computed(() => !!newTaskName.value)
     </div>
   </div>
 </template>
-
-<style scoped>
-</style>
 <!-- TODO: I really hate writable computed properties -->
