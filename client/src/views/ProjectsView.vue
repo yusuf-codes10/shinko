@@ -16,6 +16,7 @@ const loading = ref(false)
 const isModalOpen = ref(false)
 const newProjectName = ref('')
 const authStore = useAuthStore()
+const btnLaoding = ref(false)
 
 onMounted(async () => {
   try {
@@ -40,12 +41,15 @@ onMounted(() => {
 onMounted(async () => await countCompletedTodos())
 
 const createNewProject = async () => {
+  btnLaoding.value = true
   try {
     const { data } = await createProject({ name: newProjectName.value })
     projects.value.push(data)
     toggleModal()
   } catch (error) {
     console.log(error)
+  } finally {
+    btnLaoding.value = false
   }
 }
 
@@ -87,6 +91,7 @@ const checkedProjectName = computed(() => !!newProjectName.value)
           />
         </div>
         <KanButton
+          :loading="btnLaoding"
           :isDisabled="checkedProjectName"
           @click="createNewProject"
           :btnTitle="'Submit'"
