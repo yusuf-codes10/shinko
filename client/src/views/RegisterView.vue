@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/authStore.js'
+import KanButton from '@/components/ui/KanButton.vue'
 
 const username = ref('')
 const password = ref('')
@@ -9,6 +10,7 @@ const verifiedPassword = ref('')
 const email = ref('')
 
 const isLogin = ref(true)
+const btnLoading = ref(false)
 
 const errors = ref({
   clientError: null,
@@ -28,6 +30,7 @@ const createUser = async () => {
     errors.value.clientError = 'Passwords Do not match!'
     return
   }
+  btnLoading.value = true
 
   try {
     await authStore.register({
@@ -58,6 +61,8 @@ const createUser = async () => {
         errors.value.serverError = 'Oops! Something went wrong!'
         break
     }
+  } finally {
+    btnLoading.value = false
   }
 }
 
@@ -65,6 +70,7 @@ const logUserIn = async () => {
   // reset the errors
   errors.value.clientError = null
   errors.value.serverError = null
+  btnLoading.value = true
 
   try {
     await authStore.login({
@@ -88,6 +94,8 @@ const logUserIn = async () => {
         errors.value.serverError = 'Oops! Something went wrong!'
         break
     }
+  } finally {
+    btnLoading.value = false
   }
 }
 
@@ -176,12 +184,13 @@ const toggleLogin = () => {
       </div>
 
       <div class="flex justify-between">
-        <button
+        <KanButton :loading="btnLoading" :btnTitle="'Register'" type="submit" />
+        <!-- <button
           type="submit"
           class="inline-flex items-center gap-2 bg-accent hover:bg-accent-light active:bg-accent-dark text-text-inverse font-medium text-sm px-5 py-2.5 rounded-btn transition-all duration-150 hover:shadow-accent cursor-pointer"
         >
           Register
-        </button>
+        </button> -->
 
         <button
           type="button"
@@ -236,12 +245,7 @@ const toggleLogin = () => {
       </div>
 
       <div class="flex justify-between">
-        <button
-          type="submit"
-          class="inline-flex items-center gap-2 bg-accent hover:bg-accent-light active:bg-accent-dark text-text-inverse font-medium text-sm px-5 py-2.5 rounded-btn transition-all duration-150 hover:shadow-accent cursor-pointer"
-        >
-          Login
-        </button>
+        <KanButton :loading="btnLoading" :btnTitle="'Log In'" type="submit" />
 
         <button
           type="button"
