@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/authStore.js'
 import KanButton from '@/components/ui/KanButton.vue'
+import GhostButton from '@/components/ui/GhostButton.vue'
 
 const username = ref('')
 const password = ref('')
@@ -185,20 +186,8 @@ const toggleLogin = () => {
 
       <div class="flex justify-between">
         <KanButton :loading="btnLoading" :btnTitle="'Register'" type="submit" />
-        <!-- <button
-          type="submit"
-          class="inline-flex items-center gap-2 bg-accent hover:bg-accent-light active:bg-accent-dark text-text-inverse font-medium text-sm px-5 py-2.5 rounded-btn transition-all duration-150 hover:shadow-accent cursor-pointer"
-        >
-          Register
-        </button> -->
 
-        <button
-          type="button"
-          @click="cancelForm"
-          class="inline-flex items-center gap-2 bg-transparent hover:bg-bg-raised text-text-secondary hover:text-text-primary border border-bg-border hover:border-accent/40 font-medium text-sm px-5 py-2.5 rounded-btn transition-all duration-150 cursor-pointer"
-        >
-          Cancel
-        </button>
+        <GhostButton @click="cancelForm" :btnTitle="'Cancel'" />
       </div>
     </form>
 
@@ -247,13 +236,7 @@ const toggleLogin = () => {
       <div class="flex justify-between">
         <KanButton :loading="btnLoading" :btnTitle="'Log In'" type="submit" />
 
-        <button
-          type="button"
-          @click="cancelForm"
-          class="inline-flex items-center gap-2 bg-transparent hover:bg-bg-raised text-text-secondary hover:text-text-primary border border-bg-border hover:border-accent/40 font-medium text-sm px-5 py-2.5 rounded-btn transition-all duration-150 cursor-pointer"
-        >
-          Cancel
-        </button>
+        <GhostButton @click="cancelForm" :btnTitle="'Cancel'" />
       </div>
     </form>
   </div>
