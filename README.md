@@ -24,7 +24,9 @@ and persistent PostgreSQL storage.
 ## 🛠 Tech Stack
 
 **Frontend** Vue.js · TailwindCSS · Vue Router · Pinia
+
 **Backend** Node.js · Express.js · JWT
+
 **Database** PostgreSQL
 
 ## 💡 Why I built this
