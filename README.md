@@ -8,7 +8,11 @@ and persistent PostgreSQL storage.
 
 ## Preview
 
+!['task image'](/client/public/tasks.png)
+
 ## 🚀 Live Demo
+
+https://shinko-two.vercel.app/
 
 ## ✨ Features
 
@@ -32,7 +36,7 @@ it as a chance to practice full-stack architecture end to end.
 ## ⚙️ Installation
 
 ```bash
-        git clone https://github.com/yusef-codes10/shinko
+git clone https://github.com/yusef-codes10/shinko
 ```
 
 ## 👨‍💻 Author
