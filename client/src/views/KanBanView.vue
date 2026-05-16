@@ -136,7 +136,7 @@ const checledTaskCategory = computed(() => !newTaskCategory.value.trim())
 
 <template>
   <div>
-    <header class="felx">
+    <header class="flex justify-end mb-4 mx-2">
       <KanButton @click="toggleModal" :btnTitle="'+New Task'" />
     </header>
     <div class="grid grid-cols-3 justify-center gap-10 w-full">
