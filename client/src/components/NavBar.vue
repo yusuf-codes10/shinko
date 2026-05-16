@@ -2,7 +2,8 @@
 import { useAuthStore } from '@/stores/authStore.js'
 import { storeToRefs } from 'pinia'
 import { useRouter } from 'vue-router'
-import ShinkpLogo from './ui/ShinkoLogo.vue'
+import ShinkoLogo from '@/components/ui/ShinkoLogo.vue'
+import KanButton from '@/components/ui/KanButton.vue'
 
 const authStore = useAuthStore()
 const router = useRouter()
@@ -17,7 +18,7 @@ const handleLogout = async () => {
 <template>
   <nav class="bg-bg-base flex justify-between items-center w-full px-6 py-2">
     <div class="inline-flex">
-      <ShinkpLogo :width="'40px'" />
+      <ShinkoLogo :width="'40px'" />
       <h1 class="text-3xl">Shinko</h1>
     </div>
     <div v-if="isLoggedIn" class="flex justify-between gap-4">
@@ -25,7 +26,7 @@ const handleLogout = async () => {
       <button class="cursor-pointer" @click="handleLogout">logout</button>
     </div>
     <RouterLink v-else :to="{ name: 'Register' }">
-      <button class="bg-blue-300 px-4 py-2 cursor-pointer rounded-2xl">Login</button>
+      <KanButton :loading="btnLoading" :btnTitle="'Log In'" type="submit" />
     </RouterLink>
   </nav>
 </template>
