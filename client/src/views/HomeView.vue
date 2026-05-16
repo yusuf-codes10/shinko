@@ -6,7 +6,7 @@ const authStore = useAuthStore()
 
 <template>
   <div
-    class="relative flex flex-col items-center justify-center h-screen overflow-hidden bg-bg-base font-sans"
+    class="relative flex flex-col items-center justify-center h-[calc(100vh-4rem)] overflow-hidden bg-bg-base font-sans"
   >
     <!-- Background grid -->
     <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
