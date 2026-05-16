@@ -16,7 +16,7 @@ const categoryColors = {
   Database: '#F5A623',
 }
 
-const dotColor = computed(() => categoryColors[props.category?.toLowerCase()] ?? '#4A5C7A')
+const dotColor = computed(() => categoryColors[props.category] ?? '#4A5C7A')
 </script>
 
 <template>
