@@ -19,7 +19,12 @@ const handleLogout = async () => {
   <nav class="bg-bg-base flex justify-between items-center w-full px-6 py-2">
     <div class="inline-flex">
       <ShinkoLogo :width="'40px'" />
-      <h1 class="text-3xl">Shinko</h1>
+      <h1
+        class="font-display font-semibold text-text-primary leading-none tracking-tight"
+        style="font-size: clamp(1rem, 3vw, 2rem)"
+      >
+        shinko
+      </h1>
     </div>
     <div v-if="isLoggedIn" class="flex justify-between gap-4">
       <h2>{{ user?.username }}</h2>
