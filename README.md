@@ -12,7 +12,7 @@ and persistent PostgreSQL storage.
 
 ## 🚀 Live Demo
 
-https://shinko-two.vercel.app/
+[shinko-two.vercel.app](https://shinko-two.vercel.app/)
 
 ## ✨ Features
 
@@ -23,11 +23,11 @@ https://shinko-two.vercel.app/
 
 ## 🛠 Tech Stack
 
-Frontend Vue.js · TailwindCSS · Vue Router · Pinia
-Backend Node.js · Express.js · JWT
-Database PostgreSQL
+**Frontend** Vue.js · TailwindCSS · Vue Router · Pinia
+**Backend** Node.js · Express.js · JWT
+**Database** PostgreSQL
 
-## Why I built this
+## 💡 Why I built this
 
 Existing Kanban tools were either too bloated or required subscriptions.
 I wanted to build something minimal that I'd actually use daily — and use
