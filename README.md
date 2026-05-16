@@ -1,7 +1,40 @@
 # Shinko
 
-## Overview
+## 📖 Overview
 
-This is shinko the kanban tool that I am actually going to use.
+A personal Kanban board built to actually use — not just demo.
+Full-stack app with drag-and-drop task management, JWT authentication,
+and persistent PostgreSQL storage.
 
-A full stack app built in with Vue, Express and PostgreSQL.
+## Preview
+
+## 🚀 Live Demo
+
+## ✨ Features
+
+- JWT-based authentication with protected routes
+- Drag-and-drop task cards with smooth Vue transitions
+- Create and delete projects and tasks
+- Data persisted in PostgreSQL via a RESTful Express API
+
+## 🛠 Tech Stack
+
+Frontend Vue.js · TailwindCSS · Vue Router · Pinia
+Backend Node.js · Express.js · JWT
+Database PostgreSQL
+
+## Why I built this
+
+Existing Kanban tools were either too bloated or required subscriptions.
+I wanted to build something minimal that I'd actually use daily — and use
+it as a chance to practice full-stack architecture end to end.
+
+## ⚙️ Installation
+
+```bash
+        git clone https://github.com/yusef-codes10/shinko
+```
+
+## 👨‍💻 Author
+
+Yusuf — github.com/yusef-codes10
