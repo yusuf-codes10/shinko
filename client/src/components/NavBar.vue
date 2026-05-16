@@ -30,6 +30,3 @@ const handleLogout = async () => {
     </RouterLink>
   </nav>
 </template>
-
-<style scoped>
-</style>

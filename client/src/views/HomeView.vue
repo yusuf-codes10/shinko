@@ -87,6 +87,3 @@ const authStore = useAuthStore()
     </div>
   </div>
 </template>
-
-<style scoped>
-</style>

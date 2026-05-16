@@ -1,4 +1,3 @@
-<!-- src/components/ShinkoLogo.vue -->
 <script setup>
 defineProps({
   width: { type: String, default: '160px' },

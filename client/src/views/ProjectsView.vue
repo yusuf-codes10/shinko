@@ -116,6 +116,3 @@ const checkedProjectName = computed(() => !!newProjectName.value)
     />
   </div>
 </template>
-
-<style scoped>
-</style>

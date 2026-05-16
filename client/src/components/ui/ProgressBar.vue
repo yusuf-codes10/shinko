@@ -12,6 +12,3 @@ const props = defineProps({
     <div :style="{ width: props.width }" class="h-full bg-accent rounded-full"></div>
   </div>
 </template>
-
-<style scoped>
-</style>
