@@ -16,7 +16,7 @@ const handleLogout = async () => {
 </script>
 
 <template>
-  <nav class="bg-bg-base flex justify-between items-center w-full px-6 py-2">
+  <nav class="bg-bg-base flex fixed w-full justify-between items-center z-50 px-6 py-2">
     <div class="inline-flex">
       <ShinkoLogo :width="'40px'" />
       <h1
