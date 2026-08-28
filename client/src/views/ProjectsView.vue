@@ -1,6 +1,11 @@
 <script setup>
 import KanProject from '@/components/KanProject.vue'
 import { ref, onMounted, computed } from 'vue'
+import {
+  getAllProjects,
+  createProject,
+  countCompletedTasksByProject,
+} from '@/services/projectService.js'
 import KanModal from '@/components/ui/KanModal.vue'
 import AddNewProject from '@/components/ui/AddNewProject.vue'
 import KanButton from '@/components/ui/KanButton.vue'
@@ -29,9 +34,7 @@ const getProjects = async () => {
 const createNewProject = async () => {
   btnLaoding.value = true
   try {
-    const { data } = await api.post('/api/projects', {
-      name: newProjectName.value,
-    })
+    const { data } = await createProject({ name: newProjectName.value })
     projects.value.push(data)
     toggleModal()
   } catch (error) {
@@ -42,7 +45,7 @@ const createNewProject = async () => {
 }
 
 const countCompletedTodos = async () => {
-  const { data } = await getProjects()
+  const { data } = await getAllProjects()
   projects.value = data
 
   // now you have the actual project ids
