@@ -5,7 +5,6 @@ import projectsRouter from "./router/projects.route.js";
 import registerRouter from "./router/register.route.js";
 import handleError from "./middlewares/errorHandler.js";
 import catchAllError from "./middlewares/catchAll.js";
-import supabase from "./db/supabase.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
@@ -15,12 +14,11 @@ const corsOptions = {
   credentials: true,
 };
 console.log(process.env.CLIENT_URL);
-const { data, error } = await supabase.from("users").select("*").limit(1);
-
-if (error) {
-  console.log("❌ Supabase connection failed:", error.message);
-} else {
-  console.log("✅ Supabase connected successfully!", data);
+try {
+  await pool.query("SELECT 1");
+  console.log("✓ Neon (Postgres) connected successfully!");
+} catch (err) {
+  console.log("✗ Neon connection failed:", err.message);
 }
 
 app.use(cookieParser());
