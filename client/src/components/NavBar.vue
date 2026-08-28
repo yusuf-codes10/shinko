@@ -32,6 +32,11 @@ const handleLogout = async () => {
     </RouterLink>
     <div class="flex justify-between gap-2">
       <div>
+        <a href="https://github.com/yusuf-codes10/shinko">
+          <i class="fa-brands fa-github cursor-pointer"></i>
+        </a>
+      </div>
+      <div>
         <i
           v-if="themeStore.light"
           @click="themeStore.toggleTheme"
