@@ -17,8 +17,8 @@ const btnLaoding = ref(false)
 const getProjects = async () => {
   loading.value = true
   try {
-    const response = await api.get('/api/projects')
-    projects.value = response
+    const { data } = await api.get('/api/projects')
+    projects.value = data
   } catch (error) {
     console.log(error)
   } finally {
