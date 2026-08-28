@@ -38,7 +38,52 @@
   --shadow-card: 0 0 0 1px #1F2D45, 0 4px 24px rgba(0, 0, 0, 0.4);
   --shadow-accent: 0 0 20px rgba(0, 200, 150, 0.25);
   --shadow-input: 0 0 0 2px rgba(0, 200, 150, 0.4);
+}
 
+/* ─────────────────────────────────────────────────────────────
+   LIGHT THEME  —  applied via <html class="light">
+   Same token names as :root so every component swaps automatically.
+   Only backgrounds, text and borders are re-derived for light;
+   accent / semantic / typography / radius are kept identical.
+   ───────────────────────────────────────────────────────────── */
+.light {
+  /* ── Backgrounds (base lightest → raised for cards) ──────── */
+  --color-bg-base: #F4F6FB;
+  --color-bg-surface: #FFFFFF;
+  --color-bg-raised: #FFFFFF;
+  --color-bg-border: #DCE3EF;
+  --color-bg-purple: #7c6dea;
+
+  /* ── Accent (unchanged — reads fine on light) ────────────── */
+  --color-accent: #7c6dea;
+  --color-accent-light: #a89cf5;
+  --color-accent-dark: #4e43b3;
+
+  /* ── Text (dark ink on light bg; roles flipped) ──────────── */
+  --color-text-primary: #0A0F1E;
+  --color-text-secondary: #4A5C7A;
+  --color-text-muted: #8B9FC0;
+  --color-text-inverse: #F0F4FF;
+
+  /* ── Semantic (unchanged) ────────────────────────────────── */
+  --color-danger: #F05252;
+  --color-warning: #F5A623;
+  --color-success: #00C896;
+  --color-info: #3B82F6;
+
+  /* ── Typography (unchanged) ──────────────────────────────── */
+  --font-sans: 'DM Sans', sans-serif;
+  --font-display: 'Sora', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* ── Border Radius (unchanged) ───────────────────────────── */
+  --radius-card: 1rem;
+  --radius-btn: 0.625rem;
+
+  /* ── Shadows (softer, for light bg) ──────────────────────── */
+  --shadow-card: 0 0 0 1px #DCE3EF, 0 4px 24px rgba(16, 24, 40, 0.08);
+  --shadow-accent: 0 0 20px rgba(124, 109, 234, 0.20);
+  --shadow-input: 0 0 0 2px rgba(124, 109, 234, 0.35);
 }
 
 @theme {
@@ -48,7 +93,6 @@
   --color-bg-raised: #1A2236;
   --color-bg-border: #1F2D45;
   --color-bg-purple: #7c6dea;
-
 
   /* ── Accent ──────────────────────────────────────────────── */
   --color-accent: #00C896;
@@ -86,7 +130,3 @@ body {
   background-color: var(--color-bg-base);
   color: var(--color-text-primary);
 }
-
-/* input {
-  color: var(--color-text-muted);
-} */
