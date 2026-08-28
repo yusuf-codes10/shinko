@@ -17,16 +17,12 @@ const newTaskCategory = ref('')
 const route = useRoute()
 const btnLoading = ref(false)
 
-// const getTask = async () => {}
-
 const projectId = route.params.id // reads "1" from /project/1/kanban
 
 const getTodos = async () => {
   try {
     const { data } = await api.get(`/api/task/todo/${projectId}`)
     todos.value = data
-    console.log(data)
-    console.log(Array.isArray(data))
   } catch (error) {
     console.log(error)
   }
@@ -60,8 +56,6 @@ const createTask = async () => {
       category: newTaskCategory.value.trim(),
       status: 'todo',
     })
-    console.log(data)
-    // todos.value = [...todos.value, data]
     todos.value.push(data)
     newTaskName.value = ''
     newTaskCategory.value = ''
@@ -75,8 +69,6 @@ const createTask = async () => {
 
 // put req
 const update = async (id, stat) => {
-  console.log('id:', id)
-  console.log('status:', stat)
   try {
     await api.put(`/api/task/${id}`, { status: stat })
   } catch (error) {
@@ -100,6 +92,12 @@ const deleteTheTask = async (id, arrayName) => {
   }
 }
 
+onMounted(async () => {
+  await getTodos()
+  await getProgresses()
+  await getDones()
+})
+
 const toggleModal = () => {
   isModalOpen.value = !isModalOpen.value
 }
@@ -108,29 +106,16 @@ const handleDrop = async (list, status, event) => {
   const droppedTask = list[event.newIndex]
   if (!droppedTask) return
 
-  const task = tasks.value.find((t) => t.id === droppedTask.id)
-  if (task) task.status = status
-
+  droppedTask.status = status
   await update(droppedTask.id, status)
 }
-
-const tasks = computed(() => {
-  return [...todos.value, ...progresses.value, ...dones.value]
-})
 
 // computed properties for count
 const todosCount = computed(() => todos.value.length)
 const progressesCount = computed(() => progresses.value.length)
 const donesCount = computed(() => dones.value.length)
 
-const checkedTaskName = computed(() => !newTaskName.value.trim())
-const checledTaskCategory = computed(() => !newTaskCategory.value.trim())
-
-onMounted(async () => {
-  await getTodos()
-  await getProgresses()
-  await getDones()
-})
+const isSubmitDisabled = computed(() => !newTaskName.value.trim() || !newTaskCategory.value.trim())
 </script>
 
 <template>
@@ -165,7 +150,7 @@ onMounted(async () => {
           </div>
           <KanButton
             :loading="btnLoading"
-            :isDisabled="checkedTaskName || checledTaskCategory"
+            :isDisabled="isSubmitDisabled"
             @click="createTask"
             :btnTitle="'Submit'"
           />
@@ -225,4 +210,3 @@ onMounted(async () => {
     </div>
   </div>
 </template>
-<!-- TODO: I really hate writable computed properties -->
