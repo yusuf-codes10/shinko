@@ -10,6 +10,7 @@ import KanModal from '@/components/ui/KanModal.vue'
 import AddNewProject from '@/components/ui/AddNewProject.vue'
 import KanButton from '@/components/ui/KanButton.vue'
 import { useAuthStore } from '@/stores/authStore.js'
+import { api } from '@/services/api.js'
 
 const projects = ref([])
 const loading = ref(false)
@@ -18,27 +19,17 @@ const newProjectName = ref('')
 const authStore = useAuthStore()
 const btnLaoding = ref(false)
 
-onMounted(async () => {
+const getProjects = async () => {
+  loading.value = true
   try {
-    loading.value = true
-    const { data } = await getAllProjects()
-    projects.value = data
+    const response = await api.get('/api/projects')
+    projects.value = response
   } catch (error) {
     console.log(error)
   } finally {
     loading.value = false
   }
-})
-
-// ? FIXME: debug this
-onMounted(() => {
-  console.log(`username is ${authStore.user?.username}`)
-  console.log(`user id is ${authStore.user?.id}`)
-  console.log(`user is ${authStore.user}`)
-})
-
-// counting for every single project
-onMounted(async () => await countCompletedTodos())
+}
 
 const createNewProject = async () => {
   btnLaoding.value = true
@@ -71,6 +62,18 @@ const toggleModal = () => {
 // const checkedProjectName = computed(() => !!newProjectName.value)
 
 const isSubmitDisabled = computed(() => !newProjectName.value)
+
+onMounted(async () => {
+  await getProjects()
+  await countCompletedTodos()
+})
+
+// ? FIXME: debug this
+onMounted(() => {
+  console.log(`username is ${authStore.user?.username}`)
+  console.log(`user id is ${authStore.user?.id}`)
+  console.log(`user is ${authStore.user}`)
+})
 </script>
 
 <template>
