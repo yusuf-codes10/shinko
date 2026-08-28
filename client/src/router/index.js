@@ -6,6 +6,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 import { useAuthStore } from '@/stores/authStore.js'
 import GlobalView from '@/views/GlobalView.vue'
+import UserProfileView from '@/views/UserProfileView.vue'
 
 const routes = [
   {
@@ -40,6 +41,11 @@ const routes = [
         return { name: 'Home' }
       }
     },
+  },
+  {
+    path: '/:username',
+    name: 'UserProfile',
+    component: UserProfileView,
   },
   {
     path: '/global',
