@@ -2,11 +2,13 @@
 import { useAuthStore } from '@/stores/authStore.js'
 import { storeToRefs } from 'pinia'
 import { useRouter } from 'vue-router'
+import { useThemeStore } from '@/stores/themeStore'
 import ShinkoLogo from '@/components/ui/ShinkoLogo.vue'
 import KanButton from '@/components/ui/KanButton.vue'
 
 const authStore = useAuthStore()
 const router = useRouter()
+const themeStore = useThemeStore()
 const { user, isLoggedIn } = storeToRefs(authStore)
 
 const handleLogout = async () => {
@@ -28,6 +30,9 @@ const handleLogout = async () => {
         </h1>
       </div>
     </RouterLink>
+    <div>
+      <button @click="themeStore.toggleTheme">Click</button>
+    </div>
     <div v-if="isLoggedIn" class="flex justify-between gap-4">
       <h2>{{ user?.username }}</h2>
       <button class="cursor-pointer" @click="handleLogout">logout</button>
