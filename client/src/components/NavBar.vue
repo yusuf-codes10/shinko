@@ -40,7 +40,9 @@ const handleLogout = async () => {
         <i v-else @click="themeStore.toggleTheme" class="fa-solid fa-sun cursor-pointer"></i>
       </div>
       <div v-if="isLoggedIn" class="flex justify-between gap-2">
-        <h2 class="cursor-pointer">{{ user?.username }}</h2>
+        <RouterLink :to="`/${user?.username}`">
+          <h2 class="cursor-pointer">{{ user?.username }}</h2>
+        </RouterLink>
         <button class="cursor-pointer" @click="handleLogout">logout</button>
       </div>
       <RouterLink v-else :to="{ name: 'Register' }">
