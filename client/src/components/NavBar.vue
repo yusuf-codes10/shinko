@@ -17,15 +17,17 @@ const handleLogout = async () => {
 
 <template>
   <nav class="bg-bg-base flex sticky top-0 w-full justify-between items-center z-50 px-6 py-2">
-    <div class="inline-flex">
-      <ShinkoLogo :width="'40px'" />
-      <h1
-        class="font-display font-semibold text-text-primary leading-none tracking-tight"
-        style="font-size: clamp(1rem, 3vw, 2rem)"
-      >
-        shinko
-      </h1>
-    </div>
+    <RouterLink :to="{ name: 'Home' }">
+      <div class="inline-flex">
+        <ShinkoLogo :width="'40px'" />
+        <h1
+          class="font-display font-semibold text-text-primary leading-none tracking-tight"
+          style="font-size: clamp(1rem, 3vw, 2rem)"
+        >
+          shinko
+        </h1>
+      </div>
+    </RouterLink>
     <div v-if="isLoggedIn" class="flex justify-between gap-4">
       <h2>{{ user?.username }}</h2>
       <button class="cursor-pointer" @click="handleLogout">logout</button>
