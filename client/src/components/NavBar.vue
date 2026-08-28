@@ -30,15 +30,18 @@ const handleLogout = async () => {
         </h1>
       </div>
     </RouterLink>
-    <div>
-      <button @click="themeStore.toggleTheme">Click</button>
+    <div class="flex justify-between gap-2">
+      <div>
+        <i v-if="themeStore.light" @click="themeStore.toggleTheme" class="fa-solid fa-moon"></i>
+        <i v-else @click="themeStore.toggleTheme" class="fa-solid fa-sun"></i>
+      </div>
+      <div v-if="isLoggedIn" class="flex justify-between gap-2">
+        <h2>{{ user?.username }}</h2>
+        <button class="cursor-pointer" @click="handleLogout">logout</button>
+      </div>
+      <RouterLink v-else :to="{ name: 'Register' }">
+        <KanButton :btnTitle="'Log In'" type="submit" />
+      </RouterLink>
     </div>
-    <div v-if="isLoggedIn" class="flex justify-between gap-4">
-      <h2>{{ user?.username }}</h2>
-      <button class="cursor-pointer" @click="handleLogout">logout</button>
-    </div>
-    <RouterLink v-else :to="{ name: 'Register' }">
-      <KanButton :btnTitle="'Log In'" type="submit" />
-    </RouterLink>
   </nav>
 </template>
