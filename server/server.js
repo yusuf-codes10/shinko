@@ -7,6 +7,7 @@ import handleError from "./middlewares/errorHandler.js";
 import catchAllError from "./middlewares/catchAll.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import pool from "./db/pool.js";
 
 const app = express();
 const corsOptions = {
