@@ -68,7 +68,9 @@ const toggleModal = () => {
   isModalOpen.value = !isModalOpen.value
 }
 
-const checkedProjectName = computed(() => !!newProjectName.value)
+// const checkedProjectName = computed(() => !!newProjectName.value)
+
+const isSubmitDisabled = computed(() => !newProjectName.value)
 </script>
 
 <template>
@@ -92,7 +94,7 @@ const checkedProjectName = computed(() => !!newProjectName.value)
         </div>
         <KanButton
           :loading="btnLaoding"
-          :isDisabled="checkedProjectName"
+          :isDisabled="isSubmitDisabled"
           @click="createNewProject"
           :btnTitle="'Submit'"
         />
