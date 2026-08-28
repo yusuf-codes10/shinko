@@ -31,7 +31,7 @@ const handleLogout = async () => {
       <button class="cursor-pointer" @click="handleLogout">logout</button>
     </div>
     <RouterLink v-else :to="{ name: 'Register' }">
-      <KanButton :loading="btnLoading" :btnTitle="'Log In'" type="submit" />
+      <KanButton :btnTitle="'Log In'" type="submit" />
     </RouterLink>
   </nav>
 </template>
