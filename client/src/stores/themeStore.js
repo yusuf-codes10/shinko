@@ -1,10 +1,15 @@
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { defineStore } from 'pinia'
 
-export const useCounterStore = defineStore('counter', () => {
+export const useThemeStore = defineStore('theme', () => {
   const light = ref(true)
+
+  const toggleTheme = () => {
+    light.value = !light.value
+  }
 
   return {
     light,
+    toggleTheme,
   }
 })
