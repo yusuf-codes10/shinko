@@ -41,21 +41,6 @@ const createNewProject = async () => {
   }
 }
 
-const countCompletedTodos = async () => {
-  const { data } = await getProjects()
-  projects.value = data
-
-  // now you have the actual project ids
-  for (const project of projects.value) {
-    const { data } = await countCompletedTasksByProject(project.id)
-    console.log(`project ${project.id} has ${data.count} completed tasks`)
-  }
-}
-
-const countCompletedTasksByProject = async () => {
-  await api.get(`/api/projects/${id}/count`)
-}
-
 const toggleModal = () => {
   isModalOpen.value = !isModalOpen.value
 }
@@ -66,7 +51,6 @@ const isSubmitDisabled = computed(() => !newProjectName.value)
 
 onMounted(async () => {
   await getProjects()
-  await countCompletedTodos()
 })
 
 // ? FIXME: debug this
