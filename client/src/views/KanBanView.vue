@@ -83,7 +83,6 @@ const update = async (id, stat) => {
     console.log(error)
   }
 }
-console.log(update)
 
 // delete request
 const deleteTheTask = async (id, arrayName) => {
@@ -100,12 +99,6 @@ const deleteTheTask = async (id, arrayName) => {
     console.log(error)
   }
 }
-
-onMounted(async () => {
-  await getTodos()
-  await getProgresses()
-  await getDones()
-})
 
 const toggleModal = () => {
   isModalOpen.value = !isModalOpen.value
@@ -132,6 +125,12 @@ const donesCount = computed(() => dones.value.length)
 
 const checkedTaskName = computed(() => !newTaskName.value.trim())
 const checledTaskCategory = computed(() => !newTaskCategory.value.trim())
+
+onMounted(async () => {
+  await getTodos()
+  await getProgresses()
+  await getDones()
+})
 </script>
 
 <template>
