@@ -5,7 +5,7 @@ import KanModal from '@/components/ui/KanModal.vue'
 import AddNewProject from '@/components/ui/AddNewProject.vue'
 import KanButton from '@/components/ui/KanButton.vue'
 import { useAuthStore } from '@/stores/authStore.js'
-import { api } from '@/services/api.js'
+import api from '@/services/api.js'
 
 const projects = ref([])
 const loading = ref(false)
