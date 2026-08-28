@@ -32,8 +32,12 @@ const handleLogout = async () => {
     </RouterLink>
     <div class="flex justify-between gap-2">
       <div>
-        <i v-if="themeStore.light" @click="themeStore.toggleTheme" class="fa-solid fa-moon"></i>
-        <i v-else @click="themeStore.toggleTheme" class="fa-solid fa-sun"></i>
+        <i
+          v-if="themeStore.light"
+          @click="themeStore.toggleTheme"
+          class="fa-solid fa-moon cursor-pointer"
+        ></i>
+        <i v-else @click="themeStore.toggleTheme" class="fa-solid fa-sun cursor-pointer"></i>
       </div>
       <div v-if="isLoggedIn" class="flex justify-between gap-2">
         <h2>{{ user?.username }}</h2>
