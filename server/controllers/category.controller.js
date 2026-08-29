@@ -11,7 +11,7 @@ export const createCategory = async (req, res, next) => {
   }
   try {
     const { rows } = await pool.query(
-      "INSERT INTO category (name, userId) VALUE ($1, $2) RETURNING *",
+      "INSERT INTO category (name, userId) VALUES ($1, $2) RETURNING *",
       [name, userId],
     );
 
@@ -28,7 +28,7 @@ export const getCategories = async (req, res) => {
       "SELECT * FROM category WHERE category.userId = $1",
       [userId],
     );
-    return res.state(200).json(rows);
+    return res.status(200).json(rows);
   } catch (error) {
     console.log(error);
   }
