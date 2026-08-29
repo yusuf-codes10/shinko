@@ -20,3 +20,16 @@ export const createCategory = async (req, res, next) => {
     console.log(error);
   }
 };
+
+export const getCategories = async (req, res) => {
+  const userId = req.user.id;
+  try {
+    const { rows } = await pool.query(
+      "SELECT * FROM category WHERE category.userId = $1",
+      [userId],
+    );
+    return res.state(200).json(rows);
+  } catch (error) {
+    console.log(error);
+  }
+};
