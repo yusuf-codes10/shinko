@@ -35,7 +35,7 @@ export const getCategories = async (req, res) => {
 };
 
 export const deleteCategory = async (req, res) => {
-  const { categoryId } = Number(req.params);
+  const categoryId = Number(req.params.id);
   // const userId = req.user.id;
   try {
     const { rows } = await pool.query(
