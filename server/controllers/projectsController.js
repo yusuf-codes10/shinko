@@ -23,15 +23,15 @@ export const getAllUserProjects = async (req, res, next) => {
 };
 
 export const createNewProject = async (req, res, next) => {
-  const { name } = req.body;
+  const { name, description } = req.body;
   const userId = req.user.id;
 
   try {
     const { rows } = await pool.query(
-      `INSERT INTO project (name, user_id, created_at)
-       VALUES ($1, $2, $3)
+      `INSERT INTO project (name, user_id, created_at, description)
+       VALUES ($1, $2, $3, $4)
        RETURNING *`,
-      [name, userId, new Date()],
+      [name, userId, new Date(), description],
     );
 
     res.status(201).json(rows[0]);
