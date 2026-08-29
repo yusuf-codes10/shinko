@@ -33,3 +33,18 @@ export const getCategories = async (req, res) => {
     console.log(error);
   }
 };
+
+export const deleteCategory = async (req, res) => {
+  const { categoryId } = Number(req.params);
+  // const userId = req.user.id;
+  try {
+    const { rows } = await pool.query(
+      "DELETE FROM category WHERE category.id = $1 RETURNING *",
+      [categoryId],
+    );
+
+    res.status(202).json(rows);
+  } catch (error) {
+    console.log(error);
+  }
+};
