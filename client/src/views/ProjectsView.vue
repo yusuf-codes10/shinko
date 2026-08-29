@@ -32,6 +32,7 @@ const createNewProject = async () => {
   try {
     const { data } = await api.post('/api/projects', {
       name: newProjectName.value,
+      description: newProjectDescription.value,
     })
     projects.value.push(data)
     toggleModal()
