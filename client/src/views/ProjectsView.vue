@@ -11,6 +11,7 @@ const projects = ref([])
 const loading = ref(false)
 const isModalOpen = ref(false)
 const newProjectName = ref('')
+const newProjectDescription = ref('')
 const authStore = useAuthStore()
 const btnLaoding = ref(false)
 
@@ -78,6 +79,7 @@ onMounted(() => {
             placeholder="What's this project about?"
             rows="3"
             class="w-full bg-bg-raised border border-bg-border text-text-primary placeholder:text-text-muted text-sm px-3.5 py-2.5 rounded-btn resize-none focus:outline-none focus:border-accent focus:shadow-input transition-all duration-150"
+            v-model="newProjectDescription"
           />
         </div>
         <KanButton
