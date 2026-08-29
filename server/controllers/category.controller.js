@@ -2,6 +2,7 @@ import pool from "../db/pool.js";
 
 export const createCategory = async (req, res, next) => {
   const { name } = req.body;
+  const userId = req.user.id;
 
   if (!name) {
     const error = new Error("Name and description are required!");
@@ -10,8 +11,8 @@ export const createCategory = async (req, res, next) => {
   }
   try {
     const { rows } = await pool.query(
-      "INSERT INTO category VALUE ($1) RETURNING *",
-      [name],
+      "INSERT INTO category (name, userId) VALUE ($1, $2) RETURNING *",
+      [name, userId],
     );
 
     return res.status(201).json(rows[0]);
