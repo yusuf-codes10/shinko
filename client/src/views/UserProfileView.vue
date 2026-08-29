@@ -7,7 +7,7 @@ const route = useRoute()
 
 // const username = ref('')
 // const initials = computed(() => username.value.slice(0, 2).toUpperCase())
-// const categories = ref([])          // fetched list
+const categories = ref([])
 const newCategory = ref('')
 // const addCategory = async () => { /* your API call */ }
 // const deleteCategory = async (id) => { /* your API call */ }
@@ -69,7 +69,7 @@ onMounted(async () => {
       </div>
 
       <!-- Add new category (wire @submit / @click yourself) -->
-      <form class="flex gap-2" @submit.prevent @submit="createCategory">
+      <form class="flex gap-2" @submit.prevent="createCategory">
         <input
           type="text"
           placeholder="e.g. Design, Backend, Docs"
