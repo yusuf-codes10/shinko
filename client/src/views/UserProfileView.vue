@@ -2,6 +2,7 @@
 import { useRoute } from 'vue-router'
 import { ref, onMounted } from 'vue'
 import api from '@/services/api.js'
+import KanButton from '@/components/ui/KanButton.vue'
 
 const route = useRoute()
 
@@ -9,6 +10,7 @@ const route = useRoute()
 // const initials = computed(() => username.value.slice(0, 2).toUpperCase())
 const categories = ref([])
 const newCategory = ref('')
+const loading = ref(false)
 // const addCategory = async () => { /* your API call */ }
 // const deleteCategory = async (id) => { /* your API call */ }
 // onMounted(fetchProfile)
@@ -24,6 +26,7 @@ const getAllCategories = async () => {
 }
 
 const createCategory = async () => {
+  loading.value = true
   try {
     const response = await api.post('/api/category', {
       name: newCategory.value,
@@ -33,6 +36,7 @@ const createCategory = async () => {
     console.log(error)
   } finally {
     newCategory.value = ''
+    loading.value = true
   }
 }
 
@@ -76,12 +80,14 @@ onMounted(async () => {
           class="flex-1 bg-bg-surface border border-bg-border text-text-primary placeholder:text-text-muted text-sm px-3.5 py-2.5 rounded-btn focus:outline-none focus:border-accent focus:shadow-input transition-all duration-150"
           v-model="newCategory"
         />
-        <button
+        <KanButton :loading="loading" type="submit" :btnTitle="'Add'" />
+        <!-- TODO: better button style to try later -->
+        <!-- <button
           type="submit"
           class="bg-accent text-text-inverse text-sm font-medium px-4 py-2.5 rounded-btn hover:bg-accent-dark transition-colors duration-150 cursor-pointer"
         >
           Add
-        </button>
+        </button> -->
       </form>
 
       <!-- Category list -->
