@@ -23,6 +23,19 @@ const getAllCategories = async () => {
   }
 }
 
+const createCategory = async () => {
+  try {
+    const response = await api.post('/api/category', {
+      name: newCategory.value,
+    })
+    console.log('CREATED CATEGORY: ', response)
+  } catch (error) {
+    console.log(error)
+  } finally {
+    newCategory.value = ''
+  }
+}
+
 const username = route.params.username ?? ''
 const initials = username.slice(0, 2).toUpperCase()
 
@@ -56,7 +69,7 @@ onMounted(async () => {
       </div>
 
       <!-- Add new category (wire @submit / @click yourself) -->
-      <form class="flex gap-2" @submit.prevent>
+      <form class="flex gap-2" @submit.prevent @submit="createCategory">
         <input
           type="text"
           placeholder="e.g. Design, Backend, Docs"
