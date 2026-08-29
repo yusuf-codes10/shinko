@@ -10,8 +10,8 @@ import api from '@/services/api.js'
 const projects = ref([])
 const loading = ref(false)
 const isModalOpen = ref(false)
-const newProjectName = ref('')
-const newProjectDescription = ref('')
+const name = ref('')
+const description = ref('')
 const authStore = useAuthStore()
 const btnLaoding = ref(false)
 
@@ -31,8 +31,8 @@ const createNewProject = async () => {
   btnLaoding.value = true
   try {
     const { data } = await api.post('/api/projects', {
-      name: newProjectName.value,
-      description: newProjectDescription.value,
+      name: name.value,
+      description: description.value,
     })
     projects.value.push(data)
     toggleModal()
@@ -49,7 +49,7 @@ const toggleModal = () => {
 
 // const checkedProjectName = computed(() => !!newProjectName.value)
 
-const isSubmitDisabled = computed(() => !newProjectName.value)
+const isSubmitDisabled = computed(() => !name.value)
 
 onMounted(async () => {
   await getProjects()
@@ -72,7 +72,7 @@ onMounted(() => {
           type="text"
           placeholder="e.g. Design System v3"
           class="w-full bg-bg-raised border border-bg-border text-text-primary placeholder:text-text-muted text-sm px-3.5 py-2.5 rounded-btn focus:outline-none focus:border-accent focus:shadow-input transition-all duration-150"
-          v-model="newProjectName"
+          v-model="name"
         />
         <div class="flex flex-col gap-1.5">
           <label class="text-xs font-medium text-text-secondary">Description</label>
@@ -80,7 +80,7 @@ onMounted(() => {
             placeholder="What's this project about?"
             rows="3"
             class="w-full bg-bg-raised border border-bg-border text-text-primary placeholder:text-text-muted text-sm px-3.5 py-2.5 rounded-btn resize-none focus:outline-none focus:border-accent focus:shadow-input transition-all duration-150"
-            v-model="newProjectDescription"
+            v-model="description"
           />
         </div>
         <KanButton
