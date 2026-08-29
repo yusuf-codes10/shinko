@@ -18,8 +18,9 @@ const loading = ref(false)
 
 const getAllCategories = async () => {
   try {
-    const response = await api.get('/api/category')
-    console.log('CATEGORIES: ', response)
+    const { data } = await api.get('/api/category')
+    console.log('CATEGORIES: ', data)
+    categories.value = data
   } catch (error) {
     console.log(error)
   }
@@ -36,7 +37,7 @@ const createCategory = async () => {
     console.log(error)
   } finally {
     newCategory.value = ''
-    loading.value = true
+    loading.value = false
   }
 }
 
