@@ -26,6 +26,12 @@ export const createNewProject = async (req, res, next) => {
   const { name, description } = req.body;
   const userId = req.user.id;
 
+  if (!name) {
+    const error = new Error("Name and description are required!");
+    error.status = 400;
+    return next(error);
+  }
+
   try {
     const { rows } = await pool.query(
       `INSERT INTO project (name, user_id, created_at, description)
