@@ -12,8 +12,8 @@ const todos = ref([])
 const progresses = ref([])
 const dones = ref([])
 const isModalOpen = ref(false)
-const newTaskName = ref('')
-const newTaskCategory = ref('')
+const name = ref('')
+const category = ref('')
 const route = useRoute()
 const btnLoading = ref(false)
 
@@ -48,17 +48,17 @@ const getDones = async () => {
 
 // post request
 const createTask = async () => {
-  if (!newTaskName.value.trim() || !newTaskCategory.value.trim()) return // guard against empty
+  if (!name.value.trim() || !category.value.trim()) return // guard against empty
   btnLoading.value = true
   try {
     const { data } = await api.post(`/api/task/${projectId}`, {
-      title: newTaskName.value.trim(),
-      category: newTaskCategory.value.trim(),
+      title: name.value.trim(),
+      category: category.value.trim(),
       status: 'todo',
     })
     todos.value.push(data)
-    newTaskName.value = ''
-    newTaskCategory.value = ''
+    name.value = ''
+    category.value = ''
     toggleModal()
   } catch (error) {
     console.log(error)
@@ -115,7 +115,7 @@ const todosCount = computed(() => todos.value.length)
 const progressesCount = computed(() => progresses.value.length)
 const donesCount = computed(() => dones.value.length)
 
-const isSubmitDisabled = computed(() => !newTaskName.value.trim() || !newTaskCategory.value.trim())
+const isSubmitDisabled = computed(() => !name.value.trim() || !category.value.trim())
 </script>
 
 <template>
@@ -131,14 +131,14 @@ const isSubmitDisabled = computed(() => !newTaskName.value.trim() || !newTaskCat
             type="text"
             placeholder="Task title"
             class="w-full bg-bg-raised border border-bg-border text-text-primary placeholder:text-text-muted text-sm px-3.5 py-2.5 rounded-btn focus:outline-none focus:border-accent focus:shadow-input transition-all duration-150"
-            v-model="newTaskName"
+            v-model="name"
           />
           <label class="text-xs font-medium text-text-secondary">Task category</label>
           <input
             type="text"
             placeholder="Task category"
             class="w-full bg-bg-raised border border-bg-border text-text-primary placeholder:text-text-muted text-sm px-3.5 py-2.5 rounded-btn focus:outline-none focus:border-accent focus:shadow-input transition-all duration-150"
-            v-model="newTaskCategory"
+            v-model="category"
           />
           <div class="flex flex-col gap-1.5">
             <label class="text-xs font-medium text-text-secondary">Description</label>
