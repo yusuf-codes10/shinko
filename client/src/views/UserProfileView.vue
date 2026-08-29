@@ -1,19 +1,34 @@
 <script setup>
 import { useRoute } from 'vue-router'
+import { ref, onMounted } from 'vue'
+import api from '@/services/api.js'
 
 const route = useRoute()
 
 // const username = ref('')
 // const initials = computed(() => username.value.slice(0, 2).toUpperCase())
 // const categories = ref([])          // fetched list
-// const newCategory = ref('')
+const newCategory = ref('')
 // const addCategory = async () => { /* your API call */ }
 // const deleteCategory = async (id) => { /* your API call */ }
 // onMounted(fetchProfile)
 // ──────────────────────────────────────────────────────────────
 
+const getAllCategories = async () => {
+  try {
+    const response = await api.get('/api/category')
+    console.log('CATEGORIES: ', response)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 const username = route.params.username ?? ''
 const initials = username.slice(0, 2).toUpperCase()
+
+onMounted(async () => {
+  await getAllCategories()
+})
 </script>
 
 <template>
