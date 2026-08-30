@@ -41,6 +41,15 @@ const createCategory = async () => {
   }
 }
 
+const deleteCategory = async (id) => {
+  try {
+    const response = await api.delete(`/api/category/${id}`)
+    console.log('DELETED CATEGORY', response)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 const username = route.params.username ?? ''
 const initials = username.slice(0, 2).toUpperCase()
 
