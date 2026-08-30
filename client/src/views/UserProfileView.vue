@@ -93,7 +93,6 @@ onMounted(async () => {
           v-model="newCategory"
         />
         <KanButton :loading="loading" type="submit" :btnTitle="'Add'" />
-        <!-- TODO: better button style to try later -->
         <!-- <button
           type="submit"
           class="bg-accent text-text-inverse text-sm font-medium px-4 py-2.5 rounded-btn hover:bg-accent-dark transition-colors duration-150 cursor-pointer"
@@ -103,26 +102,21 @@ onMounted(async () => {
       </form>
 
       <!-- Category list -->
-      <ul class="flex flex-col gap-2">
-        <!-- Repeat per category — wire the v-for + key yourself -->
+      <!-- Category chips -->
+      <ul class="grid grid-cols-2 sm:grid-cols-3 gap-2">
         <li
           v-for="category in categories"
           :key="category.id"
-          class="flex items-center justify-between bg-bg-surface border border-bg-border rounded-btn px-3.5 py-2.5"
+          class="group flex items-center justify-between bg-bg-surface border border-bg-border rounded-btn px-3 py-2 hover:border-accent/40 transition-colors duration-150"
         >
-          <span class="text-sm text-text-primary">{{ category.name }}</span>
+          <span class="text-sm text-text-primary truncate">{{ category.name }}</span>
           <button
-            class="text-text-muted hover:text-danger transition-colors duration-150 cursor-pointer"
+            class="text-text-muted hover:text-danger opacity-0 group-hover:opacity-100 transition-all duration-150 cursor-pointer shrink-0 ml-2"
             aria-label="Delete category"
             @click="deleteCategory(category.id)"
           >
-            <i class="fa-solid fa-trash text-sm"></i>
+            <i class="fa-solid fa-trash text-xs"></i>
           </button>
-        </li>
-
-        <!-- Empty state -->
-        <li v-if="!categories?.length" class="text-sm text-text-muted italic py-2">
-          No categories yet — add one above.
         </li>
       </ul>
     </section>
