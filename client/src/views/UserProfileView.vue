@@ -29,10 +29,11 @@ const getAllCategories = async () => {
 const createCategory = async () => {
   loading.value = true
   try {
-    const response = await api.post('/api/category', {
+    const { data } = await api.post('/api/category', {
       name: newCategory.value,
     })
-    console.log('CREATED CATEGORY: ', response)
+    console.log('CREATED CATEGORY: ', data)
+    categories.value.push(data)
   } catch (error) {
     console.log(error)
   } finally {
