@@ -16,8 +16,9 @@ export const createCategory = async (req, res, next) => {
     );
 
     return res.status(201).json(rows[0]);
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    console.log("error getting data", err);
+    next(err);
   }
 };
 
@@ -29,8 +30,9 @@ export const getCategories = async (req, res) => {
       [userId],
     );
     return res.status(200).json(rows);
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    console.log("error inserting data", err);
+    next(err);
   }
 };
 
@@ -45,7 +47,8 @@ export const deleteCategory = async (req, res) => {
     );
 
     res.status(202).json(rows);
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    console.log("error deelting data", err);
+    next(err);
   }
 };
