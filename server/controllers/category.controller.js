@@ -46,7 +46,7 @@ export const deleteCategory = async (req, res) => {
       [categoryId, userId],
     );
 
-    res.status(202).json(rows);
+    res.status(204).json(rows);
   } catch (err) {
     console.log("error deelting data", err);
     next(err);
