@@ -159,7 +159,7 @@ const isSubmitDisabled = computed(() => !name.value.trim() || !category.value.tr
             class="w-full bg-bg-raised border border-bg-border text-text-primary text-sm px-3.5 py-2.5 rounded-btn cursor-pointer focus:outline-none focus:border-accent focus:shadow-input transition-all duration-150"
           >
             <option value="" disabled>Select a category</option>
-            <option v-for="cat in categories" :key="cat.id" :value="cat.id">
+            <option v-for="cat in categories" :key="cat.id" :value="cat.name">
               {{ cat.name }}
             </option>
           </select>
