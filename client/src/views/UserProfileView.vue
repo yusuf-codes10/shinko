@@ -45,6 +45,8 @@ const deleteCategory = async (id) => {
   try {
     const response = await api.delete(`/api/category/${id}`)
     console.log('DELETED CATEGORY', response)
+
+    categories.value = categories.value.filter((c) => c.id !== id)
   } catch (error) {
     console.log(error)
   }
