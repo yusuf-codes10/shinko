@@ -36,11 +36,12 @@ export const getCategories = async (req, res) => {
 
 export const deleteCategory = async (req, res) => {
   const categoryId = Number(req.params.id);
-  // const userId = req.user.id;
+  const userId = Number(req.user.id);
+
   try {
     const { rows } = await pool.query(
-      "DELETE FROM category WHERE category.id = $1 RETURNING *",
-      [categoryId],
+      "DELETE FROM category WHERE category.id = $1 AND category.userId = $2 RETURNING *",
+      [categoryId, userId],
     );
 
     res.status(202).json(rows);
