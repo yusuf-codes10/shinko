@@ -133,13 +133,24 @@ const isSubmitDisabled = computed(() => !name.value.trim() || !category.value.tr
             class="w-full bg-bg-raised border border-bg-border text-text-primary placeholder:text-text-muted text-sm px-3.5 py-2.5 rounded-btn focus:outline-none focus:border-accent focus:shadow-input transition-all duration-150"
             v-model="name"
           />
-          <label class="text-xs font-medium text-text-secondary">Task category</label>
-          <input
+          <!-- <label class="text-xs font-medium text-text-secondary">Task category</label> -->
+          <!-- <input
             type="text"
             placeholder="Task category"
             class="w-full bg-bg-raised border border-bg-border text-text-primary placeholder:text-text-muted text-sm px-3.5 py-2.5 rounded-btn focus:outline-none focus:border-accent focus:shadow-input transition-all duration-150"
             v-model="category"
-          />
+          /> -->
+          <label class="text-xs font-medium text-text-secondary">Task category</label>
+          <select
+            v-model="category"
+            class="w-full bg-bg-raised border border-bg-border text-text-primary text-sm px-3.5 py-2.5 rounded-btn cursor-pointer focus:outline-none focus:border-accent focus:shadow-input transition-all duration-150"
+          >
+            <option value="" disabled>Select a category</option>
+            <option v-for="cat in categories" :key="cat.id" :value="cat.id">
+              {{ cat.name }}
+            </option>
+          </select>
+
           <div class="flex flex-col gap-1.5">
             <label class="text-xs font-medium text-text-secondary">Description</label>
             <textarea
