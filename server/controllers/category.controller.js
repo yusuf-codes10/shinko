@@ -36,7 +36,7 @@ export const getCategories = async (req, res) => {
   }
 };
 
-export const deleteCategory = async (req, res) => {
+export const deleteCategory = async (req, res, next) => {
   const categoryId = Number(req.params.id);
   const userId = Number(req.user.id);
 
@@ -46,7 +46,11 @@ export const deleteCategory = async (req, res) => {
       [categoryId, userId],
     );
 
-    res.status(204).json(rows);
+    if (rows.length === 0)
+      return next(createError(404, "Category not found", "NOT_FOUND"));
+
+    // next
+    res.status(204).send();
   } catch (err) {
     console.log("error deelting data", err);
     next(err);
