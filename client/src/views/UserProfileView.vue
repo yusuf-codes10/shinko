@@ -101,24 +101,28 @@ onMounted(async () => {
         </button> -->
       </form>
 
-      <!-- Category list -->
       <!-- Category chips -->
-      <ul class="grid grid-cols-2 sm:grid-cols-3 gap-2">
-        <li
+      <div class="flex flex-wrap gap-2">
+        <span
           v-for="category in categories"
           :key="category.id"
-          class="group flex items-center justify-between bg-bg-surface border border-bg-border rounded-btn px-3 py-2 hover:border-accent/40 transition-colors duration-150"
+          class="group inline-flex items-center gap-2 bg-bg-surface border border-bg-border rounded-full pl-3 pr-2 py-1.5 text-sm text-text-primary transition-colors duration-150 hover:border-accent/50"
         >
-          <span class="text-sm text-text-primary truncate">{{ category.name }}</span>
+          {{ category.name }}
           <button
-            class="text-text-muted hover:text-danger opacity-0 group-hover:opacity-100 transition-all duration-150 cursor-pointer shrink-0 ml-2"
+            class="text-text-muted hover:text-danger transition-colors duration-150 cursor-pointer leading-none"
             aria-label="Delete category"
             @click="deleteCategory(category.id)"
           >
-            <i class="fa-solid fa-trash text-xs"></i>
+            <i class="fa-solid fa-xmark text-xs"></i>
           </button>
-        </li>
-      </ul>
+        </span>
+
+        <!-- Empty state -->
+        <span v-if="!categories?.length" class="text-sm text-text-muted italic py-1">
+          No categories yet — add one below.
+        </span>
+      </div>
     </section>
   </div>
 </template>
