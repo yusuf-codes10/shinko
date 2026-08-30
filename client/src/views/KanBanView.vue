@@ -17,6 +17,8 @@ const category = ref('')
 const route = useRoute()
 const btnLoading = ref(false)
 
+const categories = ref([])
+
 const projectId = route.params.id // reads "1" from /project/1/kanban
 
 const getTodos = async () => {
@@ -92,10 +94,21 @@ const deleteTheTask = async (id, arrayName) => {
   }
 }
 
+const getAllCategories = async () => {
+  try {
+    const { data } = await api.get('/api/category')
+    console.log('CATEGORIES: ', data)
+    categories.value = data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 onMounted(async () => {
   await getTodos()
   await getProgresses()
   await getDones()
+  await getAllCategories()
 })
 
 const toggleModal = () => {
